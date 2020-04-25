@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>志愿者列表</title>
+</head>
+<body>
+    <h1>志愿者列表</h1>
+    <p>志愿者编号  志愿者姓名</p>
+    {% for volunteer in volulist %}
+    <li> <a href="{% url 'Volunteer:volunteerinfo' volunteer.volunteer_number%}">{{ volunteer.volunteer_number}} {{ volunteer.volunteer_name }} </li>
+    {% endfor %}</a>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>福利奖品列表</title>
+</head>
+<body>
+    <h1>福利奖品列表</h1>
+    <p>奖品编号  奖品名称 兑换积分</p>
+    {% for walfare in walfarelist %}
+    <li><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}"> {{ walfare.prize_number}} {{ walfare.prize_name }}  {{walfare.prize_points}}</a></li>
+    {% endfor %}</a>
+</body>
+</html>

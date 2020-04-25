@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>志愿者活动列表</title>
+</head>
+<body>
+    <h1>志愿者活动列表</h1>
+    <p>活动编号  活动名称</p>
+    {% for activity in activitylist %}
+    <li> <a href="{% url 'Activity:activityinfo' activity.activity_number%}">{{ activity.activity_number}} {{ activity.activity_name }} </li>
+    {% endfor %}</a>
+</body>
+</html>

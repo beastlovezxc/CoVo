@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>志愿者活动详细信息</title>
+</head>
+<body>
+    <h1>志愿者活动详细信息</h1>
+    <table width="800" border="0">
+        <tr>
+            <td width="200">活动编号</td>
+            <td>{{ activityinfo.activity_number}}</td>
+        </tr>
+        <tr>
+            <td>活动名称</td>
+            <td>{{ activityinfo.activity_name}}</td>
+        </tr>
+        <tr>
+            <td>活动简介</td>
+            <td>{{ activityinfo.introduction}}</td>
+        </tr>
+        <tr>
+            <td>是否过期</td>
+            <td>{{ activityinfo.expired}}</td>
+        </tr>
+        <tr>
+            <td>活动所需人数</td>
+            <td>{{ activityinfo.required_num}}</td>
+        </tr>
+        <tr>
+            <td>参加人数</td>
+            <td>{{ activityinfo.participants}}</td>
+        </tr>
+        <tr>
+            <td>活动所在地</td>
+            <td>{{ activityinfo.address}}</td>
+        </tr>
+        <tr>
+            <td>活动积分</td>
+            <td>{{ activityinfo.activity_points}}</td>
+        </tr>
+        <tr>
+            <td>联系人</td>
+            <td>{{ activityinfo.contact}}</td>
+        </tr>
+    </table>
+
+</body>
+</html>

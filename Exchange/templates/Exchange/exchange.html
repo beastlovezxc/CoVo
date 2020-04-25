@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>福利兑换管理</title>
+</head>
+<body>
+    <h1>福利兑换管理</h1>
+    <table width="800" border="0">
+        <tr>
+            <td> 兑换编码</td>
+            <td> 志愿者编码 </td>
+            <td> 礼品编码 </td>
+            <td> 兑换时间 </td>
+            <td> 成功兑换 </td>
+        </tr>
+        {% for exchange in exchangelist%}
+        <tr>
+            <td> {{exchange.exchange_number}}</td>
+            <td> {{exchange.volunteer_number}} </td>
+            <td> {{exchange.prize_number}} </td>
+            <td> {{exchange.exchange_time}} </td>
+            <td> {{exchange.exchanged}} </td>
+        </tr>
+        {% endfor %}
+    </table> 
+    {% comment %} {% for exchange in exchangelist%}
+    <li>
+         {{exchange.exchange_number}}
+            {{exchange.volunteer_number}} 
+             {{exchange.prize_number}} 
+            {{exchange.exchange_time}} 
+            {{exchange.exchanged}}
+            </li>
+    {% endfor %} {% endcomment %}
+</body>
+</html>

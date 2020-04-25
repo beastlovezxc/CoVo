@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>求助者意见列表</title>
+</head>
+<body>
+    <h1>求助者意见列表</h1>
+    <p>求助者编号  求助者姓名</p>
+    {% comment %} {% for activity in activitylist %}
+    <li> <a href="{% url 'Activity:activityinfo' activity.activity_number%}">{{ activity.activity_number}} {{ activity.activity_name }} </li>
+    {% endfor %}</a> {% endcomment %}
+    {% for opinion in opinionlist %}
+    <li><a href="{% url 'Opinion:opinioninfo' opinion.id %}">{{ opinion.helper_name}} {{opinion.activity_name}} {{ opinion.feedback_time}}</a></li>
+    {% endfor %}
+</body>
+</html>

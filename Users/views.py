@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-04-26 23:07:50
+@LastEditTime: 2020-04-26 23:17:31
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py

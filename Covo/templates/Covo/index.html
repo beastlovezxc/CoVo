@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>志愿活动管理系统</h1>
+    <h2>{{error}}</h2>
     <form action="{% url 'Users:login' %}" method="POST">
     {% csrf_token %}
     账户:<br>

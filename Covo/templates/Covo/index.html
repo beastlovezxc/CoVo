@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>志愿活动管理系统</title>
+</head>
+<body>
+    <h1>志愿活动管理系统</h1>
+    <form action="{% url 'Users:login' %}" method="POST">
+    {% csrf_token %}
+    账户:<br>
+    <input type="text" name="account">
+    <br>
+    密码：<br>
+    <input type="password" name="password">
+    <br>
+    <input type="submit" name="登录">
+    </form>
+</body>
+</html>

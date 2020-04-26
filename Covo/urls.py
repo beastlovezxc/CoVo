@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:22:23
-@LastEditTime: 2020-04-25 21:14:20
+@LastEditTime: 2020-04-26 22:57:52
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Covo/urls.py
@@ -23,9 +23,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from . import views
 
+app_name = 'Covo'
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('index/', views.showIndex, name='index'),
     path('users/', include('Users.urls')),
     path('volunteer/', include('Volunteer.urls')),
     path('walfare/', include('Walfare.urls')),

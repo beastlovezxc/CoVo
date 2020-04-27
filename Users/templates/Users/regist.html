@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: auto;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+<head>
+<meta charset="utf-8">
+<title>志愿者信息填写</title>
+</head>
+<body>
+    <h1 align="center" valign="middle">用户注册</h1>
+    <h2>{{error}}</h2>
+    <form style="height:100%;"align="center" valign="middle" action="{% url 'Users:regist' %}" method="POST" id="regist_form">
+    {% csrf_token %}
+    账户:<br>
+    <input type="text" name="account">
+    <br>
+    密码：<br>
+    <input type="password" name="password">
+    <br>
+    <button form="regist_form" type="submit" name="">注册</button>
+    </form>
+</body>
+</html>

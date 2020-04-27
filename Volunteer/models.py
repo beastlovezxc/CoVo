@@ -1,8 +1,8 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:09
-@LastEditTime: 2020-04-25 19:07:02
-@LastEditors: your name
+@LastEditTime: 2020-04-27 23:18:24
+@LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Volunteer/models.py
 '''
@@ -20,4 +20,5 @@ class Volunteer(models.Model):
     cultural_level = models.CharField(max_length=20)        # 文化水平
     activity_points = models.IntegerField(default=0)        # 志愿者活动积分
     available_points = models.IntegerField(default=0)       # 可用积分
-    account = models.CharField(max_length=20)               # 用户名 -> 外键 User->account
+    users = models.ForeignKey('Users.Users', on_delete=models.CASCADE, null=True)
+    # account = models.CharField(max_length=20)               # 用户名 -> 外键 User->account

@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-04-27 23:15:05
+@LastEditTime: 2020-04-28 00:24:52
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -54,9 +54,6 @@ def regist(request):
         user.save()
         request.session['is_login'] = True
         request.session['account'] = account
-        volunteer = Volunteer.objects.create()
-        volunteer.users = user
-        volunteer.save()
         return render(request, './Users/userIndex.html', {'account': account})
     return render(request, './Users/regist.html')
 def show_userlist(request):

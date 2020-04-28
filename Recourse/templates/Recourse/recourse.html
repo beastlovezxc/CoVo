@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: auto;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+<head>
+<meta charset="utf-8">
+<title>发布求助信息</title>
+</head>
+<body>
+    <h1 align="center" valign="middle">发布求助信息</h1>
+    <form style="height:100%;"align="center" valign="middle" action="{% url 'Recourse:record_recourse'%}" method="POST" id="recourse_form">
+    {% csrf_token %}
+    求助标题:<br>
+    <input type="text" name="title" style="width:615px;">
+    <br>
+    求助内容<br>
+    <textarea name="text"" rows="20" cols="100">
+    </textarea>
+    <br>
+    <button form="recourse_form" type="submit" name="">提交</button>
+    </form>
+</body>
+</html>

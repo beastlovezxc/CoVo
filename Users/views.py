@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-04-28 00:24:52
+@LastEditTime: 2020-04-28 23:23:04
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -36,11 +36,12 @@ def login(request):
 def logout(request):
     if 'is_login' in request.session:
         del request.session['is_login']
-    render (request, './Covo/index.html')
+        del request.session['account']
+    return render (request, './Covo/index.html')
 
 # 用户注册跳转
 def to_regist(request):
-    return render(request, "./Users/to_regist.html")
+    return render(request, "./Users/regist.html")
 
 # 用户注册
 def regist(request):

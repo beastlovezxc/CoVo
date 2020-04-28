@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'Volunteer',
     'Activity',
     'ApplicationForm',
-    'Helper',
+    'Recourse',
     'Style',
     'Walfare',
     'Exchange',

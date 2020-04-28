@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:22:23
-@LastEditTime: 2020-04-26 22:57:52
+@LastEditTime: 2020-04-28 23:16:33
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Covo/urls.py
@@ -35,7 +35,7 @@ urlpatterns = [
     path('activity/', include('Activity.urls')),
     # path('applicationform/', include('ApplicationForm.urls')),
     path('exchange/', include('Exchange.urls')),
-    path('helper/', include('Helper.urls')),
+    path('recourse/', include('Recourse.urls')),
     path('manager/', include('Manager.urls')),
     path('opinion/', include('Opinion.urls')),
     # path('recruit/', include('Recruit.urls')),

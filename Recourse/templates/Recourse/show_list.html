@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>求助信息列表</title>
+</head>
+<body>
+    <h1>求助信息列表</h1>
+    <p>求助者编号  求助者姓名</p>
+    {% comment %} {% for activity in activitylist %}
+    <li> <a href="{% url 'Activity:activityinfo' activity.activity_number%}">{{ activity.activity_number}} {{ activity.activity_name }} </li>
+    {% endfor %}</a> {% endcomment %}
+    {% for recourse in recourse_list %}
+    <li>{{recourse.index}} {{recourse.title}} {{recourse.time}} {{ recourse.users }}</li>
+    {% endfor %}
+</body>
+</html>

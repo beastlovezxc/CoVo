@@ -2,7 +2,7 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:41:48
 @LastEditors: BeanCB
-@LastEditTime: 2020-04-28 23:43:21
+@LastEditTime: 2020-04-29 00:25:48
 @Description: file content
 @FilePath: /Covo/Recourse/views.py
 '''
@@ -27,6 +27,11 @@ def record_recourse(request):
         return render(request, './Users/userIndex.html', {'account': account})
     return render(request, './Recourse/recourse.html', {'error': '发布失败'})
 
+def show_list(request):
+    context = {}
+    context['recourse_list'] = Recourse.objects.all().values('index','title', 'time', 'users')
+    print(context['recourse_list'])
+    return render(request, './Recourse/show_list.html', context)
 # def get_helperlist(request):
 #     context = {}
 #     context['helperlist'] = Recourse.objects.all().values('helper_number', 'helper_name')

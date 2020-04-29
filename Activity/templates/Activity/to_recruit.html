@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+        html, body {
+            height: 100%;
+            overflow: auto;
+        }
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+<head>
+<meta charset="utf-8">
+<title>志愿者活动发布</title>
+</head>
+<body>
+    <h1 align="center" valign="middle">志愿者活动发布</h1>
+    <h2>{{error}}</h2>
+    <form style="height:100%;"align="center" valign="middle" action="{% url 'Activity:recruit' %}" method="POST" id="recruit_form">
+    {% csrf_token %}
+    活动名称:<br>
+    <input type="text" name="name">
+    <br>
+    活动简介<br>
+    <textarea name="introduction"" rows="20" cols="100"></textarea>
+    <br>
+    所需人数<br>
+    <input type="text" name="required">
+    <br>
+    活动所在地<br>
+    <input type="text" name="address">
+    <br>
+    活动积分<br>
+    <input type="text" name="points">
+    <br>
+    活动时间<br>
+    <input type="datetime-local" name="date" />
+    <br>
+    联系人<br>
+    <input type="text" name="contact">
+    <br>
+    <button form="recruit_form" type="submit" name="">发布</button>
+    
+    </form>
+</body>
+</html>

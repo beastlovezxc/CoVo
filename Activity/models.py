@@ -1,8 +1,8 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:21
-@LastEditTime: 2020-04-25 17:46:17
-@LastEditors: your name
+@LastEditTime: 2020-04-29 23:44:38
+@LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/models.py
 '''
@@ -19,4 +19,5 @@ class Activity(models.Model):
     participants = models.IntegerField(default=0)           # 参加人数
     address = models.CharField(max_length=40)               # 活动所在地
     activity_points = models.IntegerField(default=0)        # 活动积分
+    date = models.DateTimeField()                           # 活动时间
     contact = models.CharField(max_length=20)               # 联系人

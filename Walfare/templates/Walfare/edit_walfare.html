@@ -8,14 +8,15 @@
     <h1>添加福利兑换奖品</h1>
     <form action="{% url 'Walfare:save_walfare'%}" id="add_walfare_form" method="POST">
     {% csrf_token %}
-    <input type="text", name="prize_number" value="0" hidden="true">
+    <input type="text", name="prize_number" value="{{walfareinfo.prize_number}}" hidden="true">
     奖品名称<br>
-    <input type="text" name="name"><br>
+    <input type="text" name="name" value="{{walfareinfo.prize_name}}"><br>
     奖品简介<br>
     <textarea name="introduction"rows="20" cols="100">
+    {{walfareinfo.prize_introduction}}
     </textarea><br>
     兑换积分<br>
-    <input type="text" name="points">
+    <input type="text" name="points" value="{{walfareinfo.prize_points}}">
     <button form="add_walfare_form" type="submit">保存</button>
     </form>
 </body>

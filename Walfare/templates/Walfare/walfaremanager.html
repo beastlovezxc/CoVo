@@ -6,27 +6,27 @@
 </head>
 <body>
     <h1>志愿者福利管理</h1>
+    <p><a href="{% url 'Users:login' %}">返回主页</a></p>
     <p><a href="{% url 'Walfare:add_walfare' %}">添加奖品</a></p>
     <table>
         <tr>
             <td>奖品编号</td>
             <td>奖品名称</td>
             <td>兑换积分</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            {% comment %} <td></td> {% endcomment %}
+            <td>修改</td>
+            <td>删除</td>
         </tr>
         {% for walfare in walfarelist %}
         <tr>
             <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}"> {{ walfare.prize_number}}</a></td>
             <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}">{{ walfare.prize_name }}</a></td>
-            <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}">{{ walfare.prize_name }}</a></td>
+            {% comment %} <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}">{{ walfare.prize_introduction }}</a></td> {% endcomment %}
             <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}">{{walfare.prize_points}}</a></td>
-            <td>修改</td>
-            <td>删除</td>
-        </tr>    
+            <td><a href="{% url 'Walfare:edit_walfare' walfare.prize_number%}">修改</a></td>
+            <td><a href="{% url 'Walfare:delete_walfare' walfare.prize_number%}">删除</a></td>
+        </tr>
+        {% endfor %}</a>
     </table>
-    <li><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}"> {{ walfare.prize_number}} {{ walfare.prize_name }}  {{walfare.prize_points}}</a></li>
-    {% endfor %}</a>
 </body>
 </html>

@@ -12,6 +12,7 @@
     <p><a href="{% url 'Recourse:to_recourse'%}">发布求助信息</a></p>
     {% if is_manager %}<p><a href="{% url 'Activity:to_recruit'%}">发布志愿活动</a></p> {% endif %}
     <p><a href="{% url 'Recourse:show_list'%}">求助信息列表</a></p>
+    <p><a href="{% url 'Activity:activitylist' %}">志愿者活动列表</a></p>
     {% if is_manager %}<p><a href="{% url 'Walfare:to_walfaremanager' %}">志愿者福利管理</a></p>{% endif %}
     <p><a href="{% url 'Walfare:walfarelist' %}">福利兑换列表</a></p>
     <p><a href="{% url 'Users:logout' %}">注销</a></p>

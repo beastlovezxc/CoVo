@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-05-01 23:53:48
+@LastEditTime: 2020-05-02 00:00:51
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -24,7 +24,9 @@ def login(request):
         if not is_user:
             return render(request, './Covo/index.html', {'error': '用户名不存在!'})
         user = Users.objects.get(account = account)
-        if user.password is not user:
+        print(password)
+        print(user.password)
+        if user.password != password:
             return render(request, './Covo/index.html', {'error': '密码错误!'})
         request.session['is_login'] = True
         request.session['account'] = account
@@ -40,6 +42,7 @@ def logout(request):
     if 'is_login' in request.session:
         del request.session['is_login']
         del request.session['account']
+        del request.session['is_manager']
     return render (request, './Covo/index.html')
 
 # 用户注册跳转

@@ -2,7 +2,7 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:41:48
 @LastEditors: BeanCB
-@LastEditTime: 2020-04-29 00:25:48
+@LastEditTime: 2020-05-02 00:09:38
 @Description: file content
 @FilePath: /Covo/Recourse/views.py
 '''
@@ -24,7 +24,7 @@ def record_recourse(request):
         account = request.session['account']
         users = Users.objects.get(account=account)
         Recourse.objects.create(title=title, text=text, users=users)
-        return render(request, './Users/userIndex.html', {'account': account})
+        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': users.manager})
     return render(request, './Recourse/recourse.html', {'error': '发布失败'})
 
 def show_list(request):

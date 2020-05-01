@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:21
-@LastEditTime: 2020-04-30 00:13:33
+@LastEditTime: 2020-05-02 00:18:46
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/views.py
@@ -25,9 +25,9 @@ def recruit(request):
         points = request.POST['points']
         # Recourse.objects.create(title=title, text=text, users=users)
         Activity.objects.create(activity_name=name, introduction=introduction, required_num=required, address=address, date=date, activity_points=points, contact=contact)
-    return render(request, './Users/userIndex.html')
+    return render(request, './Users/userIndex.html',{'account': request.session['account'],'is_login': request.session['is_login'], 'is_manager': request.session['is_manager']})
 
-def show_activitylist(request):
+def activitylist(request):
     context = {}
     
     context['activitylist'] = Activity.objects.all().values('activity_number', 'activity_name')

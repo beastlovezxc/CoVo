@@ -2,14 +2,14 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:41:48
 @LastEditors: BeanCB
-@LastEditTime: 2020-04-29 00:32:34
+@LastEditTime: 2020-05-02 00:03:54
 @Description: file content
 @FilePath: /Covo/Recourse/models.py
 '''
 from django.db import models
 
 # Create your models here.
-# 求助者信息管理 求助者编号（主码）、求助者姓名、地址、手机号、用户名、登录密码
+# 求助事件
 class Recourse(models.Model):
     index = models.AutoField(primary_key=True)      # 求助编号
     title = models.CharField(max_length=20)         # 求助标题

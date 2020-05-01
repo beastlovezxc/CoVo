@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-04-28 23:23:04
+@LastEditTime: 2020-05-01 23:53:48
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -20,15 +20,18 @@ def login(request):
     if request.POST:
         account = request.POST['account']
         password = request.POST['password']
-        user = Users.objects.filter(account = account)
-        if not user:
+        is_user = Users.objects.filter(account = account)
+        if not is_user:
             return render(request, './Covo/index.html', {'error': '用户名不存在!'})
-        user = Users.objects.filter(password = password)
-        if not user:
+        user = Users.objects.get(account = account)
+        if user.password is not user:
             return render(request, './Covo/index.html', {'error': '密码错误!'})
         request.session['is_login'] = True
         request.session['account'] = account
-        return render(request, './Users/userIndex.html', {'account': account})
+        print(user)
+        request.session['is_manager'] = user.manager
+
+        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': user.manager})
 
 # 用户登出
 # session删除用户登录状态
@@ -55,7 +58,8 @@ def regist(request):
         user.save()
         request.session['is_login'] = True
         request.session['account'] = account
-        return render(request, './Users/userIndex.html', {'account': account})
+        request.session['is_manager'] = False
+        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': False})
     return render(request, './Users/regist.html')
 def show_userlist(request):
     context = {}

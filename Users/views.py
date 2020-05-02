@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-05-02 00:00:51
+@LastEditTime: 2020-05-02 23:18:31
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -34,7 +34,12 @@ def login(request):
         request.session['is_manager'] = user.manager
 
         return render(request, './Users/userIndex.html', {'account': account, 'is_manager': user.manager})
-
+def index(request):
+    if request.session['account'] and request.session['is_login']:
+        account = request.session['account']
+        manager = request.session['is_manager']
+        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': manager})
+    return render(request, './Covo/index.html')
 # 用户登出
 # session删除用户登录状态
 # 返回Covo/index

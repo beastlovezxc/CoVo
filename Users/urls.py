@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:45:53
-@LastEditTime: 2020-04-28 23:04:27
+@LastEditTime: 2020-05-02 23:16:51
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/urls.py
@@ -11,6 +11,7 @@ from . import views
 app_name='Users'
 urlpatterns = [
     path('login/', views.login, name='login'),
+    path('index/', views.index, name='index'),
     path('to_regist/', views.to_regist, name='to_regist'),
     path('regist/', views.regist, name='regist'),
     path('logout/', views.logout, name='logout'),

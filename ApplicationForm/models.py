@@ -2,12 +2,13 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:41:36
 @LastEditors: BeanCB
-@LastEditTime: 2020-05-02 00:32:20
+@LastEditTime: 2020-05-03 00:40:19
 @Description: file content
 @FilePath: /Covo/ApplicationForm/models.py
 '''
 from django.db import models
-
+from Users.models import Users
+from Activity.models import Activity
 # Create your models here.
 
 # 每个志愿者都可以报名一个活动
@@ -20,7 +21,8 @@ from django.db import models
 # 接受或取消则活动参与人数响应增加或减少
 # 若活动需求人数已达上限，则不允许接受
 
-# class Apply(models.Model):
-#     account = models.CharField(max_length=20)
-#     activity_name = models.CharField() 
+class Apply(models.Model):
+    account = models.ForeignKey('Users.Users', on_delete=models.CASCADE)  # 用户名
+    activity_number = models.ForeignKey('Activity.Activity', on_delete=models.CASCADE)    # 参与活动序号
+    status = models.BooleanField(default=0)    # 是否报名成功
 

@@ -2,6 +2,14 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:42:26
 @LastEditors: BeanCB
+@LastEditTime: 2020-05-03 17:15:10
+@Description: file content
+@FilePath: /Covo/Walfare/views.py
+'''
+'''
+@Author: BeanCB
+@Date: 2020-04-25 16:42:26
+@LastEditors: BeanCB
 @LastEditTime: 2020-05-01 00:50:42
 @Description: file content
 @FilePath: /Covo/Walfare/views.py

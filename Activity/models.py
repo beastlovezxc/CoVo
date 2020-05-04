@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:21
-@LastEditTime: 2020-04-29 23:44:38
+@LastEditTime: 2020-05-04 23:26:10
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/models.py
@@ -21,3 +21,6 @@ class Activity(models.Model):
     activity_points = models.IntegerField(default=0)        # 活动积分
     date = models.DateTimeField()                           # 活动时间
     contact = models.CharField(max_length=20)               # 联系人
+
+    def __str__(self):
+        return str(self.activity_number)

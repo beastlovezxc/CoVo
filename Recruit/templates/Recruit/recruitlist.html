@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>志愿者申请列表</title>
+</head>
+<body>
+    <h1>志愿者申请列表</h1>
+    <table>
+        <tr>
+            <td>序号</td>
+            <td>活动编号</td>
+            <td>用户id</td>
+            <td>是否完结</td>
+            <td>操作</td>
+        </tr>
+        {% for apply in applylist %}
+            <td>{{ apply.id}}</td>
+            <td>{{ apply.activity_number}}</td>
+            <td>{{ apply.account}} </td>
+            <td>{{ apply.status}} </td>
+            <td><a href="{% url 'Recruit:agree' apply.id %}">同意</a>/<a href="{% url 'Recruit:refuse' apply.id%}">拒绝</a></td>
+        {% endfor %}
+    </table>
+</body>
+</html>

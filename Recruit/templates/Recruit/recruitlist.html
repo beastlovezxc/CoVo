@@ -10,6 +10,7 @@
         <tr>
             <td>序号</td>
             <td>活动编号</td>
+            <td>活动名称</td>
             <td>用户id</td>
             <td>是否完结</td>
             <td>操作</td>
@@ -17,6 +18,7 @@
         {% for apply in applylist %}
             <td>{{ apply.id}}</td>
             <td>{{ apply.activity_number}}</td>
+            <td>{{ apply.activity_number.activity_name}}</td>
             <td>{{ apply.account}} </td>
             <td>{{ apply.status}} </td>
             <td><a href="{% url 'Recruit:agree' apply.id %}">同意</a>/<a href="{% url 'Recruit:refuse' apply.id%}">拒绝</a></td>

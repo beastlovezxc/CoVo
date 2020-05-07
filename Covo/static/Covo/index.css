@@ -2,15 +2,39 @@
     margin: 0 auto;
     padding: 0;
     border: 0;
-    width: 1239px;
+    width: 1200px;
     height: 600px;
     text-align: left;
 }
+#sp1{
+    font-weight: bold;
+    text-align: center;
+}
+.dv1{
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    width: 600px;
+    text-align: center;
+}
 h2{
-    margin: 80px 0 0 25px;
+    margin: 0 0 0 25px;
     padding: 80px;
     font-size: 24px;
     font-weight: bold;
     text-align: center;
     color: #3f3f3f;
+}
+
+
+.input{
+    width:200px;
+    height:24px;
+    line-height:24px;
+    font-size:14px;
+    padding:5px 8px;
+    border:1px solid #ddd;
+}
+.input:empty::before {
+    content: attr(placeholder);
 }

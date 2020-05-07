@@ -7,9 +7,12 @@
 <link rel="stylesheet" type="text/css" href="{% static 'Covo/index.css' %}">
 </head>
 <body>
-    <div id="wrapper">
-        <h2>登录</h2>
-    </div>
+    {% comment %} <div id="wrapper">
+        <div class="dv1"><span id="sp1">登录</span></div>
+
+    <div class='input' contenteditable placeholder='请输入文字'></div>
+
+    </div> {% endcomment %}
     <h1 align="center" valign="middle">志愿活动管理系统</h1>
     <h2>{{error}}</h2>
     <form style="height:100%;"align="center" valign="middle" action="{% url 'Users:login' %}" method="POST" id="regist_form">

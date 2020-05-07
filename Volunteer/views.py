@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:09
-@LastEditTime: 2020-04-28 00:22:59
+@LastEditTime: 2020-05-07 23:20:21
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Volunteer/views.py
@@ -21,7 +21,7 @@ def get_volunteerinfo(request, volunteer_number):
     return render(request, './Volunteer/volunteerinfo.html', context)
 
 def to_setInfo(request):
-    return render(request, './Volunteer/to_setInfo.html')
+    return render(request, './Volunteer/to_setInfo.html', context)
 
 def setInfo(request):
     if request.POST:

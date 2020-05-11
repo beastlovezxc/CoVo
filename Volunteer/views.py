@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:09
-@LastEditTime: 2020-05-12 01:23:02
+@LastEditTime: 2020-05-12 02:06:16
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Volunteer/views.py
@@ -12,7 +12,7 @@ from Users.models import Users
 # Create your views here.
 def get_volunteerlist(request):
     context = {}
-    context['volulist'] = Volunteer.objects.all().values('volunteer_number','volunteer_name')
+    context['volulist'] = Volunteer.objects.all().values('volunteer_number','volunteer_name', 'users')
     return render(request, './Volunteer/volunteerlist.html', context)
 
 def get_volunteerinfo(request, account):

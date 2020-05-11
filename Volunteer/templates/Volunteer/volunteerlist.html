@@ -13,8 +13,8 @@
         </tr>
         {% for volunteer in volulist %}
         <tr>
-            <td><a href="{% url 'Volunteer:volunteerinfo' volunteer.volunteer_number%}">{{ volunteer.volunteer_number}}</a></td>
-            <td><a href="{% url 'Volunteer:volunteerinfo' volunteer.volunteer_number%}">{{ volunteer.volunteer_name }}</a></td>
+            <td><a href="{% url 'Volunteer:volunteerinfo' volunteer.users%}">{{ volunteer.volunteer_number}}</a></td>
+            <td><a href="{% url 'Volunteer:volunteerinfo' volunteer.users%}">{{ volunteer.volunteer_name }}</a></td>
         </tr>
         {% endfor %}
     </table>

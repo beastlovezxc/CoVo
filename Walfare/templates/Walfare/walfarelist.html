@@ -6,9 +6,23 @@
 </head>
 <body>
     <h1>福利奖品列表</h1>
-    <p>奖品编号  奖品名称 兑换积分</p>
-    {% for walfare in walfarelist %}
-    <li><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}"> {{ walfare.prize_number}} {{ walfare.prize_name }}  {{walfare.prize_points}}</a></li>
-    {% endfor %}</a>
+    <p>{% if is_manager %}您好，管理员{% else %} 您好，普通用户{% endif %}</p>
+    <p>{% if not is_manager %} 当前积分:{{ac_points}}, 剩余积分:{{av_points}}{% endif%}</p>
+    <table>
+        <tr>
+            <td>奖品编号</td>
+            <td>奖品名称</td>
+            <td>兑换积分</td>
+            <td>操作</td>
+        </tr>
+        {% for walfare in walfarelist %}
+        <tr>
+            <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}"> {{ walfare.prize_number}}</a></td>
+            <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}">{{ walfare.prize_name }}</a></td>
+            <td><a href="{% url 'Walfare:walfareinfo' walfare.prize_number%}">{{walfare.prize_points}}</a></td>
+            <td><a href="{% url 'Walfare:exchange' walfare.prize_number %}">兑换</a></td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

@@ -2,7 +2,7 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:42:26
 @LastEditors: BeanCB
-@LastEditTime: 2020-05-03 17:15:10
+@LastEditTime: 2020-05-12 02:32:31
 @Description: file content
 @FilePath: /Covo/Walfare/views.py
 '''
@@ -14,12 +14,18 @@
 @Description: file content
 @FilePath: /Covo/Walfare/views.py
 '''
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse
 from django.shortcuts import redirect
 from .models import Walfare
+from Users.models import Users
+from Volunteer.models import Volunteer
 # Create your views here.
 def get_walfarelist(request):
     context = {}
+    context['account'] = request.session['account']
+    context['is_manager'] = False
+    context['av_points'] = request.session['av_points']
+    context['ac_points'] = request.session['ac_points']
     context['walfarelist'] = Walfare.objects.all().values('prize_number','prize_name', 'prize_points')
     return render(request, './Walfare/walfarelist.html', context)
 
@@ -62,3 +68,15 @@ def get_walfareinfo(request, prize_number):
     context = {}
     context['walfareinfo'] = Walfare.objects.get(prize_number=prize_number)
     return render(request, './Walfare/walfareinfo.html', context)
+
+
+def exchange(request, prize_number):
+    user = Users.objects.get(account = request.session['account'])
+    vo_info = user.volunteer_set.all().get(users=user)
+    prize = Walfare.objects.get(prize_number=prize_number)
+    if vo_info.available_points < prize.prize_points:
+        return HttpResponse('剩余积分不足，无法兑换！')
+    vo_info.available_points -= prize.prize_points
+    vo_info.save()
+    request.session['av_points'] = vo_info.available_points
+    return HttpResponse('兑换成功')

@@ -6,18 +6,19 @@
 </head>
 <body>
     <h1>志愿者活动列表</h1>
-    <p>活动编号  活动名称</p>
     <table>
         <tr>
             <td>活动编号</td>
             <td>活动名称</td>
-            <td>操作</td>
+            <td>活动时间</td>
+            {% if not is_manager %}<td>操作</td>{% endif %}
         </tr>
         {% for activity in activitylist %}
         <tr>
             <td><a href="{% url 'Activity:activityinfo' activity.activity_number%}">{{ activity.activity_number}}</a></td>
             <td><a href="{% url 'Activity:activityinfo' activity.activity_number%}">{{ activity.activity_name }}</a></td>
-            <td><a href="{% url 'ApplicationForm:apply' activity.activity_number%}">报名</a></td>
+            <td>{{ activity.date|date:"Y-m-d H:i:s"}}</td>
+            {% if not is_manager %} <td><a href="{% url 'ApplicationForm:apply' activity.activity_number%}">报名</a></td>{% endif %}
         </tr>
         {% endfor %}
     <table>

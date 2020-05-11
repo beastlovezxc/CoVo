@@ -2,13 +2,14 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:40:57
 @LastEditors: BeanCB
-@LastEditTime: 2020-05-04 23:45:32
+@LastEditTime: 2020-05-12 01:56:11
 @Description: file content
 @FilePath: /Covo/Recruit/views.py
 '''
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,redirect
 from . import models
 from ApplicationForm.models import Apply
+from Activity.models import Activity
 
 # Create your views here.
 # def to_recruit(request)
@@ -19,7 +20,25 @@ def recruitlist(request):
     return render(request, './Recruit/recruitlist.html', context)
 
 def agree(request, apply_id):
-    return HttpResponse('Agree')
+    apply = Apply.objects.get(id=apply_id)
+    activity = apply.activity_number
+    if apply.status is True:
+        return HttpResponse('已同意此人报名，勿重复操作！')
+    if activity.required_num == activity.participants:
+        return HttpResponse('报名人数已满！')
+    activity.participants += 1
+    activity.save()
+    apply.status = True
+    apply.save()
+    return redirect('/recruit/recruitlist/')
 
 def refuse(request, apply_id):
-    return HttpResponse('Refuse')
+    apply = Apply.objects.get(id=apply_id)
+    activity = apply.activity_number
+    if activity.participants == 0:
+        return redirect('/recruit/recruitlist/')
+    activity.participants -= 1
+    activity.save()
+    apply.status = False
+    apply.save()
+    return redirect('/recruit/recruitlist/')

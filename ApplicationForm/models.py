@@ -2,7 +2,7 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:41:36
 @LastEditors: BeanCB
-@LastEditTime: 2020-05-03 00:40:19
+@LastEditTime: 2020-05-12 01:45:18
 @Description: file content
 @FilePath: /Covo/ApplicationForm/models.py
 '''
@@ -24,5 +24,5 @@ from Activity.models import Activity
 class Apply(models.Model):
     account = models.ForeignKey('Users.Users', on_delete=models.CASCADE)  # 用户名
     activity_number = models.ForeignKey('Activity.Activity', on_delete=models.CASCADE)    # 参与活动序号
-    status = models.BooleanField(default=0)    # 是否报名成功
+    status = models.BooleanField()    # 是否报名成功
 

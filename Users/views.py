@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-05-02 23:18:31
+@LastEditTime: 2020-05-12 01:30:54
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -30,15 +30,30 @@ def login(request):
             return render(request, './Covo/index.html', {'error': '密码错误!'})
         request.session['is_login'] = True
         request.session['account'] = account
-        print(user)
+        vo_info_list = user.volunteer_set.all()
+        if vo_info_list:
+            vo_info = vo_info_list.get(users=user)
+            if vo_info:
+                request.session['av_points'] = vo_info.available_points
+                request.session['ac_points'] = vo_info.activity_points
+            else:
+                request.session['av_points'] = 0
+                request.session['ac_points'] = 0
         request.session['is_manager'] = user.manager
-
-        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': user.manager})
+        context = {}
+        context['account'] = account
+        context['is_manager'] = user.manager
+        context['is_login'] = True
+        context['av_points'] = request.session['av_points'] = 0
+        context['ac_points'] = request.session['ac_points'] = 0
+        return render(request, './Users/userIndex.html', context)
 def index(request):
     if request.session['account'] and request.session['is_login']:
         account = request.session['account']
         manager = request.session['is_manager']
-        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': manager})
+        ac_points = request.session['ac_points']
+        av_points = request.session['av_points']
+        return render(request, './Users/userIndex.html', {'account': account, 'is_manager': manager, 'ac_points': ac_points, 'av_points': av_points})
     return render(request, './Covo/index.html')
 # 用户登出
 # session删除用户登录状态
@@ -48,6 +63,8 @@ def logout(request):
         del request.session['is_login']
         del request.session['account']
         del request.session['is_manager']
+        del request.session['ac_points']
+        del request.session['av_points']
     return render (request, './Covo/index.html')
 
 # 用户注册跳转
@@ -67,6 +84,8 @@ def regist(request):
         request.session['is_login'] = True
         request.session['account'] = account
         request.session['is_manager'] = False
+        request.session['ac_points'] = 0
+        request.session['av_points'] = 0
         return render(request, './Users/userIndex.html', {'account': account, 'is_manager': False})
     return render(request, './Users/regist.html')
 def show_userlist(request):

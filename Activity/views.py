@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:21
-@LastEditTime: 2020-05-02 00:18:46
+@LastEditTime: 2020-05-11 22:14:39
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/views.py
@@ -29,8 +29,8 @@ def recruit(request):
 
 def activitylist(request):
     context = {}
-    
-    context['activitylist'] = Activity.objects.all().values('activity_number', 'activity_name')
+    context['activitylist'] = Activity.objects.all().values('activity_number', 'activity_name', 'date')
+    context['is_manager'] = request.session['is_manager']
     return render(request, './Activity/activitylist.html', context)
 
 def show_activityinfo(request, activity_number):

@@ -6,12 +6,24 @@
 </head>
 <body>
     <h1>求助信息列表</h1>
-    <p>求助者编号  求助者姓名</p>
+    <table>
+        <tr>
+            <td>求助活动编号</td>
+            <td>求助活动标题</td>
+            <td>求助者时间</td>
+            <td>活动状态</td>
+        </tr>
+        {% for recourse in recourse_list %}
+        <tr>
+            <td>{{recourse.index}}</td>
+            <td>{{recourse.title}}</td>
+            <td>{{recourse.time}}</td>
+            <td><button>求助中</button></td>
+        </td>
+        {% endfor %}
+    </table>
     {% comment %} {% for activity in activitylist %}
     <li> <a href="{% url 'Activity:activityinfo' activity.activity_number%}">{{ activity.activity_number}} {{ activity.activity_name }} </li>
     {% endfor %}</a> {% endcomment %}
-    {% for recourse in recourse_list %}
-    <li>{{recourse.index}} {{recourse.title}} {{recourse.time}} {{ recourse.users }}</li>
-    {% endfor %}
 </body>
 </html>

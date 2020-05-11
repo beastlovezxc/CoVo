@@ -10,7 +10,7 @@
     <p>{% if is_manager %}您好，管理员{% else %} 您好，普通用户{% endif %}</p>
     <p>{% if not is_manager %} 当前积分:{{ac_points}}, 剩余积分:{{av_points}}{% endif%}</p>
     {% comment %} <p><a href="{% url 'Volunteer:volunteerinfo' {{account}} %}">个人资料</a></p> {% endcomment %}
-     <p><a href="{% url 'Volunteer:volunteerinfo' account %}">个人资料</a></p>
+     {% if not is_manager %}<p><a href="{% url 'Volunteer:volunteerinfo' account %}">个人资料</a></p>{% endif %}
      {% if is_manager %}<a href="{% url 'Volunteer:volunteerlist'%}">查看用户列表</a>{% endif %}
     {% if not is_manager %}<p><a href="{% url 'Recourse:to_recourse'%}">发布求助信息</a></p>{% endif %}
     {% if is_manager %}<p><a href="{% url 'Activity:to_recruit'%}">发布志愿活动</a></p> {% endif %}

@@ -6,9 +6,18 @@
 </head>
 <body>
     <h1>志愿者列表</h1>
-    <p>志愿者编号  志愿者姓名</p>
-    {% for volunteer in volulist %}
-    <li> <a href="{% url 'Volunteer:volunteerinfo' volunteer.volunteer_number%}">{{ volunteer.volunteer_number}} {{ volunteer.volunteer_name }} </li>
-    {% endfor %}</a>
+    <table>
+        <tr>
+            <td>志愿者编号</td>
+            <td>志愿者姓名</td>
+        </tr>
+        {% for volunteer in volulist %}
+        <tr>
+            <td><a href="{% url 'Volunteer:volunteerinfo' volunteer.volunteer_number%}">{{ volunteer.volunteer_number}}</a></td>
+            <td><a href="{% url 'Volunteer:volunteerinfo' volunteer.volunteer_number%}">{{ volunteer.volunteer_name }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
 </body>
 </html>

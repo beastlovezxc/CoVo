@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:22:23
-@LastEditTime: 2020-05-04 23:15:21
+@LastEditTime: 2020-05-13 23:26:51
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Covo/urls.py
@@ -23,20 +23,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.views.generic import TemplateView
 from . import views
 
 app_name = 'Covo'
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', views.showIndex, name='index'),
-    path('users/', include('Users.urls')),
-    path('volunteer/', include('Volunteer.urls')),
-    path('walfare/', include('Walfare.urls')),
-    path('activity/', include('Activity.urls')),
-    path('applicationform/', include('ApplicationForm.urls')),
-    path('exchange/', include('Exchange.urls')),
-    path('recourse/', include('Recourse.urls')),
-    path('manager/', include('Manager.urls')),
-    path('opinion/', include('Opinion.urls')),
-    path('recruit/', include('Recruit.urls')),
+    path('', TemplateView.as_view(template_name='index.html')),
+    # path('index/', views.showIndex, name='index'),
+    # path('users/', include('Users.urls')),
+    # path('volunteer/', include('Volunteer.urls')),
+    # path('walfare/', include('Walfare.urls')),
+    # path('activity/', include('Activity.urls')),
+    # path('applicationform/', include('ApplicationForm.urls')),
+    # path('exchange/', include('Exchange.urls')),
+    # path('recourse/', include('Recourse.urls')),
+    # path('manager/', include('Manager.urls')),
+    # path('opinion/', include('Opinion.urls')),
+    # path('recruit/', include('Recruit.urls')),
 ]

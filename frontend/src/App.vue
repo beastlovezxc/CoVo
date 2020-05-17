@@ -1,7 +1,15 @@
+<!--
+ * @Author: BeanCB
+ * @Date: 2020-05-13 22:52:01
+ * @LastEditors: BeanCB
+ * @LastEditTime: 2020-05-14 00:36:40
+ * @Description: file content
+ * @FilePath: /Covo/frontend/src/App.vue
+ -->
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
+      <router-link to="/">123</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>

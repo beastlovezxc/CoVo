@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:22:23
-@LastEditTime: 2020-05-13 23:26:51
+@LastEditTime: 2020-05-18 00:07:04
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Covo/urls.py
@@ -30,6 +30,7 @@ app_name = 'Covo'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('api/users/', include('Users.urls')),
     # path('index/', views.showIndex, name='index'),
     # path('users/', include('Users.urls')),
     # path('volunteer/', include('Volunteer.urls')),

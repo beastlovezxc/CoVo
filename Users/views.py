@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-05-12 01:30:54
+@LastEditTime: 2020-05-18 00:14:31
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
@@ -9,6 +9,8 @@
 from django.shortcuts import render
 from .models import Users
 from Volunteer.models import Volunteer
+from rest_framework import viewsets
+from Users.serializer import UsersSerializer
 # Create your views here.
 
 # 用户登录
@@ -92,3 +94,7 @@ def show_userlist(request):
     context = {}
     context['userlist'] = Users.objects.all()
     return render(request, './Users/userlist.html', context)
+
+class UsersViewSet(viewsets.ModelViewSet):
+    queryset = Users.objects.all()
+    serializer_class = UsersSerializer

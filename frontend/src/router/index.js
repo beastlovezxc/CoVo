@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-13 22:52:01
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-18 23:16:03
+ * @LastEditTime: 2020-05-20 01:11:44
  * @Description: file content
  * @FilePath: /Covo/frontend/src/router/index.js
  */ 
@@ -16,6 +16,11 @@ Vue.use(VueRouter)
     path: '/',
     name: 'login',
     component: () => import('../views/login.vue')
+  },
+  {
+    path: '/index',
+    name: 'index',
+    component: () => import('../views/Main.vue')
   },
   {
     path: '/regist',

@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:51:31
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-20 02:59:37
+ * @LastEditTime: 2020-05-21 00:39:20
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Sidebar.vue
 --> 
@@ -12,27 +12,44 @@
         default-active="1"
         class="el-menu-vertical-demo"
         @open="handleOpen"
-        @close="handleClose"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b">
-        <el-menu-item index="1">
+        @close="handleClose">
+        <el-submenu index="1">
             <template slot="title">
             <i class="el-icon-location"></i>
-            <span>导航一</span>
+            <span>个人信息</span>
             </template>
-        </el-menu-item>
+            <el-menu-item-group>
+                <el-menu-item index="1-1">基本资料</el-menu-item>
+                <el-menu-item index="1-2">积分详情</el-menu-item>
+            </el-menu-item-group>
+        </el-submenu>
         <el-menu-item index="2">
             <i class="el-icon-menu"></i>
-            <span slot="title">导航二</span>
+            <span slot="title">我的活动</span>
         </el-menu-item>
         <el-menu-item index="3">
             <i class="el-icon-document"></i>
-            <span slot="title">导航三</span>
+            <span slot="title">个人积分</span>
         </el-menu-item>
         <el-menu-item index="4">
             <i class="el-icon-setting"></i>
-            <span slot="title">导航四</span>
+            <span slot="title">志愿活动</span>
+        </el-menu-item>
+        <el-menu-item index="5">
+            <i class="el-icon-setting"></i>
+            <span slot="title">报名信息</span>
+        </el-menu-item>
+        <el-menu-item index="6">
+            <i class="el-icon-setting"></i>
+            <span slot="title">我的反馈</span>
+        </el-menu-item>
+        <el-menu-item index="7">
+            <i class="el-icon-setting"></i>
+            <span slot="title">热点聚焦</span>
+        </el-menu-item>
+        <el-menu-item index="8">
+            <i class="el-icon-setting"></i>
+            <span slot="title">志愿风采</span>
         </el-menu-item>
         </el-menu>
     </div>
@@ -47,9 +64,10 @@ export default {
 <style>
 #nav-side-bar {
     height: 800px;
-    background-color: #545c64;
+    width: 200px;
+    background-color: #f7f4f4;
 }
 .el-menu-item.is-active {
-  background-color: #303133 !important;
+  background-color: #ededed !important;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-13 22:52:01
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-20 02:47:34
+ * @LastEditTime: 2020-05-20 23:30:49
  * @Description: file content
  * @FilePath: /Covo/frontend/src/App.vue
  -->
@@ -55,6 +55,7 @@
   /* width:1200px; */
   height: 800px;
   margin: 0px auto;
+  background-color: #ededed;
   /* padding: 40px; */
 }
 

@@ -2,13 +2,24 @@
  * @Author: BeanCB
  * @Date: 2020-05-21 23:42:34
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 23:44:16
+ * @LastEditTime: 2020-05-22 00:13:11
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Points.vue
 --> 
 
 <template>
-    <el-card></el-card>
+    <el-card class="point-card">
+        <div class="point-box">
+            <div>
+                <div class="point-font">历史积分</div>
+                <div class="points-point">550</div>
+            </div>
+            <div>
+                <div class="point-font">剩余积分</div>
+                <div class="points-point">450</div>
+            </div>
+        </div>
+    </el-card>
 </template>
 <script>
     export default {
@@ -19,3 +30,22 @@
         }
     }
 </script>
+<style>
+.el-card {
+    text-align: left;
+    margin: 0 0 0 0;
+}
+.point-font {
+    font-size: 40px;
+    margin: 40px;
+}
+.point-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 200px 0 200px;
+}
+.points-point {
+    margin-left: 80px;
+    font-size: 4em;
+}
+</style>

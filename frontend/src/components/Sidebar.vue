@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:51:31
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 23:39:49
+ * @LastEditTime: 2020-05-22 00:46:31
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Sidebar.vue
 --> 
@@ -31,7 +31,7 @@
             <i class="el-icon-document"></i>
             <span slot="title">个人积分</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="4" v-on:click="changeMainPage('41')">
             <i class="el-icon-setting"></i>
             <span slot="title">志愿活动</span>
         </el-menu-item>

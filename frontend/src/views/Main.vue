@@ -2,26 +2,27 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 00:56:19
+ * @LastEditTime: 2020-05-21 23:59:28
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 
 
 <template>
 <div>
-    <el-container style="height: 800px; border: 1px solid">
+    <el-container>
         <el-header style="font-size: 12px">
             <div id="nav-header-el">
                 <div><span>志愿者活动管理系统</span> | 控制台</div>
-                <div><Avatar/></div>
+                <div><Avatar /></div>
             </div>
             </el-header>
         <el-container>
             <el-aside>
-            <Sidebar/>
+            <Sidebar v-on:changeMainPage="changeMainPage1($event)"/>
         </el-aside>
             <el-main>
-                <Information/>
+                <Information v-if="main_page === '11'"/>
+                <Points v-if="main_page === '12'"/>
             </el-main>
         </el-container>
     </el-container>
@@ -36,21 +37,34 @@ import Sidebar from "@/components/Sidebar.vue";
 import Headerbar from "@/components/Headerbar.vue";
 import Information from "@/components/Information.vue";
 import Avatar from "@/components/Avatar.vue"
+import Points from "@/components/Points.vue"
+
   export default {
+      data(){
+          return {
+          main_page: "11",
+          }
+      },
       name:"name",
       components: {
           Sidebar,
           Headerbar,
           Information,
           Avatar,
+          Points,
       },
     methods: {
-      handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
+        changeMainPage1:function(index) {
+            console.log(this);
+            console.log(index);
+            this.main_page = index;
+        },
+        handleOpen(key, keyPath) {
+            console.log(key, keyPath);
+        },
+        handleClose(key, keyPath) {
+            console.log(key, keyPath);
+        }
     }
   }
 </script>

@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:51:31
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 00:39:20
+ * @LastEditTime: 2020-05-21 23:39:49
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Sidebar.vue
 --> 
@@ -19,13 +19,13 @@
             <span>个人信息</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="1-1">基本资料</el-menu-item>
-                <el-menu-item index="1-2">积分详情</el-menu-item>
+                <el-menu-item index="1-1" v-on:click="changeMainPage('11')">基本资料</el-menu-item>
+                <el-menu-item index="1-2" v-on:click="changeMainPage('12')">积分详情</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">我的活动</span>
+        <el-menu-item index="2" v-on:click="changeMainPage('21')">
+            <i class="el-icon-menu" ></i>
+            <span slot="title" >我的活动</span>
         </el-menu-item>
         <el-menu-item index="3">
             <i class="el-icon-document"></i>
@@ -58,6 +58,11 @@
 export default {
   data() {
     return {};
+  },
+  methods: {
+      changeMainPage:function(index) {
+          this.$emit('changeMainPage', index);
+      },
   }
 };
 </script>

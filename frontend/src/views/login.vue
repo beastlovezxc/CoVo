@@ -2,20 +2,20 @@
  * @Author: BeanCB
  * @Date: 2020-05-19 21:10:08
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-20 23:28:21
+ * @LastEditTime: 2020-05-21 23:59:50
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/login.vue
 --> 
 <template>
     <div id="nav">
         <el-container>
-            <el-header>
+            <el-header class="login-header" style="font-size: 12px">
                 <div id="nav-login-herder">
-                    志愿者活动管理系统 | 登录
+                    <span class="nav-login-header-span">志愿者活动管理系统</span> | 登录
                 </div>
             </el-header>
             <el-container>
-                <el-card>
+                <el-card class="card1">
                     <h3>用户登录</h3>
                     <div id="nav-header"><span>让我们一起为爱行动</span></div>
                     <el-form ref="form" :model="model" label-width="60px">
@@ -58,13 +58,13 @@
 </script>
 <style >
 #nav {
-    background-color: white;
+    background-color: #ededed;
     position: relative;
     /* margin: 150px auto; */
     /* padding: 150px auto; */
     /* text-align: center; */
 }
-.el-card {
+.card1 {
     width: 400px;
     /* margin: 0px auto; */
     position: absolute;
@@ -72,6 +72,10 @@
     left: 70%;
     margin: 150px 0 0 -200px;
     /* margin: 150px auto; */
+}
+.login-header {
+    background-color: white;
+    box-shadow: 0 2px 5px 0px #888888;
 }
 #nav-header {
     text-align: left;
@@ -82,7 +86,11 @@
     height: 100px;
     width: 100%;
     line-height: 50px;
-    font-size: 2em;
+    font-size: 2.5em;
     text-align: left;
+}
+.nav-login-header-span {
+    color: #ff6a00;
+    font-weight: bold;
 }
 </style>

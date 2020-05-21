@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-13 22:52:01
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-20 01:11:44
+ * @LastEditTime: 2020-05-21 22:45:31
  * @Description: file content
  * @FilePath: /Covo/frontend/src/router/index.js
  */ 
@@ -21,6 +21,11 @@ Vue.use(VueRouter)
     path: '/index',
     name: 'index',
     component: () => import('../views/Main.vue')
+  },
+  {
+    path: '/info',
+    name: 'info',
+    component: () => import('../components/Information.vue')
   },
   {
     path: '/regist',

@@ -2,12 +2,12 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 23:46:55
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 00:39:47
+ * @LastEditTime: 2020-05-21 23:51:28
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Information.vue
 --> 
 <template>
-    <el-card>
+    <el-card class="info-card">
         <el-form ref="form" :model="model" label-width="80px">
             <div class="content-title">基本资料</div>
             <div class="info">请完善一下信息，方便报名资料填写</div>
@@ -69,7 +69,7 @@ export default {
 .el-form-item {
   font-weight: bolder;
 }
-.el-card {
+.info-card {
   text-align: left;
   margin: 0 0 0 0;
 }

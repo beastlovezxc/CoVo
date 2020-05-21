@@ -2,12 +2,12 @@
  * @Author: BeanCB
  * @Date: 2020-05-21 00:42:31
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 00:44:11
+ * @LastEditTime: 2020-05-21 23:41:50
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Avatar.vue
 --> 
 <template>
-        <div class="block"><el-avatar :size="50" :src="circleUrl"></el-avatar></div>
+        <div style="padding:10px"><el-avatar :size="30" :src="circleUrl"></el-avatar></div>
 </template>
 <script>
   export default {

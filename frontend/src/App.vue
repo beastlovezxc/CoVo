@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-13 22:52:01
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-20 23:30:49
+ * @LastEditTime: 2020-05-21 23:55:19
  * @Description: file content
  * @FilePath: /Covo/frontend/src/App.vue
  -->
@@ -53,7 +53,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   /* width:1200px; */
-  height: 800px;
+  /* height: 800px; */
   margin: 0px auto;
   background-color: #ededed;
   /* padding: 40px; */

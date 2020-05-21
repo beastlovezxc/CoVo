@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:51:31
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 23:39:49
+ * @LastEditTime: 2020-05-24 01:53:33
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Sidebar.vue
 --> 
@@ -31,14 +31,20 @@
             <i class="el-icon-document"></i>
             <span slot="title">个人积分</span>
         </el-menu-item>
-        <el-menu-item index="4">
+        <el-menu-item index="4" v-on:click="changeMainPage('41')">
             <i class="el-icon-setting"></i>
             <span slot="title">志愿活动</span>
         </el-menu-item>
-        <el-menu-item index="5">
+        <el-submenu index="5">
+            <template slot="title">
             <i class="el-icon-setting"></i>
-            <span slot="title">报名信息</span>
-        </el-menu-item>
+            <span slot="title">求助信息</span>
+            </template>
+            <el-menu-item-group>
+                <el-menu-item index="5-1" v-on:click="changeMainPage('51')">求助列表</el-menu-item>
+                <el-menu-item index="5-2" v-on:click="changeMainPage('52')">我的反馈</el-menu-item>
+            </el-menu-item-group>
+        </el-submenu>
         <el-menu-item index="6">
             <i class="el-icon-setting"></i>
             <span slot="title">我的反馈</span>

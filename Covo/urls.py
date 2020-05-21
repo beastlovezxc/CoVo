@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:22:23
-@LastEditTime: 2020-05-18 00:07:04
+@LastEditTime: 2020-05-24 01:37:30
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Covo/urls.py
@@ -31,15 +31,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
     path('api/users/', include('Users.urls')),
-    # path('index/', views.showIndex, name='index'),
-    # path('users/', include('Users.urls')),
-    # path('volunteer/', include('Volunteer.urls')),
-    # path('walfare/', include('Walfare.urls')),
-    # path('activity/', include('Activity.urls')),
-    # path('applicationform/', include('ApplicationForm.urls')),
-    # path('exchange/', include('Exchange.urls')),
-    # path('recourse/', include('Recourse.urls')),
-    # path('manager/', include('Manager.urls')),
-    # path('opinion/', include('Opinion.urls')),
-    # path('recruit/', include('Recruit.urls')),
+    path('index/', views.showIndex, name='index'),
+    path('users/', include('Users.urls')),
+    path('volunteer/', include('Volunteer.urls')),
+    path('walfare/', include('Walfare.urls')),
+    path('activity/', include('Activity.urls')),
+    path('applicationform/', include('ApplicationForm.urls')),
+    path('exchange/', include('Exchange.urls')),
+    path('recourse/', include('Recourse.urls')),
+    path('manager/', include('Manager.urls')),
+    path('opinion/', include('Opinion.urls')),
+    path('recruit/', include('Recruit.urls')),
 ]

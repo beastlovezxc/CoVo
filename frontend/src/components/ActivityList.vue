@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-22 00:42:34
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 02:10:34
+ * @LastEditTime: 2020-05-24 14:56:15
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityList.vue
 --> 

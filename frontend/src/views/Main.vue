@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 02:13:26
+ * @LastEditTime: 2020-05-24 14:56:39
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 

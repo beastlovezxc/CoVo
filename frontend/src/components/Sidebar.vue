@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:51:31
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 01:53:33
+ * @LastEditTime: 2020-05-24 14:56:03
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Sidebar.vue
 --> 

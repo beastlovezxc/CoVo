@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 23:46:55
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 23:51:28
+ * @LastEditTime: 2020-05-25 00:56:16
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Information.vue
 --> 
@@ -19,28 +19,28 @@
                 </el-col>
             </el-form-item>
             <el-form-item label="性别:" label-position="left">
-                <el-select v-model="form.region" placeholder="请选择性别">
+                <el-select v-model="form.sex" placeholder="请选择性别">
                   <el-option label="男" value="1"></el-option>
                   <el-option label="女" value="0"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.name" placeholder="请输入年龄"></el-input>
+                  <el-input v-model="form.age" placeholder="请输入年龄"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="电话:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.name" placeholder="请输入电话"></el-input>
+                  <el-input v-model="form.tel" placeholder="请输入电话"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="地址:" label-position="left">
                 <el-col :span="10">
-                  <el-input v-model="form.name" placeholder="请输入地址"></el-input>
+                  <el-input v-model="form.address" placeholder="请输入地址"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="文化水平:" label-position="left">
-                <el-select v-model="form.region" placeholder="请选择文化水平">
+                <el-select v-model="form.cul_level" placeholder="请选择文化水平">
                   <el-option label="小学" value="小学"></el-option>
                   <el-option label="初中" value="初中"></el-option>
                   <el-option label="高中" value="高中"></el-option>
@@ -57,12 +57,36 @@
 export default {
   data() {
     return {
+      root: 'root',
       form: {
           name: '',
-          password:'',
-        }
+          sex: '',
+          age: '',
+          tel:'',
+          address:'',
+          cul_level:'',
+        },
     };
-  }
+  },
+  mounted() {
+          let url = 'http://localhost:8000/volunteer/volunteer/' + this.root + '/';
+          console.log(url);
+          this.axios.get(url, {
+          }).then((res)=> {
+            this.form.name = res.data.volunteer_name;
+            this.form.age = res.data.age;
+            this.form.address = res.data.address;
+            this.form.tel = res.data.tel;
+            this.form.cul_level = res.data.cultural_level;
+            if (res.data.sex) {
+                this.form.sex = '男';
+            } else {
+                this.form.sex = '女';
+            }
+            
+            alert(res.data.cultural_level);
+          });
+        },
 };
 </script>
 <style>

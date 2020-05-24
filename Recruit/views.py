@@ -2,11 +2,12 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:40:57
 @LastEditors: BeanCB
-@LastEditTime: 2020-05-12 01:56:11
+@LastEditTime: 2020-05-24 19:53:59
 @Description: file content
 @FilePath: /Covo/Recruit/views.py
 '''
 from django.shortcuts import render,HttpResponse,redirect
+from django.http import JsonResponse
 from . import models
 from ApplicationForm.models import Apply
 from Activity.models import Activity
@@ -15,9 +16,11 @@ from Activity.models import Activity
 # def to_recruit(request)
 def recruitlist(request):
     context = {}
-    context['applylist'] = Apply.objects.all()
+    context['applylist'] = Apply.objects.all().values()
     print(context['applylist'])
-    return render(request, './Recruit/recruitlist.html', context)
+    aplist = list(context['applylist'])
+    return JsonResponse(aplist, safe=False)
+    # return render(request, './Recruit/recruitlist.html', context)
 
 def agree(request, apply_id):
     apply = Apply.objects.get(id=apply_id)

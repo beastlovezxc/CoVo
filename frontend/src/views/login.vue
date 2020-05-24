@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-19 21:10:08
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 23:59:50
+ * @LastEditTime: 2020-05-24 20:55:16
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/login.vue
 --> 
@@ -20,7 +20,7 @@
                     <div id="nav-header"><span>让我们一起为爱行动</span></div>
                     <el-form ref="form" :model="model" label-width="60px">
                     <el-form-item label="用户名" label-position="left">
-                        <el-input v-model="form.name" placeholder="请输入用户名"></el-input>
+                        <el-input v-model="form.account" placeholder="请输入用户名"></el-input>
                     </el-form-item>
                     <el-form-item label="密码" label-position="left">
                         <el-input v-model="form.password" type="password" placeholder="请输入密码"></el-input>
@@ -35,19 +35,29 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
   export default {
     data() {
       return {
         form: {
-          name: '',
+          account: '',
           password:'',
         }
       }
     },
     methods: {
+        
       onLogin() {
-        this.$router.push({path:'/index'});
-        console.log('login!');
+        axios.post('http://127.0.0.1:8000/users/api/v1/auth/',this.form,{withCredentials:true}).then((res)=> {
+        alert(res.data.msg)
+        console.log(res);
+        if (res.data.status === 0) {
+            this.$router.push({path:'/index'});
+        }
+        // this.$router.go({path:'/'});
+      });
+        // this.$router.push({path:'/index'});
+        // console.log('login!');
       },
       toRegist() {
           this.$router.push({path:'/regist'});

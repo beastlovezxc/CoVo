@@ -1,14 +1,59 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:21
-@LastEditTime: 2020-05-11 22:14:39
+@LastEditTime: 2020-05-25 01:09:12
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/views.py
 '''
 from django.shortcuts import render
 from .models import Activity
+from .serializers import ActivitySerializer
+# from rest_framework import request
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from django.http import Http404
 # Create your views here.
+
+class VolunteerList(APIView):
+    def get(self, request, format=None):
+        activity = Activity.objects.all()
+        serializer = ActivitySerializer(activity, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ActivitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class VolunteerDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Activity.objects.get(users=pk)
+        except Activity.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        activity = self.get_object(pk)
+        serializer = ActivitySerializer(activity)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        activity = self.get_object(pk)
+        serializer = ActivitySerializer(activity, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        activity = self.get_object(pk)
+        activity.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 def to_recruit(request):
     return render(request, './Activity/to_recruit.html')
     

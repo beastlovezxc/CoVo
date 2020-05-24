@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-22 00:42:34
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 14:56:15
+ * @LastEditTime: 2020-05-25 01:15:41
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityList.vue
 --> 
@@ -90,6 +90,12 @@
                     ops: '参加',
                     }]
             };
+        },
+        mounted() {
+            let url = 'http://localhost:8000/activity/activity';
+            this.axios.get(url).then((res)=> {
+                this.activity_list = res.data;
+            });
         },
         methods: {
             isJoined({row, rowIndex}) {

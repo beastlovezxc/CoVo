@@ -1,17 +1,55 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-05-18 00:14:31
+@LastEditTime: 2020-05-24 21:59:09
 @LastEditors: BeanCB
 @Description: In User Settings Edit
 @FilePath: /Covo/Users/views.py
 '''
+import time
+from django.http import JsonResponse
+from rest_framework.views import APIView
 from django.shortcuts import render
-from .models import Users
+from . import models
 from Volunteer.models import Volunteer
 from rest_framework import viewsets
 from Users.serializer import UsersSerializer
 # Create your views here.
+
+class AuthView(APIView):
+
+    def post(self,request,*args,**kwargs):
+
+        ret = {'status':0,'msg':None}
+        try:
+            # 参数是datadict 形式
+            usr = request.data.get('account')
+            pas = request.data.get('password')
+
+            print(usr)
+            print(pas)
+            obj = models.Users.objects.filter(account=usr,password=pas).first()
+            print(obj)
+            print(type(obj))
+            print(obj.account)
+            print(obj.password)
+            print(1234)
+            if not obj:
+                ret['status'] = '1001'
+                ret['msg'] = '用户名或者密码错误'
+                return JsonResponse(ret)
+            # 里为了简单，应该是进行加密，再加上其他参数
+            token = str(time.time()) + usr
+            print(token)
+            models.userToken.objects.update_or_create(username=obj, defaults={'token': token})
+            ret['msg'] = '登录成功'
+            ret['manager'] = obj.manager
+            #ret['token'] = token
+        except Exception as e:
+            print(e)
+            ret['status'] = 1002
+            ret['msg'] = '请求异常'
+        return JsonResponse(ret)
 
 # 用户登录
 # 比对users表中的用户名和密码
@@ -22,10 +60,10 @@ def login(request):
     if request.POST:
         account = request.POST['account']
         password = request.POST['password']
-        is_user = Users.objects.filter(account = account)
+        is_user = models.Users.objects.filter(account = account)
         if not is_user:
             return render(request, './Covo/index.html', {'error': '用户名不存在!'})
-        user = Users.objects.get(account = account)
+        user = models.Users.objects.get(account = account)
         print(password)
         print(user.password)
         if user.password != password:
@@ -96,5 +134,5 @@ def show_userlist(request):
     return render(request, './Users/userlist.html', context)
 
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
+    queryset = models.Users.objects.all()
     serializer_class = UsersSerializer

@@ -2,7 +2,7 @@
 @Author: BeanCB
 @Date: 2020-04-25 16:40:36
 @LastEditors: BeanCB
-@LastEditTime: 2020-05-04 23:23:15
+@LastEditTime: 2020-05-24 20:03:12
 @Description: file content
 @FilePath: /Covo/Users/models.py
 '''
@@ -17,3 +17,7 @@ class Users(models.Model):
 
     def __str__(self):
         return self.account
+
+class userToken(models.Model):
+  username = models.OneToOneField(to='Users',on_delete=models.DO_NOTHING)
+  token = models.CharField(max_length=60)

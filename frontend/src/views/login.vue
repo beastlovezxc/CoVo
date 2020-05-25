@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-19 21:10:08
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 20:55:16
+ * @LastEditTime: 2020-05-26 00:48:42
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/login.vue
 --> 
@@ -11,7 +11,7 @@
         <el-container>
             <el-header class="login-header" style="font-size: 12px">
                 <div id="nav-login-herder">
-                    <span class="nav-login-header-span">志愿者活动管理系统</span> | 登录
+                    <span class="nav-login-header-span">社区志愿管理系统</span> | 登录
                 </div>
             </el-header>
             <el-container>

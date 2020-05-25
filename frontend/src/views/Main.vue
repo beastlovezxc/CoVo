@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-26 00:15:45
+ * @LastEditTime: 2020-05-26 01:01:33
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 
@@ -12,13 +12,15 @@
     <el-container>
         <el-header style="font-size: 12px">
             <div id="nav-header-el">
-                <div><span>志愿者活动管理系统</span> | 控制台</div>
+                <div v-if="is_manage"><span>社区志愿管理系统</span> | 控制台 | 管理员</div>
+                <div v-if="!is_manage"><span>社区志愿管理系统</span> | 控制台 | 普通用户</div>
                 <div><Avatar /></div>
             </div>
             </el-header>
         <el-container>
             <el-aside>
-            <Sidebar v-on:changeMainPage="changeMainPage1($event)"/>
+            <Sidebar v-if="!is_manage" v-on:changeMainPage="changeMainPage1($event)"/>
+            <SidebarManage v-if="is_manage" v-on:changeMainPage="changeMainPage1($event)"/>
         </el-aside>
             <el-main>
                 <Information v-if="main_page === '11'"/>
@@ -42,6 +44,7 @@
 
 <script>
 import Sidebar from "@/components/Sidebar.vue";
+import SidebarManage from "@/components/SidebarManage.vue";
 import Headerbar from "@/components/Headerbar.vue";
 import Information from "@/components/Information.vue";
 import Avatar from "@/components/Avatar.vue";
@@ -55,40 +58,42 @@ import UserList from "@/components/UserList.vue";
 import WalfaraManage from "@/components/WalfaraManage.vue";
 import WalfareList from "@/components/WalfareList.vue";
   export default {
-      data(){
-          return {
-          main_page: "11",
-          }
-      },
-      name:"name",
-      components: {
-          Sidebar,
-          Headerbar,
-          Information,
-          Avatar,
-          Points,
-          MyActivity,
-          ActivityList,
-          RecourseList,
-          UserList,
-          WalfaraManage,
-          WalfareList,
-          ActivityManage,
-          MyRecourseList
-      },
-    methods: {
-        changeMainPage1:function(index) {
-            console.log(this);
-            console.log(index);
-            this.main_page = index;
+        data(){
+            return {
+                is_manage: true,
+                main_page: "11",
+            }
         },
-        handleOpen(key, keyPath) {
-            console.log(key, keyPath);
+        name:"name",
+        components: {
+            Sidebar,
+            SidebarManage,
+            Headerbar,
+            Information,
+            Avatar,
+            Points,
+            MyActivity,
+            ActivityList,
+            RecourseList,
+            UserList,
+            WalfaraManage,
+            WalfareList,
+            ActivityManage,
+            MyRecourseList
         },
-        handleClose(key, keyPath) {
-            console.log(key, keyPath);
+        methods: {
+            changeMainPage1:function(index) {
+                console.log(this);
+                console.log(index);
+                this.main_page = index;
+            },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            }
         }
-    }
   }
 </script>
 <style>

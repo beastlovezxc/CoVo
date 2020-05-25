@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 23:46:55
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-25 00:56:16
+ * @LastEditTime: 2020-05-26 00:21:38
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Information.vue
 --> 
@@ -84,7 +84,7 @@ export default {
                 this.form.sex = '女';
             }
             
-            alert(res.data.cultural_level);
+            // alert(res.data.cultural_level);
           });
         },
 };

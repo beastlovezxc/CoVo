@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-22 00:13:55
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-22 00:37:17
+ * @LastEditTime: 2020-05-26 00:10:52
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/MyActivity.vue
 --> 
@@ -38,6 +38,11 @@
             prop="activity_points"
             label="活动积分">
             </el-table-column>
+            <el-table-column label="操作" align="center" min-width="100">
+        　　　　<template slot-scope="scope">
+        　　　　　　<el-button type="text" @click="checkDetail(scope.row.phone)">发布反馈</el-button>
+        　　　　</template>
+　      　  </el-table-column>  
         </el-table>
     </el-card>
 </template>

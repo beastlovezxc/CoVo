@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 14:56:39
+ * @LastEditTime: 2020-05-26 00:15:45
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 
@@ -23,9 +23,14 @@
             <el-main>
                 <Information v-if="main_page === '11'"/>
                 <Points v-if="main_page === '12'"/>
+                <UserList v-if="main_page === '13'"/>
                 <MyActivity v-if="main_page === '21'"/>
                 <ActivityList v-if="main_page === '41'"/>
+                <ActivityManage v-if="main_page === '42'"></ActivityManage>
                 <RecourseList v-if="main_page === '51'"/>
+                <MyRecourseList v-if="main_page === '52'"></MyRecourseList>
+                <WalfaraManage v-if="main_page === '71'"/>
+                <WalfareList v-if="main_page === '72'"/>
             </el-main>
         </el-container>
     </el-container>
@@ -39,11 +44,16 @@
 import Sidebar from "@/components/Sidebar.vue";
 import Headerbar from "@/components/Headerbar.vue";
 import Information from "@/components/Information.vue";
-import Avatar from "@/components/Avatar.vue"
-import Points from "@/components/Points.vue"
-import MyActivity from "@/components/MyActivity.vue"
-import ActivityList from "@/components/ActivityList.vue"
-import RecourseList from "@/components/RecourseList.vue"
+import Avatar from "@/components/Avatar.vue";
+import Points from "@/components/Points.vue";
+import MyActivity from "@/components/MyActivity.vue";
+import ActivityList from "@/components/ActivityList.vue";
+import ActivityManage from "@/components/ActivityManage.vue";
+import RecourseList from "@/components/RecourseList.vue";
+import MyRecourseList from "@/components/MyRecourseList.vue";
+import UserList from "@/components/UserList.vue";
+import WalfaraManage from "@/components/WalfaraManage.vue";
+import WalfareList from "@/components/WalfareList.vue";
   export default {
       data(){
           return {
@@ -60,6 +70,11 @@ import RecourseList from "@/components/RecourseList.vue"
           MyActivity,
           ActivityList,
           RecourseList,
+          UserList,
+          WalfaraManage,
+          WalfareList,
+          ActivityManage,
+          MyRecourseList
       },
     methods: {
         changeMainPage1:function(index) {

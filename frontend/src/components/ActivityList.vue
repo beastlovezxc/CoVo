@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-22 00:42:34
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-25 01:46:01
+ * @LastEditTime: 2020-05-26 00:22:07
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityList.vue
 --> 
@@ -40,11 +40,11 @@
             prop="date"
             label="活动时间">
             </el-table-column>
-           <el-table-column label="操作" align="center" min-width="100">
+            <el-table-column label="操作" align="center" min-width="100">
         　　　　<template slot-scope="scope">
         　　　　　　<el-button type="text" @click="checkDetail(scope.row.phone)">参加</el-button>
         　　　　</template>
-　      　 </el-table-column>  
+　      　  </el-table-column>  
         </el-table>
     </el-card>
 </template>
@@ -106,7 +106,7 @@
                     }
                 }
                 console.log(currentTime.getTime);
-                alert(currentTime.getTime);
+                // alert(currentTime.getTime);
             });
         },
         methods: {

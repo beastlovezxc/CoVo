@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-22 00:42:34
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-25 01:15:41
+ * @LastEditTime: 2020-05-25 01:46:01
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityList.vue
 --> 
@@ -92,9 +92,21 @@
             };
         },
         mounted() {
+            let currentTime = new Date();
+            var al;
             let url = 'http://localhost:8000/activity/activity';
             this.axios.get(url).then((res)=> {
                 this.activity_list = res.data;
+                for(var i = 0; i < this.activity_list.length; ++i){
+                    // alert(this.activity_list[i].expired);
+                    if( this.activity_list[i].expired === false) {
+                        this.activity_list[i].expired = '否';
+                    } else {
+                        this.activity_list[i].expired = '是';
+                    }
+                }
+                console.log(currentTime.getTime);
+                alert(currentTime.getTime);
             });
         },
         methods: {

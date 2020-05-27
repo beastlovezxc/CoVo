@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-13 22:52:01
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-21 23:55:19
+ * @LastEditTime: 2020-05-27 22:46:00
  * @Description: file content
  * @FilePath: /Covo/frontend/src/App.vue
  -->
@@ -48,6 +48,7 @@
   margin: 0;
 }
 #app {
+  background-image: "./assets/back1.jpeg";
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

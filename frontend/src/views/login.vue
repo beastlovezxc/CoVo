@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-19 21:10:08
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-26 00:48:42
+ * @LastEditTime: 2020-05-27 22:42:26
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/login.vue
 --> 
@@ -31,7 +31,6 @@
                 </el-card>
             </el-container>
         </el-container>
-      
     </div>
 </template>
 <script>
@@ -70,6 +69,9 @@ import axios from 'axios';
 #nav {
     background-color: #ededed;
     position: relative;
+    background-image: "@/assets/back1.jpeg";
+    /* background-repeat: "no-repeat";
+    background-size: "100% 100%"; */
     /* margin: 150px auto; */
     /* padding: 150px auto; */
     /* text-align: center; */

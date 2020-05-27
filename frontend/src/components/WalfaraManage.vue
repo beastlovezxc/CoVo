@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-25 23:17:59
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-27 23:44:23
+ * @LastEditTime: 2020-05-28 00:01:36
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/WalfaraManage.vue
 --> 
@@ -130,10 +130,11 @@
     
 </template>
 <script>
+    import pc1 from '@/assets/1.jpeg'
     export default {
         data() {
             return {
-                url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                url: pc1,
                 dialogVisible: false,
                 modifyDialogVisible: false,
                 imageUrl: '',
@@ -170,7 +171,7 @@
                 this.modifyWal.prize_name = rows.prize_name;
                 this.modifyWal.prize_points = rows.prize_points;
                 this.modifyWal.prize_introduction = rows.prize_points;
-                this.prize_image = url;
+                this.prize_image = this.url;
                 this.modifyDialogVisible = true;
             }
         }

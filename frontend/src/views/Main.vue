@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-26 01:01:33
+ * @LastEditTime: 2020-05-28 22:36:37
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 
@@ -22,7 +22,7 @@
             <Sidebar v-if="!is_manage" v-on:changeMainPage="changeMainPage1($event)"/>
             <SidebarManage v-if="is_manage" v-on:changeMainPage="changeMainPage1($event)"/>
         </el-aside>
-            <el-main>
+            <el-main v-if="is_manage">
                 <Information v-if="main_page === '11'"/>
                 <Points v-if="main_page === '12'"/>
                 <UserList v-if="main_page === '13'"/>
@@ -33,6 +33,8 @@
                 <MyRecourseList v-if="main_page === '52'"></MyRecourseList>
                 <WalfaraManage v-if="main_page === '71'"/>
                 <WalfareList v-if="main_page === '72'"/>
+                <VolunteerListManage v-if="main_page === '31'"/>
+                <FeedbackManage v-if="main_page === '81'"></FeedbackManage>
             </el-main>
         </el-container>
     </el-container>
@@ -57,6 +59,8 @@ import MyRecourseList from "@/components/MyRecourseList.vue";
 import UserList from "@/components/UserList.vue";
 import WalfaraManage from "@/components/WalfaraManage.vue";
 import WalfareList from "@/components/WalfareList.vue";
+import VolunteerListManage from "@/components/VolunteerListManage.vue"
+import FeedbackManage from "@/components/FeedbackManage.vue"
   export default {
         data(){
             return {
@@ -79,7 +83,9 @@ import WalfareList from "@/components/WalfareList.vue";
             WalfaraManage,
             WalfareList,
             ActivityManage,
-            MyRecourseList
+            MyRecourseList,
+            VolunteerListManage,
+            FeedbackManage,
         },
         methods: {
             changeMainPage1:function(index) {

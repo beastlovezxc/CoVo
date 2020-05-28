@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-26 00:57:23
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-28 17:04:50
+ * @LastEditTime: 2020-05-28 22:57:41
  * @Description: file content
- * @FilePath: \Covo\frontend\src\components\SidebarManage.vue
+ * @FilePath: /Covo/frontend/src/components/SidebarManage.vue
 --> 
 <!--
  * @Author: BeanCB
@@ -23,13 +23,17 @@
         @close="handleClose">
         <el-submenu index="1">
             <template slot="title">
-            <i class="el-icon-location"></i>
+            <i class="el-icon-info"></i>
             <span>个人信息</span>
             </template>
             <el-menu-item-group>
                 <el-menu-item index="1-3" v-on:click="changeMainPage('13')">用户列表</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
+        <el-menu-item index="3" v-on:click="changeMainPage('31')">
+            <i class="el-icon-sort"></i>
+            <span slot="title" >招募管理</span>
+        </el-menu-item>
         <!-- <el-menu-item index="2" v-on:click="changeMainPage('21')">
             <i class="el-icon-menu" ></i>
             <span slot="title" >我的活动</span>
@@ -40,15 +44,15 @@
         </el-menu-item> -->
         <el-submenu index="4">
             <template slot="title">
-            <i class="el-icon-setting"></i>
+            <i class="el-icon-news"></i>
             <span slot="title">志愿活动</span>
             </template>
-            <el-menu-item index="4-1" v-on:click="changeMainPage('41')">志愿活动列表</el-menu-item>
+            <!-- <el-menu-item index="4-1" v-on:click="changeMainPage('41')">志愿活动列表</el-menu-item> -->
             <el-menu-item index="4-2" v-on:click="changeMainPage('42')">志愿活动管理</el-menu-item>
         </el-submenu>
         <el-submenu index="5">
             <template slot="title">
-            <i class="el-icon-setting"></i>
+            <i class="el-icon-menu"></i>
             <span slot="title">求助信息</span>
             </template>
             <el-menu-item-group>
@@ -63,20 +67,21 @@
         </el-menu-item> -->
         <el-submenu index="7">
             <template slot="title">
-            <i class="el-icon-setting"></i>
+            <i class="el-icon-star-on"></i>
             <span slot="title">志愿福利</span>
             </template>
                 <el-menu-item index="7-1" v-on:click="changeMainPage('71')">福利管理</el-menu-item>
-                <el-menu-item index="7-2" v-on:click="changeMainPage('72')">福利列表</el-menu-item>
+                <!-- <el-menu-item index="7-2" v-on:click="changeMainPage('72')">福利列表</el-menu-item> -->
         </el-submenu>
-        <el-menu-item index="8">
-            <i class="el-icon-setting"></i>
-            <span slot="title">热点聚焦</span>
+        <el-menu-item index="8" v-on:click="changeMainPage('81')">
+            <i class="el-icon-rank"></i>
+            <span slot="title">活动反馈</span>
         </el-menu-item>
         <el-menu-item index="9">
-            <i class="el-icon-setting"></i>
+            <i class="el-icon-view"></i>
             <span slot="title">志愿风采</span>
         </el-menu-item>
+
         </el-menu>
     </div>
 </template>

@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-13 22:52:01
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-27 22:46:00
+ * @LastEditTime: 2020-05-28 20:41:21
  * @Description: file content
  * @FilePath: /Covo/frontend/src/App.vue
  -->
@@ -63,5 +63,10 @@
 h3 {
     height: 40px;
 }
-
+.el-table tbody tr:hover>td { 
+    color: rgb(255, 124, 2);
+    font-weight: bold;
+    font-size: 1.5em;
+    background-color:#0e77ee!important
+}
 </style>

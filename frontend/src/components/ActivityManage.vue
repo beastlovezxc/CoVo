@@ -2,13 +2,13 @@
  * @Author: BeanCB
  * @Date: 2020-05-26 00:02:27
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 02:10:09
+ * @LastEditTime: 2020-05-29 02:26:49
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityManage.vue
 --> 
 <template>
     <el-card>
-        <div id="recourse-header-title">求助活动列表<el-button type="primary" @click="pubDialogVisible = true">发布求助活动</el-button></div>
+        <div id="recourse-header-title">求助活动列表<el-button type="primary" @click="pubDialogVisible = true">发布志愿活动</el-button></div>
         <el-table
             :data="activity_list"
             style="width: 100%"
@@ -44,7 +44,7 @@
             <el-table-column label="操作" align="center" min-width="100" >
         　　　　<template slot-scope="scope">
         　　　　　　<el-button type="text" @click.stop="checkDetail(scope.$index, activity_list)">删除</el-button>
-                  <el-button type="text" @click.native.stop="checkDetail(scope.row.phone)">修改</el-button>
+                  <el-button type="text" @click.stop="checkModify(scope.row.phone)">修改</el-button>
         　　　　</template>
 　      　  </el-table-column>  
         </el-table>
@@ -140,7 +140,7 @@
                     participants: '450',
                     expired: '否',
                     activity_points: "150",
-                    date: '2020.04.02',
+                    date: '2020-07-02',
                     ops: '450',
                     }, {
                     activity_number: '2',
@@ -149,7 +149,7 @@
                     participants: '450',
                     expired: '否',
                     activity_points: "150",
-                    date: '500',
+                    date: '2020-05-26',
                     ops: '450',
                     }, {
                     activity_number: '3',
@@ -158,7 +158,7 @@
                     participants: '450',
                     expired: '否',
                     activity_points: "150",
-                    date: '500',
+                    date: '2020-06-24',
                     ops: '450',
                     }, {
                     activity_number: '4',
@@ -167,7 +167,7 @@
                     participants: '450',
                     expired: '是',
                     activity_points: "150",
-                    date: '500',
+                    date: '2020-07-14',
                     ops: '参加',
                     }]
             };
@@ -198,6 +198,9 @@
             checkDetail(index, rows) {
                 rows.splice(index, 1);
             },
+            checkModify() {
+                this.pubDialogVisible = true;
+            }
         }
     }
 </script>

@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-24 02:00:04
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 00:52:24
+ * @LastEditTime: 2020-05-29 02:28:49
  * @Description: file content
- * @FilePath: /Covo/frontend/src/components/RecourseList.vue
+ * @FilePath: /Covo/frontend/src/components/RecourseListManage.vue
 --> 
 <template>
     <el-card>
@@ -160,6 +160,33 @@
                     title: '求助标题1',
                     text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
                     time: '2020-06-05',
+                    status: '求助中',
+                },
+                {
+                    index: '2',
+                    title: '求助标题2',
+                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
+                    time: '2020-04-05',
+                    status: '求助中',
+                },
+                {
+                    index: '3',
+                    title: '求助标题3',
+                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
+                    time: '2020-07-05',
+                    status: '求助中',
+                },
+                {
+                    index: '4',
+                    title: '求助标题4',
+                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
+                    time: '2022-03-05',
+                    status: '求助中',
+                },{
+                    index: '5',
+                    title: '求助标题5',
+                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
+                    time: '2020-08-05',
                     status: '求助中',
                 }],
                 form: {

@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-25 23:02:50
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-27 23:17:30
+ * @LastEditTime: 2020-05-29 02:20:35
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/UserList.vue
 --> 
@@ -73,7 +73,7 @@
                     title:'',
                 },
                 user: {
-                    name:'陈斌',
+                    name:'李二',
                     sex:'男',
                     age: "25",
                     tel: '13942382772',
@@ -84,36 +84,36 @@
                 },
                 volunteer_list:[{
                     volunteer_number: "1",
-                    volunteer_name: "陈斌",
+                    volunteer_name: "李二",
                     sex: "男",
                     age: "25",
                     address: "沈阳建筑大学",
                     cultural_level: "硕士",
                     activity_points: "500",
                 },{
-                    volunteer_number: "1",
-                    volunteer_name: "陈斌",
+                    volunteer_number: "2",
+                    volunteer_name: "李四",
                     sex: "男",
-                    age: "25",
+                    age: "26",
                     address: "沈阳建筑大学",
-                    cultural_level: "硕士",
+                    cultural_level: "博士",
                     activity_points: "500",
                 },{
-                    volunteer_number: "1",
-                    volunteer_name: "陈斌",
+                    volunteer_number: "3",
+                    volunteer_name: "李五",
                     sex: "男",
-                    age: "25",
+                    age: "27",
                     address: "沈阳建筑大学",
-                    cultural_level: "硕士",
+                    cultural_level: "高中",
                     activity_points: "500",
                 },{
-                    volunteer_number: "1",
-                    volunteer_name: "陈斌",
+                    volunteer_number: "4",
+                    volunteer_name: "李六",
                     sex: "男",
-                    age: "25",
+                    age: "28",
                     address: "沈阳建筑大学",
-                    cultural_level: "硕士",
-                    activity_points: "500",
+                    cultural_level: "小穴",
+                    activity_points: "300",
                 }]
             };
         },

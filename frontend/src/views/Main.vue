@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 01:43:44
+ * @LastEditTime: 2020-05-29 02:17:36
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 
@@ -73,7 +73,7 @@ import MyFeedback from "@/components/MyFeedback.vue"
                     p1:"550",
                     p2:"450",
                 },
-                is_manage: false,
+                is_manage: true,
                 main_page: "11",
             }
         },

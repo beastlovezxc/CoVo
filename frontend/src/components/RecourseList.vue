@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-24 02:00:04
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-24 02:44:51
+ * @LastEditTime: 2020-05-28 17:21:35
  * @Description: file content
- * @FilePath: /Covo/frontend/src/components/RecourseList.vue
+ * @FilePath: \Covo\frontend\src\components\RecourseList.vue
 --> 
 <template>
     <el-card>
@@ -37,7 +37,7 @@
         :before-close="handleClose">
         <el-form>
             <el-form-item label="求助标题" label-position="left">
-                  <el-input v-model="form.name" placeholder="请输入求助标题"></el-input>
+                  <el-input v-model="form.title" placeholder="请输入求助标题"></el-input>
             </el-form-item>
             <el-form-item label="求助内容" label-position="left">
                   <el-input 
@@ -45,7 +45,7 @@
                   rows="10"
                   maxlength="500"
                   show-word-limit
-                  v-model="form.name" placeholder="请输入求助内容"></el-input>
+                  v-model="form.text" placeholder="请输入求助内容"></el-input>
             </el-form-item>
 
         </el-form>
@@ -64,9 +64,16 @@
         data() {
             return {
                 dialogVisible: false,
+                recourse_list: [{
+                    index: '1',
+                    title: '求助标题1',
+                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
+                    time: '2020-06-05',
+                    status: '求助中',
+                }],
                 form: {
-                    name:'',
-                    password:'',
+                    title:'',
+                    text:'',
                 }
             };
         },

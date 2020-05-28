@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-26 00:57:23
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-26 00:59:19
+ * @LastEditTime: 2020-05-28 17:04:50
  * @Description: file content
- * @FilePath: /Covo/frontend/src/components/SidebarManage.vue
+ * @FilePath: \Covo\frontend\src\components\SidebarManage.vue
 --> 
 <!--
  * @Author: BeanCB
@@ -30,10 +30,10 @@
                 <el-menu-item index="1-3" v-on:click="changeMainPage('13')">用户列表</el-menu-item>
             </el-menu-item-group>
         </el-submenu>
-        <el-menu-item index="2" v-on:click="changeMainPage('21')">
+        <!-- <el-menu-item index="2" v-on:click="changeMainPage('21')">
             <i class="el-icon-menu" ></i>
             <span slot="title" >我的活动</span>
-        </el-menu-item>
+        </el-menu-item> -->
         <!-- <el-menu-item index="3">
             <i class="el-icon-document"></i>
             <span slot="title">个人积分</span>
@@ -53,8 +53,8 @@
             </template>
             <el-menu-item-group>
                 <el-menu-item index="5-1" v-on:click="changeMainPage('51')">求助列表</el-menu-item>
-                <el-menu-item index="5-2" v-on:click="changeMainPage('52')">我的求助</el-menu-item>
-                <el-menu-item index="5-3" v-on:click="changeMainPage('53')">我的反馈</el-menu-item>
+                <!-- <el-menu-item index="5-2" v-on:click="changeMainPage('52')">我的求助</el-menu-item>
+                <el-menu-item index="5-3" v-on:click="changeMainPage('53')">我的反馈</el-menu-item> -->
             </el-menu-item-group>
         </el-submenu>
         <!-- <el-menu-item index="6">

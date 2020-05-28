@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 23:46:55
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-26 00:21:38
+ * @LastEditTime: 2020-05-29 00:34:50
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Information.vue
 --> 
@@ -12,35 +12,35 @@
             <div class="content-title">基本资料</div>
             <div class="info">请完善一下信息，方便报名资料填写</div>
             <div class="content-in">基本信息</div>
-            <div class="content-in-in"><span>用户名：</span><span>account</span></div>
+            <div class="content-in-in"><span>用户名：</span><span>{{form.account}}</span></div>
             <el-form-item label="姓名:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
+                  <el-input v-model="form.name" placeholder="请输入姓名" disabled="true"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="性别:" label-position="left">
-                <el-select v-model="form.sex" placeholder="请选择性别">
+                <el-select v-model="form.sex" placeholder="请选择性别" disabled="true">
                   <el-option label="男" value="1"></el-option>
                   <el-option label="女" value="0"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.age" placeholder="请输入年龄"></el-input>
+                  <el-input v-model="form.age" placeholder="请输入年龄" disabled="true"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="电话:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.tel" placeholder="请输入电话"></el-input>
+                  <el-input v-model="form.tel" placeholder="请输入电话" disabled="true"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="地址:" label-position="left">
                 <el-col :span="10">
-                  <el-input v-model="form.address" placeholder="请输入地址"></el-input>
+                  <el-input v-model="form.address" placeholder="请输入地址" disabled="true"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="文化水平:" label-position="left">
-                <el-select v-model="form.cul_level" placeholder="请选择文化水平">
+                <el-select v-model="form.cul_level" placeholder="请选择文化水平" disabled="true">
                   <el-option label="小学" value="小学"></el-option>
                   <el-option label="初中" value="初中"></el-option>
                   <el-option label="高中" value="高中"></el-option>
@@ -51,6 +51,17 @@
                 </el-select>
             </el-form-item>
         </el-form>
+        <div class="btn">
+          <div class="btn2">
+            <el-button 
+            type="primary" 
+            @click="pubConfig">修改</el-button>
+          <el-button 
+            type="primary" 
+            @click="pubConfig">确 定</el-button>
+            </div>
+        </div>
+        
     </el-card>
 </template>
 <script>
@@ -59,12 +70,13 @@ export default {
     return {
       root: 'root',
       form: {
-          name: '',
-          sex: '',
-          age: '',
-          tel:'',
-          address:'',
-          cul_level:'',
+          account: 'user1',
+          name: '李二',
+          sex: '男',
+          age: '24',
+          tel:'13942382475',
+          address:'沈阳建筑大学',
+          cul_level:'硕士',
         },
     };
   },
@@ -102,6 +114,7 @@ export default {
   padding-bottom: 10px;
   padding: 6px 12px;
   line-height: 18px;
+  margin-top:0px;
   margin-bottom: 6px;
   border-radius: 0px;
   color: #555;
@@ -116,7 +129,7 @@ export default {
 .content-title {
   border-bottom: 1px solid #DDD;
   padding: 16px 0px;
-  min-height: 70px;
+  /* min-height: 70px; */
   margin: 0;
   box-sizing: border-box;
   font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti, "Microsoft YaHei";
@@ -139,5 +152,16 @@ export default {
     font-size: 14px;
     color: #666;
     text-indent: 2.5em;
+}
+.btn {
+  width: 200px;
+  /* align-content: center; */
+  position:relative;
+  margin: 0 auto;
+}
+.btn2 {
+  margin: 0 auto;
+  /* position: absolute; */
+  left: 400px;
 }
 </style>

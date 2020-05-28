@@ -1,8 +1,8 @@
 <!--
  * @Author: BeanCB
- * @Date: 2020-05-29 01:13:20
+ * @Date: 2020-05-24 02:00:04
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 01:17:47
+ * @LastEditTime: 2020-05-29 00:52:24
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/RecourseList.vue
 --> 
@@ -72,13 +72,13 @@
                   rows="10"
                   maxlength="500"
                   show-word-limit
-                  v-model="recour.text" disabled="true"></el-input>
+                  v-model="recour.text" placeholder:disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="求助时间" label-position="left">
                 <el-input v-model="recour.time" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="求助状态" label-position="left">
-                <el-select v-model="recour.status" disabled="true">
+                <el-select v-model="recour.status" >
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -90,12 +90,48 @@
 
         </el-form>
         <span slot="footer" class="dialog-footer">
+            <el-button @click="recourseDialogVisible = false">取 消</el-button>
             <el-button 
             type="primary" 
             @click="closeRecourse">确 定</el-button>
+            <el-button 
+            type="success" 
+            @click="publishAc">发 布</el-button>
         </span>
         </el-dialog>
 
+        <el-dialog
+        title="发布志愿活动"
+        :visible.sync="acDialogVisible"
+        width="30%"
+        :before-close="handleClose">
+        <el-form>
+            <el-form-item label="活动名称" label-position="left">
+                  <el-input v-model="ac.title" ></el-input>
+            </el-form-item>
+            <el-form-item label="活动简介" label-position="left">
+                  <el-input 
+                  type="textarea" 
+                  rows="10"
+                  maxlength="500"
+                  show-word-limit
+                  v-model="ac.text"></el-input>
+            </el-form-item>
+            <el-form-item label="求助时间" label-position="left">
+                <el-input v-model="ac.time" ></el-input>
+            </el-form-item>
+            <el-form-item label="活动所需人数" label-position="left">
+                <el-input v-model="ac.people" placeholder="请填写活动所需人数"></el-input>
+            </el-form-item>
+
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="acCancel">取 消</el-button>
+            <el-button 
+            type="primary" 
+            @click="acConfig">确 定</el-button>
+        </span>
+        </el-dialog>
     </el-card>
     
 </template>
@@ -105,6 +141,7 @@
             return {
                 dialogVisible: false,
                 recourseDialogVisible: false,
+                acDialogVisible: false,
                 ac: {
                     title: '求助标题1',
                     text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
@@ -124,18 +161,6 @@
                     text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
                     time: '2020-06-05',
                     status: '求助中',
-                },{
-                    index: '2',
-                    title: '求助标题2',
-                    text: '求助内容2求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-07-25',
-                    status: '求助中',
-                },{
-                    index: '3',
-                    title: '求助标题3',
-                    text: '求助内容3求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-04-30',
-                    status: '以拒绝',
                 }],
                 form: {
                     title:'',
@@ -178,6 +203,12 @@
                     this.acDialogVisible = true;
 
                 },
+                acConfig(){
+                    this.acDialogVisible = false;
+                },
+                acCancel() {
+                    this.acDialogVisible = false;
+                }
             }
     }
 </script>

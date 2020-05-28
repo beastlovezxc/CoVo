@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-26 00:57:23
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-28 22:57:41
+ * @LastEditTime: 2020-05-29 01:16:40
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/SidebarManage.vue
 --> 
@@ -56,7 +56,7 @@
             <span slot="title">求助信息</span>
             </template>
             <el-menu-item-group>
-                <el-menu-item index="5-1" v-on:click="changeMainPage('51')">求助列表</el-menu-item>
+                <el-menu-item index="5-1" v-on:click="changeMainPage('54')">求助列表</el-menu-item>
                 <!-- <el-menu-item index="5-2" v-on:click="changeMainPage('52')">我的求助</el-menu-item>
                 <el-menu-item index="5-3" v-on:click="changeMainPage('53')">我的反馈</el-menu-item> -->
             </el-menu-item-group>

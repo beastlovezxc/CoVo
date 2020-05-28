@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-26 00:02:27
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-28 21:38:14
+ * @LastEditTime: 2020-05-29 02:10:09
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityManage.vue
 --> 
@@ -66,10 +66,10 @@
                   show-word-limit
                   v-model="ac.text"></el-input>
             </el-form-item>
-            <el-form-item lable="求助时间" label-position="left">
+            <el-form-item label="求助时间" label-position="left">
                 <el-input v-model="ac.time" ></el-input>
             </el-form-item>
-            <el-form-item lable="活动所需人数" label-position="left">
+            <el-form-item label="活动所需人数" label-position="left">
                 <el-input v-model="ac.people" placeholder="请填写活动所需人数"></el-input>
             </el-form-item>
         </el-form>
@@ -99,10 +99,10 @@
                   placeholder="请输入活动介绍"
                   v-model="pub.text"></el-input>
             </el-form-item>
-            <el-form-item lable="求助时间" label-position="left">
+            <el-form-item label="求助时间" label-position="left">
                 <el-input v-model="pub.time" placeholder="请输入活动时间"></el-input>
             </el-form-item>
-            <el-form-item lable="活动所需人数" label-position="left">
+            <el-form-item label="活动所需人数" label-position="left">
                 <el-input v-model="pub.people" placeholder="请填写活动所需人数"></el-input>
             </el-form-item>
         </el-form>

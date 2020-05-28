@@ -2,7 +2,7 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-28 22:36:37
+ * @LastEditTime: 2020-05-29 01:43:44
  * @Description: file content
  * @FilePath: /Covo/frontend/src/views/Main.vue
 --> 
@@ -14,6 +14,7 @@
             <div id="nav-header-el">
                 <div v-if="is_manage"><span>社区志愿管理系统</span> | 控制台 | 管理员</div>
                 <div v-if="!is_manage"><span>社区志愿管理系统</span> | 控制台 | 普通用户</div>
+                <div v-if="!is_manage"><span>活动积分：{{points.p1}} 剩余积分:{{points.p2}}</span></div>
                 <div><Avatar /></div>
             </div>
             </el-header>
@@ -22,7 +23,7 @@
             <Sidebar v-if="!is_manage" v-on:changeMainPage="changeMainPage1($event)"/>
             <SidebarManage v-if="is_manage" v-on:changeMainPage="changeMainPage1($event)"/>
         </el-aside>
-            <el-main v-if="is_manage">
+            <el-main>
                 <Information v-if="main_page === '11'"/>
                 <Points v-if="main_page === '12'"/>
                 <UserList v-if="main_page === '13'"/>
@@ -35,6 +36,8 @@
                 <WalfareList v-if="main_page === '72'"/>
                 <VolunteerListManage v-if="main_page === '31'"/>
                 <FeedbackManage v-if="main_page === '81'"></FeedbackManage>
+                <RecourseListManage v-if="main_page === '54'"></RecourseListManage>
+                <MyFeedback v-if="main_page === '53'"></MyFeedback>
             </el-main>
         </el-container>
     </el-container>
@@ -61,10 +64,16 @@ import WalfaraManage from "@/components/WalfaraManage.vue";
 import WalfareList from "@/components/WalfareList.vue";
 import VolunteerListManage from "@/components/VolunteerListManage.vue"
 import FeedbackManage from "@/components/FeedbackManage.vue"
+import RecourseListManage from "@/components/RecourseListManage.vue"
+import MyFeedback from "@/components/MyFeedback.vue"
   export default {
         data(){
             return {
-                is_manage: true,
+                points: {
+                    p1:"550",
+                    p2:"450",
+                },
+                is_manage: false,
                 main_page: "11",
             }
         },
@@ -86,6 +95,8 @@ import FeedbackManage from "@/components/FeedbackManage.vue"
             MyRecourseList,
             VolunteerListManage,
             FeedbackManage,
+            RecourseListManage,
+            MyFeedback
         },
         methods: {
             changeMainPage1:function(index) {

@@ -2,13 +2,13 @@
  * @Author: BeanCB
  * @Date: 2020-05-26 00:02:27
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 02:26:49
+ * @LastEditTime: 2020-05-30 23:20:11
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/ActivityManage.vue
 --> 
 <template>
     <el-card>
-        <div id="recourse-header-title">求助活动列表<el-button type="primary" @click="pubDialogVisible = true">发布志愿活动</el-button></div>
+        <div id="recourse-header-title">志愿活动管理<el-button type="primary" @click="pubDialogVisible = true">发布志愿活动</el-button></div>
         <el-table
             :data="activity_list"
             style="width: 100%"

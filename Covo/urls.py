@@ -1,11 +1,11 @@
-'''
-@Author: your name
-@Date: 2020-04-25 16:22:23
-@LastEditTime: 2020-05-24 20:42:07
-@LastEditors: BeanCB
-@Description: In User Settings Edit
-@FilePath: /Covo/Covo/urls.py
-'''
+# """
+# @Author: your name
+# @Date: 2020-04-25 16:22:23
+# @LastEditTime: 2020-06-02 23:29:11
+# @LastEditors: BeanCB
+# @Description: In User Settings Edit
+# @FilePath: \Covo\Covo\urls.py
+# """
 """Covo URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -29,6 +29,7 @@ from . import views
 app_name = 'Covo'
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/user/', include('Users.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
     # path('api/users/', include('Users.urls')),
     path('index/', views.showIndex, name='index'),

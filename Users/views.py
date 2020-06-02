@@ -1,14 +1,17 @@
-'''
-@Author: your name
-@Date: 2020-04-25 16:40:36
-@LastEditTime: 2020-05-24 21:59:09
-@LastEditors: BeanCB
-@Description: In User Settings Edit
-@FilePath: /Covo/Users/views.py
-'''
+
+# @Author: your name
+# @Date: 2020-04-25 16:40:36
+# @LastEditTime: 2020-06-02 23:21:52
+# @LastEditors: BeanCB
+# @Description: In User Settings Edit
+# @FilePath: \Covo\Users\views.py
+
 import time
 from django.http import JsonResponse
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
 from django.shortcuts import render
 from . import models
 from Volunteer.models import Volunteer
@@ -16,6 +19,24 @@ from rest_framework import viewsets
 from Users.serializer import UsersSerializer
 # Create your views here.
 
+@api_view(['GET','POST'])
+def User_List(request):
+    if request.method == 'GET':
+        users = models.Users.objects.all()
+        serializer = UsersSerializer(users, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = UsersSerializer(data=request.data)
+        print(request.data)
+        # print(serializer.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def User_detail(request, pk):
+    return 0
 class AuthView(APIView):
 
     def post(self,request,*args,**kwargs):

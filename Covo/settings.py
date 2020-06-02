@@ -95,7 +95,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Covo_db',
         'USER': 'root',
-        'PASSWORD': "12345678",
+        'PASSWORD': "123456",
         'HOST': 'localhost',
         'PORT': '3306'
     }

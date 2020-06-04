@@ -11,6 +11,8 @@ from . import views
 from django.conf.urls import url
 app_name='Activity'
 urlpatterns = [
+    path('', views.Activity_List),
+    path('<int:activity_number>', views.Activity_Detail),
     path('to_recruit/', views.to_recruit, name='to_recruit'),
     path('recruit/', views.recruit, name='recruit'),
     path('activitylist/', views.activitylist, name='activitylist'),

@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'Style',
     'Walfare',
     'Exchange',
-    'Opinion'
+    'Opinion',
+    'Feedback',
 ]
 
 MIDDLEWARE = [

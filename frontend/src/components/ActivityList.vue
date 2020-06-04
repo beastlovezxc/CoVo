@@ -43,8 +43,8 @@
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100" prop="status">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button v-if="scope.row.status" type="text" @click="checkDetail(scope.row.phone)">已参加</el-button>
-                  <el-button v-if="!scope.row.status" type="text" @click="checkDetail(scope.row.phone)">参 加</el-button>
+        　　　　　　<el-button v-if="scope.row.status" type="text" @click.stop="acConfig(scope.row)">已参加</el-button>
+                  <el-button v-if="!scope.row.status" type="text" @click.stop="acConfig(scope.row)">参 加</el-button>
         　　　　</template>
 　      　  </el-table-column>  
         </el-table>
@@ -56,7 +56,7 @@
         :before-close="handleClose">
         <el-form>
             <el-form-item label="活动名称" label-position="left">
-                  <el-input v-model="ac.title" disabled="true" ></el-input>
+                  <el-input v-model="ac.activity_name" disabled="true" ></el-input>
             </el-form-item>
             <el-form-item label="活动简介" label-position="left">
                   <el-input 
@@ -64,20 +64,20 @@
                   rows="10"
                   maxlength="500"
                   show-word-limit
-                  v-model="ac.text" disabled="true"></el-input>
+                  v-model="ac.introduction" disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="求助时间" label-position="left">
-                <el-input v-model="ac.time" disabled="true"></el-input>
+                <el-input v-model="ac.date" disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="活动所需人数" label-position="left">
-                <el-input v-model="ac.people" disabled="true"></el-input>
+                <el-input v-model="ac.required_num" disabled="true"></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="acCancel">取 消</el-button>
             <el-button 
             type="success" 
-            @click="acConfig">参 加</el-button>
+            @click="acConfig2">参 加</el-button>
         </span>
         </el-dialog>
     </el-card>
@@ -87,59 +87,34 @@
         data() {
             return {
                 acDialogVisible: false,
+                root:'',
+                url: 'http://localhost:8000/api/v1/activity/',
+                formurl:'http://localhost:8000/api/v1/applicationform/',
                 ac: {
-                    title:'志愿活动1',
-                    text: '这是志愿活动111这是志愿活动111这是志愿活动111这是志愿活动111这是志愿活动111这是志愿活动111这是志愿活动111',
-                    time: '2020-06-25',
-                    people: '500',
+                    activity_number:'',
+                    activity_name:'',
+                    introduction: '',
+                    expired:'',
+                    date: '',
+                    required_num: '',
+                    participants:'',
+                    address:'',
+                    activity_points:'',
+                    contact:'',
                 },
-                activity_list: [{
-                    activity_number: '1',
-                    activity_name: '志愿活动1',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020.06.20',
-                    ops: '450',
-                    status: true,
-                    }, {
-                    activity_number: '2',
-                    activity_name: '志愿活动2',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020.06.21',
-                    ops: '450',
+                form: {
+                    account:'',
+                    activity_number:'',
                     status: false,
-                    }, {
-                    activity_number: '3',
-                    activity_name: '志愿活动3',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020.06.23',
-                    ops: '450',
-                    status: false,
-                    }, {
-                    activity_number: '4',
-                    activity_name: '志愿活动4',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '是',
-                    activity_points: "150",
-                    date: '2020.06.24',
-                    ops: '参加',
-                    status: false,
-                    }]
+                },
+                activity_list: []
             };
         },
         mounted() {
+            this.root = sessionStorage.getItem("account");
             let currentTime = new Date();
             var al;
-            let url = 'http://localhost:8000/activity/activity';
+            let url = 'http://localhost:8000/api/v1/activity/';
             this.axios.get(url).then((res)=> {
                 this.activity_list = res.data;
                 for(var i = 0; i < this.activity_list.length; ++i){
@@ -165,7 +140,53 @@
                 return '';
             },
             isClicked(row){
+                var _this = this;
+                this.axios.get(this.url+row.activity_number).then((res)=>{
+                    // alert(res.data.activity_name);
+                    _this.ac.activity_number = res.data.activity_number;
+                    _this.ac.activity_name = res.data.activity_name;
+                    _this.ac.introduction = res.data.introduction;
+                    _this.ac.required_num = res.data.required_num;
+                    _this.ac.date = res.data.date;
+                })
                 this.acDialogVisible = true;
+            },
+            acCancel() {
+                this.acDialogVisible = false;
+            },
+            acConfig(rows) {
+                var _this = this;
+                this.axios.get(this.formurl + this.root+'/activity/' + rows.activity_number).
+                catch(function(error){
+                    _this.form.account = _this.root;
+                    _this.form.activity_number = rows.activity_number;
+                    _this.axios.post(_this.formurl,_this.form).then((mRes)=>{
+                        if(mRes.status === 201) {
+                            alert("报名成功！");
+                        }
+                    })
+                }).then((res)=>{
+                    if(res.status === 200) {
+                        alert("您已经报名此活动！");
+                    }
+                })
+            },
+            acConfig2(){
+                var _this = this;
+                this.axios.get(this.formurl + this.root+'/activity/' + _this.ac.activity_number).
+                catch(function(error){
+                    _this.form.account = _this.root;
+                    _this.form.activity_number = _this.ac.activity_number;
+                    _this.axios.post(_this.formurl,_this.form).then((mRes)=>{
+                        if(mRes.status === 201) {
+                            alert("报名成功！");
+                        }
+                    })
+                }).then((res)=>{
+                    if(res.status === 200) {
+                        alert("您已经报名此活动！");
+                    }
+                })
             }
         }
     }

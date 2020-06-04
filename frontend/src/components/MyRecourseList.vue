@@ -28,11 +28,21 @@
             <el-table-column
             prop="status"
             label="活动状态">
+            <template slot-scope="scope">
+                 <el-select v-model="scope.row.status" disabled="true">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100" prop="status">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button  type="text" @click.stop="checkDetail(scope.row.phone)">撤 销</el-button>
-                  <el-button  type="text" @click.stop="checkModify(scope.row.phone)">修 改</el-button>
+        　　　　　　<el-button  type="text" @click.stop="checkDetail(scope.$index,scope.row)">撤 销</el-button>
+                  <el-button  type="text" @click.stop="checkModify(scope.$index,scope.row)">修 改</el-button>
         　　　　</template>
 　      　  </el-table-column>  
         </el-table>
@@ -55,7 +65,19 @@
                   placeholder="请输入求助内容"
                   disabled="true"></el-input>
             </el-form-item>
-
+            <el-form-item label="求助时间" label-position="left">
+                <el-input v-model="re.time" :disabled="true"></el-input>
+            </el-form-item>
+            <el-form-item label="求助状态" label-position="left">
+                <el-select v-model="re.status" disabled="falsefsdf">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button 
@@ -81,13 +103,25 @@
                   show-word-limit
                   v-model="re.text" placeholder="请输入求助内容"></el-input>
             </el-form-item>
-
+            <el-form-item label="求助时间" label-position="left">
+                <el-input v-model="re.time" :disabled="false"></el-input>
+            </el-form-item>
+            <el-form-item label="求助状态" label-position="left">
+                <el-select v-model="re.status" disabled="false">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button 
             type="primary" 
-            @click="dialogVisible = false">确 定</el-button>
+            @click="pubConfirm">确 定</el-button>
         </span>
         </el-dialog>
     </el-card>
@@ -99,32 +133,40 @@
             return {
                 dialogVisible: false,
                 pushDialogVisible: false,
+                url:'http://localhost:8000/api/v1/recourse/',
+                account:'',
                 form: {
                     name:'',
                     password:'',
                 },
                 re: {
-                    title: '求助活动1',
-                    text: '这是求助活动1这是求助活动1这是求助活动1这是求助活动1这是求助活动1这是求助活动1',
+                    index:'',
+                    title: '',
+                    text: '',
+                    time:'',
+                    status:'',
+                    users:'',
                 },
-                recourse_list: [{
-                    index:'1',
-                    title:'求助活动1',
-                    time:'2020-06-20',
-                    status:'求助中',
+                recourse_list: [],
+                options: [{
+                    value: 0,
+                    label: '求助中',
                 },{
-                    index:'2',
-                    title:'求助活动2',
-                    time:'2020-06-25',
-                    status:'求助中',
+                    value: 1,
+                    label: '已完成',
                 },
                 {
-                    index:'3',
-                    title:'求助活动3',
-                    time:'2020-06-27',
-                    status:'求助中',
+                    value: 2,
+                    label: '已拒绝',
                 }],
             };
+        },
+        mounted() {
+            var _this = this;
+            this.account = sessionStorage.getItem("account");
+            this.axios.get(this.url+this.account).then((res)=>{
+                _this.recourse_list = res.data;
+            })
         },
         methods: {
                 isChoose({row, rowIndex}) {
@@ -144,10 +186,40 @@
                     .catch(_ => {});
                 },
                 isClicked(row) {
+                    var _this = this;
+                    this.axios.get(this.url+ row.index).then((res)=>{
+                        _this.re.title = res.data.title;
+                        _this.re.text = res.data.text;
+                        _this.re.time = res.data.time;
+                        _this.re.status = res.data.status;
+                    })
+                    this.recourseDialogVisible = true;
                     this.pushDialogVisible = true;
                 },
                 checkModify(index, rows) {
+                    var _this = this;
+                    this.axios.get(this.url+ rows.index).then((res)=>{
+                        _this.re.index = res.data.index;
+                        _this.re.title = res.data.title;
+                        _this.re.text = res.data.text;
+                        _this.re.time = res.data.time;
+                        _this.re.status = res.data.status;
+                    })
                     this.dialogVisible = true;
+                },
+                checkDetail(index, rows) {
+                    var _this = this;
+                    this.axios.delete(this.url+rows.index).then((res)=>{
+                        alert("撤销成功！");
+                    });
+                    this.recourse_list.splice(index, 1);
+                },
+                pubConfirm(){
+                    this.re.users = this.account;
+                    this.axios.put(this.url+this.re.index,this.re).then((res)=>{
+                        alert("更新成功！");
+                    })
+                    this.dialogVisible = false;
                 }
             }
     }

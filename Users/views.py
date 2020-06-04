@@ -20,7 +20,7 @@ from Users.serializer import UsersSerializer
 # Create your views here.
 
 @api_view(['GET','POST'])
-def User_List(request):
+def User_List(request, format=None):
     if request.method == 'GET':
         users = models.Users.objects.all()
         serializer = UsersSerializer(users, many=True)
@@ -35,8 +35,26 @@ def User_List(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def User_detail(request, pk):
-    return 0
+def User_Detail(request, account):
+    try:
+        user = models.Users.objects.get(account=account)
+    except models.Users.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = UsersSerializer(user)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = UsersSerializer(user, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 class AuthView(APIView):
 
     def post(self,request,*args,**kwargs):
@@ -137,10 +155,10 @@ def regist(request):
     if request.POST:
         account = request.POST['account']
         password = request.POST['password']
-        user = Users.objects.filter(account = account)
+        user = models.Users.objects.filter(account = account)
         if user:
             return render(request, './Users/regist.html', {'error' : '用户名已存在!'})
-        user = Users.objects.create(account = account, password = password, manager = 0)
+        user = models.Users.objects.create(account = account, password = password, manager = 0)
         user.save()
         request.session['is_login'] = True
         request.session['account'] = account

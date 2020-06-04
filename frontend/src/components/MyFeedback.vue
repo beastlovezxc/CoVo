@@ -13,16 +13,16 @@
             style="width: 100%"
             :row-class-name="isJoined"
             @row-click="isClicked"> <!--是否加入-->
-            <el-table-column
+            <!-- <el-table-column
             prop="id"
             label="求助编号">
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
-            prop="ac_id"
+            prop="activity_name.activity_number"
             label="活动编号">
             </el-table-column>
             <el-table-column
-            prop="ac_name"
+            prop="activity_name.activity_name"
             label="活动名称">
             </el-table-column>
             <el-table-column
@@ -30,13 +30,13 @@
             label="反馈时间">
             </el-table-column>
             <el-table-column
-            prop="text"
+            prop="feedback"
             label="反馈内容"
             :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button type="text" @click="checkDetail(scope.row.phone)">删 除</el-button>
+        　　　　　　<el-button type="text" @click.stop="checkDetail(scope.$index,scope.row)">删 除</el-button>
                   <el-button type="text" @click.stop="checkModify(scope.row)">修 改</el-button>
         　　　　</template>
 　      　  </el-table-column>  
@@ -48,14 +48,14 @@
         width="30%"
         :before-close="handleClose">
         <el-form>
-            <el-form-item label="求助编号" label-position="left">
+            <!-- <el-form-item label="求助编号" label-position="left">
                   <el-input v-model="feedback.id" disabled="true"></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="活动编号" label-position="left">
-                  <el-input v-model="feedback.ac_id" disabled="true"></el-input>
+                  <el-input v-model="feedback.activity_number" disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="活动名称" label-position="left">
-                  <el-input v-model="feedback.ac_name" disabled="true"></el-input>
+                  <el-input v-model="feedback.activity_name" disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="反馈时间" label-position="left">
                   <el-input v-model="feedback.time" disabled="true"></el-input>
@@ -66,7 +66,7 @@
                   rows="5"
                   maxlength="500"
                   show-word-limit
-                  v-model="feedback.text"
+                  v-model="feedback.feedback"
                   disabled="true"></el-input>
             </el-form-item>
         </el-form>
@@ -83,17 +83,23 @@
         width="30%"
         :before-close="handleClose">
         <el-form >
-            <el-form-item label="求助编号" label-position="left">
+            <!-- <el-form-item label="求助编号" label-position="left">
                   <el-input v-model="feedback.id" ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="活动编号" label-position="left">
-                  <el-input v-model="feedback.ac_id" ></el-input>
+                  <el-input v-model="feedback.activity_number" ></el-input>
             </el-form-item>
             <el-form-item label="活动名称" label-position="left">
-                  <el-input v-model="feedback.ac_name" ></el-input>
+                  <el-input v-model="feedback.activity_name" ></el-input>
             </el-form-item>
-            <el-form-item label="反馈时间" label-position="left">
-                  <el-input v-model="feedback.time" ></el-input>
+            <!-- <el-form-item label="反馈时间" label-position="left">
+                <el-date-picker
+                v-model="feedback.time"
+                type="datetime"
+                placeholder="选择日期时间"
+                align="right"
+                :picker-options="pickerOptions">
+            </el-date-picker> -->
             </el-form-item>
             <el-form-item label="反馈内容" label-position="left">
                   <el-input 
@@ -101,7 +107,7 @@
                   rows="5"
                   maxlength="500"
                   show-word-limit
-                  v-model="feedback.text"></el-input>
+                  v-model="feedback.feedback"></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -119,35 +125,33 @@
             return {
                 fbDialogVisible: false,
                 pushDialogVisible: false,
+                root:'',
+                feedbackurl:'http://localhost:8000/api/v1/feedback/',
                 feedback: {
-                    id:'',
-                    ac_id:'',
-                    name:'',
+                    feedback_id:'',
+                    activity_number:'',
+                    activity_name:'',
                     time:'',
-                    text:'',
+                    feedback:'',
+                    account:'',
                 },
-                feedback_list:[{
-                    id:'1',
-                    ac_id:'1',
-                    ac_name:'志愿活动1',
-                    time: '2020-06-24',
-                    text:'志愿活动1志愿活动1志愿活动1志愿活动1志愿活动1志愿活动1志愿活动1志愿活动1志愿活动1志愿活动1',
-                },{
-                    id:'2',
-                    ac_id:'2',
-                    ac_name:'志愿活动2',
-                    time:'2020-06-25',
-                    text:'这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好',
-                }],
+                feedback_list:[],
             };
+        },
+        mounted(){
+            this.root = sessionStorage.getItem("account");
+            this.axios.get(this.feedbackurl+this.root).then((res)=>{
+                this.feedback_list = res.data;
+            })
         },
         methods: {
             isClicked(row) {
-                this.feedback.id = row.id;
-                this.feedback.ac_id = row.ac_id;
-                this.feedback.ac_name = row.ac_name;
+                this.feedback.feedback_id = row.feedback_id;
+                this.feedback.activity_number = row.activity_name.activity_number;
+                this.feedback.activity_name = row.activity_name.activity_name;
                 this.feedback.time = row.time;
-                this.feedback.text = row.text;
+                this.feedback.feedback = row.feedback;
+                this.feedback.account = row.users_name.user;
                 this.fbDialogVisible = true;
             },
             fbCancel() {
@@ -156,18 +160,31 @@
             fbConfig() {
                 this.fbDialogVisible = false;
             },
-            checkModify(rows) {
-                this.feedback.id = rows.id;
-                this.feedback.ac_id = rows.ac_id;
-                this.feedback.ac_name = rows.ac_name;
-                this.feedback.time = rows.time;
-                this.feedback.text = rows.text;
+            checkDetail(index,row){
+                 var _this = this;
+                this.axios.delete(this.feedbackurl+this.root + '/' + row.feedback_id).then((res)=>{
+                    alert("删除成功！");
+                });
+                this.feedback_list.splice(index, 1);
+            },
+            checkModify(row) {
+                this.feedback.feedback_id = row.feedback_id;
+                this.feedback.activity_number = row.activity_name.activity_number;
+                this.feedback.activity_name = row.activity_name.activity_name;
+                this.feedback.time = row.time;
+                this.feedback.feedback = row.feedback;
+                this.feedback.account = this.root;
+                this.feedback.feedback_id = row.feedback_id;
                 this.pushDialogVisible = true;
             },
             pushCancel() {
                 this.pushDialogVisible = false;
             },
             pushConfig() {
+                var _this = this;
+                this.axios.put(this.feedbackurl+this.root + '/'+this.feedback.feedback_id, this.feedback).then((res)=>{
+                    alert("修改成功!");
+                });
                 this.pushDialogVisible = false;
             },
         }

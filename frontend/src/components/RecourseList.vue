@@ -29,6 +29,16 @@
             <el-table-column
             prop="status"
             label="活动状态">
+            <template slot-scope="scope">
+                 <el-select v-model="scope.row.status" disabled="true">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+                </el-select>
+            </template>
             </el-table-column>
         </el-table>
         <el-dialog
@@ -48,15 +58,22 @@
                   show-word-limit
                   v-model="form.text" placeholder="请输入求助内容"></el-input>
             </el-form-item>
-
+            <el-date-picker
+                v-model="form.time"
+                type="datetime"
+                placeholder="选择日期时间"
+                align="right"
+                :picker-options="pickerOptions">
+            </el-date-picker>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
             <el-button 
             type="primary" 
-            @click="dialogVisible = false">发 布</el-button>
+            @click="pubRecourse">发 布</el-button>
         </span>
         </el-dialog>
+
         <el-dialog
         title="求助活动详情"
         :visible.sync="recourseDialogVisible"
@@ -105,6 +122,7 @@
             return {
                 dialogVisible: false,
                 recourseDialogVisible: false,
+                url:'http://localhost:8000/api/v1/recourse/',
                 ac: {
                     title: '求助标题1',
                     text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
@@ -112,34 +130,23 @@
                     people: '50',
                 },
                 options: [{
-                    value: '求助中',
+                    value: 0,
                     label: '求助中',
                 },{
-                    value: '已拒绝',
+                    value: 1,
+                    label: '已完成',
+                },
+                {
+                    value: 2,
                     label: '已拒绝',
                 }],
-                recourse_list: [{
-                    index: '1',
-                    title: '求助标题1',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-06-05',
-                    status: '求助中',
-                },{
-                    index: '2',
-                    title: '求助标题2',
-                    text: '求助内容2求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-07-25',
-                    status: '求助中',
-                },{
-                    index: '3',
-                    title: '求助标题3',
-                    text: '求助内容3求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-04-30',
-                    status: '以拒绝',
-                }],
+                recourse_list: [],
                 form: {
                     title:'',
                     text:'',
+                    time:'',
+                    users:'',
+                    status:'0',
                 },
                 recour: {
                     index: '1',
@@ -149,6 +156,12 @@
                     status: '求助中',
                 }
             };
+        },
+        mounted(){
+            this.form.users = sessionStorage.getItem("account");
+            this.axios.get('http://localhost:8000/api/v1/recourse/').then((res)=>{
+                this.recourse_list = res.data;
+            })
         },
         methods: {
                 isChoose({row, rowIndex}) {
@@ -168,6 +181,13 @@
                     .catch(_ => {});
                 },
                 isClicked(row) {
+                    var _this = this;
+                    this.axios.get(this.url+ row.index).then((res)=>{
+                        _this.recour.title = res.data.title;
+                        _this.recour.text = res.data.text;
+                        _this.recour.time = res.data.time;
+                        _this.recour.status = res.data.status;
+                    })
                     this.recourseDialogVisible = true;
                 },
                 closeRecourse(){
@@ -177,6 +197,15 @@
                     this.recourseDialogVisible = false;
                     this.acDialogVisible = true;
 
+                },
+                pubRecourse() {
+                    // alert(this.form.title);
+                    // alert(this.form.text);
+                    // alert(this.form.time);
+                    this.axios.post(this.url,this.form).then((res)=>{
+                        alert("success");
+                    })
+                    this.dialogVisible = false;
                 },
             }
     }

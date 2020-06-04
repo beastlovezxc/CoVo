@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-21 23:42:34
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-22 00:13:11
+ * @LastEditTime: 2020-06-04 23:42:25
  * @Description: file content
- * @FilePath: /Covo/frontend/src/components/Points.vue
+ * @FilePath: \Covo\frontend\src\components\Points.vue
 --> 
 
 <template>
@@ -12,11 +12,11 @@
         <div class="point-box">
             <div>
                 <div class="point-font">历史积分</div>
-                <div class="points-point">550</div>
+                <div class="points-point">{{points.activity_points}}</div>
             </div>
             <div>
                 <div class="point-font">剩余积分</div>
-                <div class="points-point">450</div>
+                <div class="points-point">{{points.available_points}}</div>
             </div>
         </div>
     </el-card>
@@ -25,8 +25,15 @@
     export default {
         data() {
             return {
-                
+                points: {
+                    activity_points:'',
+                    available_points:'',
+                },
             };
+        },
+        mounted(){
+            this.points.activity_points = sessionStorage.getItem("activity_points");
+            this.points.available_points = sessionStorage.getItem("available_points");
         }
     }
 </script>

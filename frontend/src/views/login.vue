@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-19 21:10:08
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-27 22:42:26
+ * @LastEditTime: 2020-06-04 23:13:24
  * @Description: file content
- * @FilePath: /Covo/frontend/src/views/login.vue
+ * @FilePath: \Covo\frontend\src\views\login.vue
 --> 
 <template>
     <div id="nav">
@@ -45,19 +45,34 @@ import axios from 'axios';
       }
     },
     methods: {
-        
-      onLogin() {
-        axios.post('http://127.0.0.1:8000/users/api/v1/auth/',this.form,{withCredentials:true}).then((res)=> {
-        alert(res.data.msg)
+        onLogin() {
+        axios.get('http://127.0.0.1:8000/api/v1/user/'+ this.form.account).then((res)=> {
+        // alert(res.data.account)
+        // alert(res.data.password)
+        // alert(res.data.manager)
         console.log(res);
-        if (res.data.status === 0) {
+        // if (res.data.status === 0) {
+        if( res.data.account == this.form.account && res.data.password == this.form.password) {
+            sessionStorage.setItem("manager", res.data.manager);
+            sessionStorage.setItem("account", res.data.account);
             this.$router.push({path:'/index'});
         }
+        // }
         // this.$router.go({path:'/'});
       });
-        // this.$router.push({path:'/index'});
-        // console.log('login!');
-      },
+        },
+    //   onLogin() {
+    //     axios.post('http://127.0.0.1:8000/users/api/v1/auth/',this.form,{withCredentials:true}).then((res)=> {
+    //     alert(res.data.msg)
+    //     console.log(res);
+    //     if (res.data.status === 0) {
+    //         this.$router.push({path:'/index'});
+    //     }
+    //     // this.$router.go({path:'/'});
+    //   });
+    //     // this.$router.push({path:'/index'});
+    //     // console.log('login!');
+    //   },
       toRegist() {
           this.$router.push({path:'/regist'});
           console.log('regist!');

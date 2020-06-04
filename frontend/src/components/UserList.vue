@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-25 23:02:50
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 02:20:35
+ * @LastEditTime: 2020-06-04 01:21:01
  * @Description: file content
- * @FilePath: /Covo/frontend/src/components/UserList.vue
+ * @FilePath: \Covo\frontend\src\components\UserList.vue
 --> 
 <template>
     <el-card>
@@ -82,40 +82,13 @@
                     activity_points: '450',
                     available_points: '500',
                 },
-                volunteer_list:[{
-                    volunteer_number: "1",
-                    volunteer_name: "李二",
-                    sex: "男",
-                    age: "25",
-                    address: "沈阳建筑大学",
-                    cultural_level: "硕士",
-                    activity_points: "500",
-                },{
-                    volunteer_number: "2",
-                    volunteer_name: "李四",
-                    sex: "男",
-                    age: "26",
-                    address: "沈阳建筑大学",
-                    cultural_level: "博士",
-                    activity_points: "500",
-                },{
-                    volunteer_number: "3",
-                    volunteer_name: "李五",
-                    sex: "男",
-                    age: "27",
-                    address: "沈阳建筑大学",
-                    cultural_level: "高中",
-                    activity_points: "500",
-                },{
-                    volunteer_number: "4",
-                    volunteer_name: "李六",
-                    sex: "男",
-                    age: "28",
-                    address: "沈阳建筑大学",
-                    cultural_level: "小穴",
-                    activity_points: "300",
-                }]
+                volunteer_list:[]
             };
+        },
+        created: function() {
+            this.axios.get('http://127.0.0.1:8000/api/v1/volunteer/').then((res)=>{
+                this.volunteer_list = res.data;
+            })
         },
         methods: {
                 isChange({row, rowIndex}) {

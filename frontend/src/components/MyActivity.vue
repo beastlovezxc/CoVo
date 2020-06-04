@@ -14,38 +14,42 @@
             :row-class-name="isExpired"
             @row-click="isClicked"> <!--过期-->
             <el-table-column
-            prop="activity_number"
+            prop="activity_name.activity_number"
             label="活动编号"
             width="180">
             </el-table-column>
             <el-table-column
-            prop="activity_name"
+            prop="activity_name.activity_name"
             label="活动名称"
             width="180">
             </el-table-column>
             <el-table-column
-            prop="required_num"
+            prop="activity_name.required_num"
             label="活动所需人数">
             </el-table-column>
             <el-table-column
-            prop="participants"
+            prop="activity_name.participants"
             label="参加人数">
             </el-table-column>
             <el-table-column
-            prop="expired"
+            prop="activity_name.expired"
             label="是否过期">
+            <template slot-scope="scope">
+              <span v-if="scope.row.activity_name.expired" style="color:red">已过期</span>
+              <span v-else >未过期</span>
+            </template>
             </el-table-column>
             <el-table-column
-            prop="activity_points"
+            prop="activity_name.activity_points"
             label="活动积分">
             </el-table-column>
             <el-table-column
-            prop="date"
+            prop="activity_name.date"
             label="活动时间">
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button type="text" @click.stop="feedback(scope.row.phone)">发布反馈</el-button>
+        　　　　　　<el-button type="text" @click.stop="feedback(scope.row)">发布反馈</el-button>
         　　　　</template>
 　      　  </el-table-column>  
         </el-table>
@@ -94,7 +98,7 @@
                   rows="10"
                   maxlength="500"
                   show-word-limit
-                  v-model="fb.text" ></el-input>
+                  v-model="fb.feedback" ></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -112,8 +116,13 @@
             return{
                 fbDialogVisible: false,
                 acDialogVisible: false,
+                root:'',
+                applyurl:'http://localhost:8000/api/v1/applicationform/',
+                feedbackurl:'http://localhost:8000/api/v1/feedback/',
                 fb: {
-                  text:'',
+                  account:'',
+                  activity_number:'',
+                  feedback:'',
                 },
                 ac: {
                     title:'志愿活动1',
@@ -121,40 +130,14 @@
                     time: '2020-06-25',
                     people: '500',
                 },
-                activity_info: [{
-                    activity_number: '1',
-                    activity_name: '志愿活动1',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020-06-25'
-                    }, {
-                    activity_number: '2',
-                    activity_name: '志愿活动2',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020-06-25'
-                    }, {
-                    activity_number: '3',
-                    activity_name: '志愿活动3',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020-06-25'
-                    }, {
-                    activity_number: '4',
-                    activity_name: '志愿活动4',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '是',
-                    activity_points: "150",
-                    date: '2020-05-25'
-                    }]
+                activity_info: []
             };
+        },
+        mounted() {
+            this.root = sessionStorage.getItem("account");
+            this.axios.get(this.applyurl).then((res)=>{
+            this.activity_info = res.data;
+            })
         },
         methods: {
             isExpired({row, rowIndex}) {
@@ -167,6 +150,10 @@
                 return '';
             },
             isClicked(row)  {
+                this.ac.title = row.activity_name.activity_name;
+                this.ac.text = row.activity_name.introduction;
+                this.ac.time = row.activity_name.date;
+                this.ac.people = row.activity_name.required_num;
                 this.acDialogVisible = true;
             },
             acCancel() {
@@ -175,16 +162,22 @@
             acConfig() {
               this.acDialogVisible = false;
             },
-            feedback() {
+            feedback(row) {
+              this.fb.account = this.root;
+              this.fb.activity_number = row.activity_name.activity_number;
               this.fbDialogVisible = true;
-            },
-            fbConfig() {
-              this.fbDialogVisible = false;
             },
             fbCancel() {
               this.fbDialogVisible = false;
-            }
-            }
+            },
+            fbConfig(){
+              var _this = this;
+              this.axios.post(this.feedbackurl, this.fb).then((res)=>{
+                alert('发布成功！');
+              });
+              this.fbDialogVisible = false;
+            },
+        }
     }
 </script>
 

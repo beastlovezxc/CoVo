@@ -30,6 +30,11 @@ app_name = 'Covo'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/user/', include('Users.urls')),
+    path('api/v1/volunteer/', include('Volunteer.urls')),
+    path('api/v1/recourse/', include('Recourse.urls')),
+    path('api/v1/activity/', include('Activity.urls')),
+    path('api/v1/applicationform/', include('ApplicationForm.urls')),
+    path('api/v1/feedback/', include('Feedback.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
     # path('api/users/', include('Users.urls')),
     path('index/', views.showIndex, name='index'),

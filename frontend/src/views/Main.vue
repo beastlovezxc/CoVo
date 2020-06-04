@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 01:00:36
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 02:17:36
+ * @LastEditTime: 2020-06-04 23:37:05
  * @Description: file content
- * @FilePath: /Covo/frontend/src/views/Main.vue
+ * @FilePath: \Covo\frontend\src\views\Main.vue
 --> 
 
 <template>
@@ -14,7 +14,7 @@
             <div id="nav-header-el">
                 <div v-if="is_manage"><span>社区志愿管理系统</span> | 控制台 | 管理员</div>
                 <div v-if="!is_manage"><span>社区志愿管理系统</span> | 控制台 | 普通用户</div>
-                <div v-if="!is_manage"><span>活动积分：{{points.p1}} 剩余积分:{{points.p2}}</span></div>
+                <div v-if="!is_manage"><span>活动积分：{{points.activity_points}} 剩余积分:{{points.available_points}}</span></div>
                 <div><Avatar /></div>
             </div>
             </el-header>
@@ -69,11 +69,12 @@ import MyFeedback from "@/components/MyFeedback.vue"
   export default {
         data(){
             return {
+                account:'',
                 points: {
-                    p1:"550",
-                    p2:"450",
+                    activity_points:"0",
+                    available_points:"0",
                 },
-                is_manage: true,
+                is_manage: false,
                 main_page: "11",
             }
         },
@@ -97,6 +98,25 @@ import MyFeedback from "@/components/MyFeedback.vue"
             FeedbackManage,
             RecourseListManage,
             MyFeedback
+        },
+        created: function(){
+            var a = "true"
+            this.is_manage = (a == sessionStorage.getItem("manager"));
+            this.account = sessionStorage.getItem("account");
+            alert(this.account);
+            this.axios.get('http://localhost:8000/api/v1/volunteer/'+this.account, {
+          }).then((res)=> {
+              this.points.activity_points = res.data.activity_points;
+              this.points.available_points = res.data.available_points;
+              sessionStorage.setItem("activity_points",res.data.activity_points);
+              sessionStorage.setItem("available_points", res.data.available_points);
+          });
+            if(this.is_manage) {
+                this.main_page = "13"
+            } else {
+                this.main_page = "11"
+            }
+            // alert(sessionStorage.getItem("manager"));
         },
         methods: {
             changeMainPage1:function(index) {

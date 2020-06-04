@@ -11,5 +11,8 @@ from . import views
 
 app_name='ApplicationForm'
 urlpatterns = [
-    path('apply/<int:activity_number>', views.apply, name='apply'),
+    path('',views.Apply_List),
+    path('<str:account>',views.Apply_Detail),
+    path('<str:account>/activity/<int:activity_number>',views.Apply_Join),
+    # path('apply/<int:activity_number>', views.apply, name='apply'),
 ]

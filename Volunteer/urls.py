@@ -1,17 +1,19 @@
-'''
-@Author: your name
-@Date: 2020-04-25 16:53:12
-@LastEditTime: 2020-05-24 23:54:44
-@LastEditors: BeanCB
-@Description: In User Settings Edit
-@FilePath: /Covo/Volunteer/urls.py
-'''
+# '''
+# @Author: your name
+# @Date: 2020-04-25 16:53:12
+# @LastEditTime: 2020-06-04 00:36:22
+# @LastEditors: BeanCB
+# @Description: In User Settings Edit
+# @FilePath: \Covo\Volunteer\urls.py
+# '''
 from django.urls import path
 from . import views
 from django.conf.urls import url
 
 app_name='Volunteer'
 urlpatterns = [
+    path('', views.Volunteer_List),
+    path('<str:account>', views.Volunteer_Detail),
     path('setInfo/',views.setInfo, name='setInfo'),
     path('to_setInfo/', views.to_setInfo, name='to_setInfo'),
     path('volunteerlist/', views.get_volunteerlist, name='volunteerlist'),

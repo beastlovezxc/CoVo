@@ -8,6 +8,7 @@
 # '''
 from django.urls import path,include
 from rest_framework.routers import DefaultRouter
+from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from django.conf.urls import url
 
@@ -16,6 +17,7 @@ from django.conf.urls import url
 app_name='Users'
 urlpatterns = [
     path('', views.User_List),
+    path('<str:account>', views.User_Detail),
     path('login/', views.login, name='login'),
     path('index/', views.index, name='index'),
     path('to_regist/', views.to_regist, name='to_regist'),
@@ -24,3 +26,4 @@ urlpatterns = [
     path('userlist/', views.show_userlist),
     url(r'^api/v1/auth/$', views.AuthView.as_view()),
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)

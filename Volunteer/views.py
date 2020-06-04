@@ -1,22 +1,61 @@
 '''
 @Author: your name
 @Date: 2020-04-25 16:41:09
-@LastEditTime: 2020-05-25 00:21:27
+@LastEditTime: 2020-06-04 23:34:46
 @LastEditors: BeanCB
 @Description: In User Settings Edit
-@FilePath: /Covo/Volunteer/views.py
+@FilePath: \Covo\Volunteer\views.py
 '''
 from django.shortcuts import render
 from .models import Volunteer
 from Users.models import Users
 from .serializers import VolunteerSerializer
+from .serializer import VolunteerSerializers
 # from rest_framework import request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework import status
 from django.http import Http404
 # Create your views here.
 
+@api_view(['GET','POST'])
+def Volunteer_List(request, format=None):
+    if request.method == 'GET':
+        volunteer = Volunteer.objects.all()
+        serializer = VolunteerSerializers(volunteer, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = VolunteerSerializers(data=request.data)
+        print(request.data)
+        # print(serializer.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def Volunteer_Detail(request, account):
+    try:
+        volunteer = Volunteer.objects.get(users=account)
+    except Volunteer.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = VolunteerSerializers(volunteer)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        print("put12312312312312321")
+        serializer = VolunteerSerializers(volunteer, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        volunteer.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 class VolunteerList(APIView):
     def get(self, request, format=None):
         volunteer = Volunteer.objects.all()

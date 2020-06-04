@@ -2,9 +2,9 @@
  * @Author: BeanCB
  * @Date: 2020-05-20 23:46:55
  * @LastEditors: BeanCB
- * @LastEditTime: 2020-05-29 00:34:50
+ * @LastEditTime: 2020-06-04 23:38:15
  * @Description: file content
- * @FilePath: /Covo/frontend/src/components/Information.vue
+ * @FilePath: \Covo\frontend\src\components\Information.vue
 --> 
 <template>
     <el-card class="info-card">
@@ -12,35 +12,35 @@
             <div class="content-title">基本资料</div>
             <div class="info">请完善一下信息，方便报名资料填写</div>
             <div class="content-in">基本信息</div>
-            <div class="content-in-in"><span>用户名：</span><span>{{form.account}}</span></div>
+            <div class="content-in-in"><span>用户名：</span><span>{{form.users}}</span></div>
             <el-form-item label="姓名:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.name" placeholder="请输入姓名" disabled="true"></el-input>
+                  <el-input v-model="form.volunteer_name" placeholder="请输入姓名" :disabled="isDisabled"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="性别:" label-position="left">
-                <el-select v-model="form.sex" placeholder="请选择性别" disabled="true">
+                <el-select v-model="form.sex" placeholder="请选择性别" :disabled="isDisabled">
                   <el-option label="男" value="1"></el-option>
                   <el-option label="女" value="0"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.age" placeholder="请输入年龄" disabled="true"></el-input>
+                  <el-input v-model="form.age" placeholder="请输入年龄" :disabled="isDisabled"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="电话:" label-position="left">
                 <el-col :span="5">
-                  <el-input v-model="form.tel" placeholder="请输入电话" disabled="true"></el-input>
+                  <el-input v-model="form.tel" placeholder="请输入电话" :disabled="isDisabled"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="地址:" label-position="left">
                 <el-col :span="10">
-                  <el-input v-model="form.address" placeholder="请输入地址" disabled="true"></el-input>
+                  <el-input v-model="form.address" placeholder="请输入地址" :disabled="isDisabled"></el-input>
                 </el-col>
             </el-form-item>
             <el-form-item label="文化水平:" label-position="left">
-                <el-select v-model="form.cul_level" placeholder="请选择文化水平" disabled="true">
+                <el-select v-model="form.cultural_level" placeholder="请选择文化水平" :disabled="isDisabled">
                   <el-option label="小学" value="小学"></el-option>
                   <el-option label="初中" value="初中"></el-option>
                   <el-option label="高中" value="高中"></el-option>
@@ -58,7 +58,7 @@
             @click="pubConfig">修改</el-button>
           <el-button 
             type="primary" 
-            @click="pubConfig">确 定</el-button>
+            @click="pubConfirm">确 定</el-button>
             </div>
         </div>
         
@@ -68,28 +68,38 @@
 export default {
   data() {
     return {
-      root: 'root',
+      url: 'http://localhost:8000/api/v1/volunteer/',
+      isDisabled: true,
+      root: '',
       form: {
-          account: 'user1',
-          name: '李二',
-          sex: '男',
-          age: '24',
-          tel:'13942382475',
-          address:'沈阳建筑大学',
-          cul_level:'硕士',
+          volunteer_number: '',
+          volunteer_name: '',
+          sex: '',
+          age: '',
+          tel:'',
+          address:'',
+          cultural_level:'',
+          activity_points:'',
+          available_points:'',
+          volunteer_number:'',
         },
     };
   },
   mounted() {
+          this.root = sessionStorage.getItem("account");
           let url = 'http://localhost:8000/volunteer/volunteer/' + this.root + '/';
           console.log(url);
           this.axios.get(url, {
           }).then((res)=> {
-            this.form.name = res.data.volunteer_name;
+            this.form.users = res.data.users_account;
+            this.form.volunteer_name = res.data.volunteer_name;
             this.form.age = res.data.age;
             this.form.address = res.data.address;
             this.form.tel = res.data.tel;
             this.form.cul_level = res.data.cultural_level;
+            this.form.activity_points = res.data.activity_points;
+            this.form.available_points = res.data.available_points;
+            this.form.volunteer_number = res.data.volunteer_number;
             if (res.data.sex) {
                 this.form.sex = '男';
             } else {
@@ -99,6 +109,23 @@ export default {
             // alert(res.data.cultural_level);
           });
         },
+  methods:{
+      pubConfig() {
+        this.isDisabled = false;
+      },
+      pubConfirm() {
+        if( this.form.sex === '男') {
+          this.form.sex = 1;
+        } else {
+          this.form.sex = 0;
+        }
+        this.axios.put(this.url + this.form.users, this.form).then((res)=> {
+          alert("success!");
+        })
+        this.isDisabled = true;
+
+      }
+  }
 };
 </script>
 <style>

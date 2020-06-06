@@ -98,7 +98,7 @@ export default {
               _this.status = error.response.status;
             }).then((res)=> {
               if(_this.status != 404) {
-                _this.form.users = res.data.users_account;
+                _this.form.users = res.data.users;
                 _this.form.volunteer_name = res.data.volunteer_name;
                 _this.form.age = res.data.age;
                 _this.form.address = res.data.address;
@@ -115,7 +115,6 @@ export default {
               } else {
                 _this.form.users = _this.root;
               }
-              alert(_this.form.users);
           });
         },
   methods:{
@@ -133,9 +132,8 @@ export default {
             this.status = 201;
           })
         } else {
-          alert(this.root);
           this.axios.put(this.url + this.root, this.form).then((res)=> {
-            alert("success!");
+            alert("更新成功!");
           })
         }
         this.isDisabled = true;

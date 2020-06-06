@@ -100,7 +100,7 @@
                 align="right"
                 :picker-options="pickerOptions">
             </el-date-picker> -->
-            </el-form-item>
+            <!-- </el-form-item> -->
             <el-form-item label="反馈内容" label-position="left">
                   <el-input 
                   type="textarea" 

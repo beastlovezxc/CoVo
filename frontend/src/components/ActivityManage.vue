@@ -32,6 +32,16 @@
             <el-table-column
             prop="expired"
             label="是否过期">
+            <template slot-scope="scope">
+        　　　　<el-select v-model="scope.row.expired" @change="changeStatus(scope.row)">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+            </el-select>
+    　　　　</template>
             </el-table-column>
             <el-table-column
             prop="activity_points"
@@ -43,8 +53,8 @@
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100" >
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button type="text" @click.stop="checkDetail(scope.$index, activity_list)">删除</el-button>
-                  <el-button type="text" @click.stop="checkModify(scope.row.phone)">修改</el-button>
+        　　　　　　<el-button type="text" @click.stop="checkDetail(scope.$index, scope.row)">删除</el-button>
+                  <el-button type="text" @click.stop="checkModify(scope.row)">修改</el-button>
         　　　　</template>
 　      　  </el-table-column>  
         </el-table>
@@ -88,7 +98,7 @@
         :before-close="handleClose">
         <el-form>
             <el-form-item label="活动名称" label-position="left">
-                  <el-input v-model="pub.title" placeholder="请输入活动名称"></el-input>
+                  <el-input v-model="pub.activity_name" placeholder="请输入活动名称"></el-input>
             </el-form-item>
             <el-form-item label="活动简介" label-position="left">
                   <el-input 
@@ -97,13 +107,28 @@
                   maxlength="500"
                   show-word-limit
                   placeholder="请输入活动介绍"
-                  v-model="pub.text"></el-input>
+                  v-model="pub.introduction"></el-input>
             </el-form-item>
             <el-form-item label="求助时间" label-position="left">
-                <el-input v-model="pub.time" placeholder="请输入活动时间"></el-input>
+                <el-date-picker
+                    v-model="pub.date"
+                    type="datetime"
+                    placeholder="选择日期时间"
+                    align="right"
+                    :picker-options="pickerOptions">
+                </el-date-picker>
             </el-form-item>
             <el-form-item label="活动所需人数" label-position="left">
-                <el-input v-model="pub.people" placeholder="请填写活动所需人数"></el-input>
+                <el-input v-model="pub.required_num" placeholder="请填写活动所需人数"></el-input>
+            </el-form-item>
+             <el-form-item label="活动地址" label-position="left">
+                  <el-input v-model="pub.address" placeholder="请输入活动地址"></el-input>
+            </el-form-item>
+             <el-form-item label="需求人数" label-position="left">
+                  <el-input v-model="pub.activity_points" placeholder="请输入需求人数"></el-input>
+            </el-form-item>
+             <el-form-item label="联系人" label-position="left">
+                  <el-input v-model="pub.contact" placeholder="请输入活动联系人"></el-input>
             </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -111,6 +136,54 @@
             <el-button 
             type="primary" 
             @click="pubConfig">确 定</el-button>
+        </span>
+        </el-dialog>
+
+        <el-dialog
+        title="志愿活动修改"
+        :visible.sync="modifyDialogVisible"
+        width="30%"
+        :before-close="handleClose">
+        <el-form>
+            <el-form-item label="活动名称" label-position="left">
+                  <el-input v-model="pub.activity_name" placeholder="请输入活动名称"></el-input>
+            </el-form-item>
+            <el-form-item label="活动简介" label-position="left">
+                  <el-input 
+                  type="textarea" 
+                  rows="10"
+                  maxlength="500"
+                  show-word-limit
+                  placeholder="请输入活动介绍"
+                  v-model="pub.introduction"></el-input>
+            </el-form-item>
+            <el-form-item label="求助时间" label-position="left">
+                <el-date-picker
+                    v-model="pub.date"
+                    type="datetime"
+                    placeholder="选择日期时间"
+                    align="right"
+                    :picker-options="pickerOptions">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="活动所需人数" label-position="left">
+                <el-input v-model="pub.required_num" placeholder="请填写活动所需人数"></el-input>
+            </el-form-item>
+             <el-form-item label="活动地址" label-position="left">
+                  <el-input v-model="pub.address" placeholder="请输入活动地址"></el-input>
+            </el-form-item>
+             <el-form-item label="需求人数" label-position="left">
+                  <el-input v-model="pub.activity_points" placeholder="请输入需求人数"></el-input>
+            </el-form-item>
+             <el-form-item label="联系人" label-position="left">
+                  <el-input v-model="pub.contact" placeholder="请输入活动联系人"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="modifyCancel">取 消</el-button>
+            <el-button 
+            type="primary" 
+            @click="modifyConfig">确 定</el-button>
         </span>
         </el-dialog>
     </el-card>
@@ -121,56 +194,38 @@
             return {
                 acDialogVisible: false,
                 pubDialogVisible: false,
+                modifyDialogVisible: false,
+                row_index:'',
+                acUrl: 'http://localhost:8000/api/v1/activity/',
                 pub: {
+                    activity_name: '',
+                    introduction: '',
+                    date: '',
+                    required_num: '',
+                    address:'',
+                    activity_points:'',
+                    contact:'',
+                },
+                ac: {
                     title: '',
                     text: '',
                     time: '',
                     people: '',
                 },
-                ac: {
-                    title: '求助标题1',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-06-05',
-                    people: '50',
-                },
-                activity_list: [{
-                    activity_number: '1',
-                    activity_name: '志愿活动1',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020-07-02',
-                    ops: '450',
-                    }, {
-                    activity_number: '2',
-                    activity_name: '志愿活动2',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020-05-26',
-                    ops: '450',
-                    }, {
-                    activity_number: '3',
-                    activity_name: '志愿活动3',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '否',
-                    activity_points: "150",
-                    date: '2020-06-24',
-                    ops: '450',
-                    }, {
-                    activity_number: '4',
-                    activity_name: '志愿活动4',
-                    required_num: '500',
-                    participants: '450',
-                    expired: '是',
-                    activity_points: "150",
-                    date: '2020-07-14',
-                    ops: '参加',
-                    }]
+                activity_list: [],
+                options: [{
+                    value: true,
+                    label: '已过期',
+                },{
+                    value: false,
+                    label: '未过期',
+                }],
             };
+        },
+        mounted(){
+            this.axios.get(this.acUrl).then((res)=>{
+                this.activity_list = res.data;
+            })
         },
         methods: {
             handleClose(done) {
@@ -181,6 +236,13 @@
                 .catch(_ => {});
             },
             isClicked(row) {
+                var _this = this;
+                this.axios.get(this.acUrl+ row.activity_number).then((res)=>{
+                    _this.ac.title = res.data.activity_name;
+                    _this.ac.text = res.data.introduction;
+                    _this.ac.time = res.data.date;
+                    _this.ac.people = res.data.required_num;
+                })
                 this.acDialogVisible = true;
             },
             acCancel() {
@@ -190,16 +252,40 @@
                 this.acDialogVisible = false;
             },
             pubConfig() {
-                this.pubDialogVisible = false;
+                this.axios.post(this.acUrl, this.pub).then((res)=>{
+                    this.pubDialogVisible = false;
+                })
+                
             },
             pubCancel() {
                 this.pubDialogVisible = false;
             },
             checkDetail(index, rows) {
-                rows.splice(index, 1);
+                alert(rows.activity_number);
+                this.axios.delete(this.acUrl+rows.activity_number).then((res)=>{
+                    this.activity_list.splice(index, 1);
+                })
             },
-            checkModify() {
-                this.pubDialogVisible = true;
+            checkModify(row) {
+                this.pub.activity_name = row.activity_name;
+                this.pub.introduction = row.introduction;
+                this.pub.date = row.date
+                this.pub.required_num = row.required_num;
+                this.pub.address = row.address;
+                this.pub.activity_points = row.activity_points;
+                this.pub.contact = row.contact;
+                this.row_index = row.activity_number;
+                this.modifyDialogVisible = true;
+            },
+            modifyCancel(){
+                this.row_index = '';
+                this.modifyDialogVisible = false;
+            },
+            modifyConfig(){
+                this.axios.put(this.acUrl+this.row_index, this.pub).then((res)=>{
+                    this.row_index = '';
+                    this.modifyDialogVisible = false;
+                })
             }
         }
     }

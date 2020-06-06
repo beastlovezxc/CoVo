@@ -13,20 +13,20 @@
             style="width: 100%"
             :row-class-name="isJoined"
             @row-click="isClicked"> <!--是否加入-->
-            <el-table-column
+            <!-- <el-table-column
             prop="id"
             label="求助编号">
             </el-table-column>
             <el-table-column
             prop="ac_id"
             label="活动编号">
-            </el-table-column>
+            </el-table-column> -->
             <el-table-column
-            prop="name"
+            prop="users_name.user"
             label="求助者姓名">
             </el-table-column>
             <el-table-column
-            prop="ac_name"
+            prop="activity_name.activity_name"
             label="活动名称">
             </el-table-column>
             <el-table-column
@@ -34,13 +34,13 @@
             label="反馈时间">
             </el-table-column>
             <el-table-column
-            prop="text"
+            prop="feedback"
             label="反馈内容"
             :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button type="text" @click="checkDetail(scope.row.phone)">删 除</el-button>
+        　　　　　　<el-button type="text" @click.stop="checkDetail(scope.$index,scope.row)">删 除</el-button>
         　　　　</template>
 　      　  </el-table-column>  
         </el-table>
@@ -51,9 +51,9 @@
         width="30%"
         :before-close="handleClose">
         <el-form >
-            <el-form-item label="求助编号" label-position="left">
+            <!-- <el-form-item label="求助编号" label-position="left">
                   <el-input v-model="feedback.id" ></el-input>
-            </el-form-item>
+            </el-form-item> -->
             <el-form-item label="活动编号" label-position="left">
                   <el-input v-model="feedback.ac_id" ></el-input>
             </el-form-item>
@@ -89,6 +89,7 @@
         data() {
             return {
                 fbDialogVisible: false,
+                feedbackurl:'http://localhost:8000/api/v1/feedback/',
                 feedback: {
                     id:'',
                     ac_id:'',
@@ -96,39 +97,22 @@
                     time:'',
                     text:'',
                 },
-                feedback_list:[{
-                    id:'1',
-                    ac_id:'1',
-                    name:'李二',
-                    ac_name:'志愿活动1',
-                    time:'2020-06-25',
-                    text:'这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好',
-                },
-                {
-                    id:'2',
-                    ac_id:'2',
-                    name:'李二',
-                    ac_name:'志愿活动2',
-                    time:'2020-06-25',
-                    text:'这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好',
-                },{
-                    id:'3',
-                    ac_id:'3',
-                    name:'李二',
-                    ac_name:'志愿活动3',
-                    time:'2020-06-25',
-                    text:'这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好这个活动做的真好',
-                }]
+                feedback_list:[]
             };
+        },
+        mounted(){
+            this.axios.get(this.feedbackurl).then((res)=>{
+                this.feedback_list = res.data;
+            })
         },
         methods: {
             isClicked(row) {
-                this.feedback.id = row.id;
-                this.feedback.ac_id = row.ac_id;
-                this.feedback.name = row.name;
-                this.feedback.ac_name = row.ac_name;
+                // this.feedback.id = row.id;
+                this.feedback.ac_id = row.activity_name.activity_number;
+                this.feedback.name = row.users_name.user;
+                this.feedback.ac_name = row.activity_name.activity_name;
                 this.feedback.time = row.time;
-                this.feedback.text = row.text;
+                this.feedback.text = row.feedback;
                 this.fbDialogVisible = true;
             },
             fbCancel() {
@@ -136,6 +120,13 @@
             },
             fbConfig() {
                 this.fbDialogVisible = false;
+            },
+            checkDetail(index,row){
+                this.axios.delete(this.feedbackurl + row.users_name.user + '/' + row.feedback_id).then((res)=>{
+                    alert("删除成功！");
+                    this.feedback_list.splice(index,1);
+                })
+                
             }
         }
     }

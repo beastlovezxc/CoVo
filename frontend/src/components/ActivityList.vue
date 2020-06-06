@@ -90,6 +90,7 @@
                 root:'',
                 url: 'http://localhost:8000/api/v1/activity/',
                 formurl:'http://localhost:8000/api/v1/applicationform/',
+                voInfoUrl:'http://localhost:8000/api/v1/volunteer/',
                 ac: {
                     activity_number:'',
                     activity_name:'',
@@ -105,7 +106,8 @@
                 form: {
                     account:'',
                     activity_number:'',
-                    status: false,
+                    voinfo:'',
+                    status: '',
                 },
                 activity_list: []
             };
@@ -154,23 +156,64 @@
             acCancel() {
                 this.acDialogVisible = false;
             },
-            acConfig(rows) {
+            async getConfirmAjax(rows){
                 var _this = this;
-                this.axios.get(this.formurl + this.root+'/activity/' + rows.activity_number).
-                catch(function(error){
-                    _this.form.account = _this.root;
-                    _this.form.activity_number = rows.activity_number;
-                    _this.axios.post(_this.formurl,_this.form).then((mRes)=>{
-                        if(mRes.status === 201) {
-                            alert("报名成功！");
-                        }
-                    })
-                }).then((res)=>{
-                    if(res.status === 200) {
-                        alert("您已经报名此活动！");
-                    }
+                var status = 404;
+                await this.axios.get(this.formurl + this.root+'/activity/' + rows.activity_number).then((res)=>{
+                    status = res.status;
+                    // return status;
+                }).catch(function(error){
+                    return status;
                 })
+                return status;
             },
+            async getVoInfoAjax() {
+                var _this = this;
+                await this.axios.get(_this.voInfoUrl+_this.root).then((Res)=>{
+                    _this.form.voinfo = Res.data.volunteer_number;
+                });
+            },
+            async postApAjax(){
+                var _this = this;
+                this.form.status = '0';
+                await _this.axios.post(_this.formurl,_this.form).then((Res)=>{
+                    if(Res.status === 201) {
+                        alert("报名成功！");
+                    }
+                });
+            },
+            async acConfig(rows){
+                var _this = this;
+                var status = await this.getConfirmAjax(rows);
+                if (status === 404) {
+                    this.form.account = this.root;
+                    this.form.activity_number = rows.activity_number;
+                    await this.getVoInfoAjax();
+                    await this.postApAjax();
+                } else {
+                    alert("您已经报名此活动!");
+                }
+            },
+            // acConfig(rows) {
+            //     var _this = this;
+            //     this.axios.get(this.formurl + this.root+'/activity/' + rows.activity_number).
+            //     catch(function(error){
+            //         _this.form.account = _this.root;
+            //         _this.form.activity_number = rows.activity_number;
+            //         _this.axios.get(_this.voInfoUrl+_this.root).then((mRes)=>{
+            //             _this.form.voinfo = mRes.data.volunteer_number;
+            //         });
+            //         _this.axios.post(_this.formurl,_this.form).then((mRes)=>{
+            //             if(mRes.status === 201) {
+            //                 alert("报名成功！");
+            //             }
+            //         });
+            //     }).then((res)=>{
+            //         if(res.status === 200) {
+            //             alert("您已经报名此活动！");
+            //         }
+            //     })
+            // },
             acConfig2(){
                 var _this = this;
                 this.axios.get(this.formurl + this.root+'/activity/' + _this.ac.activity_number).

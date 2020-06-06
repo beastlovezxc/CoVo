@@ -15,15 +15,16 @@
             @row-click="isClicked"> <!--是否加入-->
             <el-table-column
             prop="volunteer_number"
-            label="志愿者编号">
+            label="用户编号">
             </el-table-column>
             <el-table-column
             prop="volunteer_name"
-            label="志愿者姓名">
+            label="用户姓名">
             </el-table-column>
             <el-table-column
             prop="sex"
-            label="性别">
+            label="性别"
+            :formatter="sexFormat">
             </el-table-column>
             <el-table-column
             prop="age"
@@ -47,7 +48,7 @@
         :visible.sync="dialogVisible"
         width="30%"
         :before-close="handleClose">
-        <div class="user-info"><span class="user-info-span">姓名：</span><span>{{user.name}}</span></div>
+        <div class="user-info"><span class="user-info-span">姓名：</span><span>{{user.volunteer_name}}</span></div>
         <div class="user-info"><span class="user-info-span">性别：</span><span>{{user.sex}}</span></div>
         <div class="user-info"><span class="user-info-span">年龄：</span><span>{{user.age}}</span></div>
         <div class="user-info"><span class="user-info-span">电话：</span><span>{{user.tel}}</span></div>
@@ -68,19 +69,22 @@
         data() {
             return {
                 dialogVisible: false,
+                usInfoUrl: 'http://127.0.0.1:8000/api/v1/volunteer/',
                 form: {
                     name:'',
                     title:'',
                 },
                 user: {
-                    name:'李二',
-                    sex:'男',
-                    age: "25",
-                    tel: '13942382772',
-                    address: "沈阳建筑大学",
-                    cultural_level: '硕士',
-                    activity_points: '450',
-                    available_points: '500',
+                    volunteer_number:'',
+                    volunteer_name:'',
+                    sex:'',
+                    age: "",
+                    tel: '',
+                    address: "",
+                    cultural_level: '',
+                    activity_points: '',
+                    available_points: '',
+                    users:'',
                 },
                 volunteer_list:[]
             };
@@ -101,6 +105,20 @@
                     return '';
                 },
                 isClicked(row) {
+                    var _this = this;
+                    this.axios.get(this.usInfoUrl + row.users).then((res)=>{
+                        _this.user.volunteer_number = res.data.volunteer_number;
+                        _this.user.volunteer_name = res.data.volunteer_name;
+                        _this.user.sex = res.data.sex;
+                        _this.user.age = res.data.age;
+                        _this.user.tel = res.data.tel;
+                        _this.user.address = res.data.address;
+                        _this.user.cultural_level = res.data.cultural_level;
+                        _this.user.activity_points = res.data.activity_points;
+                        _this.user.available_points = res.data.available_points;
+                        _this.user.users = res.data.users;
+                        
+                    })
                     this.dialogVisible = true;
                 },
                 handleClose(done) {
@@ -109,6 +127,13 @@
                         done();
                     })
                     .catch(_ => {});
+                },
+                sexFormat(row, column){
+                    if(row.sex) {
+                        return '女';
+                    } else {
+                        return '男';
+                    }
                 }
             }
     }

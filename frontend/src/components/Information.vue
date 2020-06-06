@@ -20,8 +20,8 @@
             </el-form-item>
             <el-form-item label="性别:" label-position="left">
                 <el-select v-model="form.sex" placeholder="请选择性别" :disabled="isDisabled">
-                  <el-option label="男" value="1"></el-option>
-                  <el-option label="女" value="0"></el-option>
+                  <el-option label="男" value="0"></el-option>
+                  <el-option label="女" value="1"></el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄:" label-position="left">

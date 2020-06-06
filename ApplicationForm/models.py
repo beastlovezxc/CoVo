@@ -1,6 +1,7 @@
 from django.db import models
 from Users.models import Users
 from Activity.models import Activity
+from Volunteer.models import Volunteer
 # Create your models here.
 
 # 每个志愿者都可以报名一个活动
@@ -14,9 +15,11 @@ from Activity.models import Activity
 # 若活动需求人数已达上限，则不允许接受
 
 class Apply(models.Model):
+    apply_id = models.AutoField(primary_key=True)
     account = models.ForeignKey('Users.Users', on_delete=models.CASCADE)  # 用户名
     activity_number = models.ForeignKey('Activity.Activity', on_delete=models.CASCADE)    # 参与活动序号
-    status = models.BooleanField()    # 是否报名成功
+    voinfo = models.ForeignKey('Volunteer.Volunteer', on_delete=models.CASCADE)
+    status = models.IntegerField(default=0)    # 是否报名成功
 
     @property
     def users_name(self):
@@ -37,4 +40,17 @@ class Apply(models.Model):
                     'date':self.activity_number.date,
                     'contact':self.activity_number.contact}
         return a_dict
-
+    @property
+    def voinfo_name(self):
+        a_dict = {
+            'volunteer_number': self.voinfo.volunteer_number,
+            'volunteer_name': self.voinfo.volunteer_name,
+            'sex': self.voinfo.sex,
+            'age': self.voinfo.age,
+            'tel': self.voinfo.tel,
+            'address': self.voinfo.address,
+            'cultural_level': self.voinfo.cultural_level,
+            'activity_points': self.voinfo.activity_points,
+            'available_points': self.voinfo.available_points,
+        }
+        return a_dict

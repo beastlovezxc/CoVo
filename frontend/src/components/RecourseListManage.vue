@@ -8,7 +8,7 @@
 --> 
 <template>
     <el-card>
-        <div id="recourse-header-title">求助活动列表<el-button type="primary" @click="dialogVisible = true">发布求助活动</el-button></div>
+        <div id="recourse-header-title">求助活动列表</div>
         <el-table
             :data="recourse_list"
             style="width: 100%"
@@ -29,6 +29,16 @@
             <el-table-column
             prop="status"
             label="活动状态">
+            <template slot-scope="scope">
+        　　　　<el-select v-model="scope.row.status" @change="changeStatus(scope.row)">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+            </el-select>
+    　　　　</template>
             </el-table-column>
         </el-table>
         <el-dialog
@@ -72,7 +82,9 @@
                   rows="10"
                   maxlength="500"
                   show-word-limit
-                  v-model="recour.text" placeholder:disabled="true"></el-input>
+                  v-model="recour.text" 
+                  placeholder:disabled="true"
+                  :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="求助时间" label-position="left">
                 <el-input v-model="recour.time" :disabled="true"></el-input>
@@ -105,9 +117,9 @@
         :visible.sync="acDialogVisible"
         width="30%"
         :before-close="handleClose">
-        <el-form>
+                <el-form>
             <el-form-item label="活动名称" label-position="left">
-                  <el-input v-model="ac.title" ></el-input>
+                  <el-input v-model="pub.activity_name" placeholder="请输入活动名称"></el-input>
             </el-form-item>
             <el-form-item label="活动简介" label-position="left">
                   <el-input 
@@ -115,15 +127,30 @@
                   rows="10"
                   maxlength="500"
                   show-word-limit
-                  v-model="ac.text"></el-input>
+                  placeholder="请输入活动介绍"
+                  v-model="pub.introduction"></el-input>
             </el-form-item>
             <el-form-item label="求助时间" label-position="left">
-                <el-input v-model="ac.time" ></el-input>
+                <el-date-picker
+                    v-model="pub.date"
+                    type="datetime"
+                    placeholder="选择日期时间"
+                    align="right"
+                    :picker-options="pickerOptions">
+                </el-date-picker>
             </el-form-item>
             <el-form-item label="活动所需人数" label-position="left">
-                <el-input v-model="ac.people" placeholder="请填写活动所需人数"></el-input>
+                <el-input v-model="pub.required_num" placeholder="请填写活动所需人数"></el-input>
             </el-form-item>
-
+             <el-form-item label="活动地址" label-position="left">
+                  <el-input v-model="pub.address" placeholder="请输入活动地址"></el-input>
+            </el-form-item>
+             <el-form-item label="需求人数" label-position="left">
+                  <el-input v-model="pub.activity_points" placeholder="请输入需求人数"></el-input>
+            </el-form-item>
+             <el-form-item label="联系人" label-position="left">
+                  <el-input v-model="pub.contact" placeholder="请输入活动联系人"></el-input>
+            </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
             <el-button @click="acCancel">取 消</el-button>
@@ -142,56 +169,41 @@
                 dialogVisible: false,
                 recourseDialogVisible: false,
                 acDialogVisible: false,
+                row_index: '',
+                recourseUrl:'http://localhost:8000/api/v1/recourse/',
+                acUrl: 'http://localhost:8000/api/v1/activity/',
                 ac: {
-                    title: '求助标题1',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-06-05',
-                    people: '50',
+                    title: '',
+                    text: '',
+                    time: '',
+                    people: '',
+                },
+                pub: {
+                    activity_name: '',
+                    introduction: '',
+                    date: '',
+                    required_num: '',
+                    address:'',
+                    activity_points:'',
+                    contact:'',
                 },
                 options: [{
-                    value: '求助中',
+                    value: 0,
                     label: '求助中',
                 },{
-                    value: '已拒绝',
+                    value: 1,
+                    label: '已完成',
+                },{
+                    value: 2,
                     label: '已拒绝',
                 }],
-                recourse_list: [{
-                    index: '1',
-                    title: '求助标题1',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-06-05',
-                    status: '求助中',
-                },
-                {
-                    index: '2',
-                    title: '求助标题2',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-04-05',
-                    status: '求助中',
-                },
-                {
-                    index: '3',
-                    title: '求助标题3',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-07-05',
-                    status: '求助中',
-                },
-                {
-                    index: '4',
-                    title: '求助标题4',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2022-03-05',
-                    status: '求助中',
-                },{
-                    index: '5',
-                    title: '求助标题5',
-                    text: '求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1求助内容1',
-                    time: '2020-08-05',
-                    status: '求助中',
-                }],
+                recourse_list: [],
                 form: {
                     title:'',
                     text:'',
+                    time:'',
+                    users:'',
+                    status:'0',
                 },
                 recour: {
                     index: '1',
@@ -201,6 +213,16 @@
                     status: '求助中',
                 }
             };
+        },
+        mounted() {
+            this.axios.get(this.recourseUrl).then((res)=>{
+                this.recourse_list = res.data;
+                for(var i = 0; i < this.recourse_list.length; ++i){
+                    // alert(this.activity_list[i].expired);
+                    this.recourse_list[i].time = this.recourse_list[i].time.slice(0,19).replace('T', ' ');
+
+                }
+            })
         },
         methods: {
                 isChoose({row, rowIndex}) {
@@ -220,21 +242,46 @@
                     .catch(_ => {});
                 },
                 isClicked(row) {
-                    this.recourseDialogVisible = true;
+                    var _this = this;
+                    this.row_index = row;
+                    this.axios.get(this.recourseUrl + row.index).then((res)=>{
+                        this.recour.index = res.data.index;
+                        this.recour.title = res.data.title;
+                        this.recour.text = res.data.text;
+                        this.recour.time = res.data.time;
+                        this.recour.status = res.data.status;
+                        this.recourseDialogVisible = true;
+                    })
+                    
                 },
                 closeRecourse(){
                     this.recourseDialogVisible = false;
                 },
                 publishAc(){
+                    this.pub.activity_name = this.row_index.title;
+                    this.pub.introduction = this.row_index.text;
+                    this.pub.time = this.row_index.time;
                     this.recourseDialogVisible = false;
                     this.acDialogVisible = true;
 
                 },
                 acConfig(){
-                    this.acDialogVisible = false;
+                    this.axios.post(this.acUrl, this.pub).then((res)=>{
+                        this.acDialogVisible = false;
+                    })
                 },
                 acCancel() {
                     this.acDialogVisible = false;
+                },
+                changeStatus(row){
+                    this.form.title = row.title;
+                    this.form.text = row.text;
+                    // time = row.time;
+                    this.form.users = row.users;
+                    this.form.status = row.status;
+                    this.axios.put(this.recourseUrl + row.index, this.form).then((res)=>{
+                        alert('操作成功！');
+                })
                 }
             }
     }

@@ -13,31 +13,32 @@
             style="width: 100%"
             @row-click="isClicked"> <!--是否加入-->
             <el-table-column
-            prop="id"
+            prop="apply_id"
             label="招募编号">
             </el-table-column>
             <el-table-column
-            prop="name"
+            prop="voinfo_name.volunteer_name"
             label="用户名">
             </el-table-column>
             <el-table-column
-            prop="sex"
-            label="用户性别">
+            prop="voinfo_name.sex"
+            label="用户性别"
+            :formatter="sexFormat">
             </el-table-column>
             <el-table-column
-            prop="age"
+            prop="voinfo_name.age"
             label="用户年龄">
             </el-table-column>
             <el-table-column
-            prop="ac_id"
+            prop="activity_name.activity_number"
             label="活动编号">
             </el-table-column>
             <el-table-column
-            prop="ac_name"
+            prop="activity_name.activity_name"
             label="活动名称">
             </el-table-column>
             <el-table-column
-            prop="date"
+            prop="activity_name.date"
             label="活动时间">
             </el-table-column>
             <el-table-column 
@@ -46,7 +47,7 @@
             align="center" 
             min-width="100">
     　　　　<template slot-scope="scope">
-        　　　　<el-select v-model="scope.row.status">
+        　　　　<el-select v-model="scope.row.status" @change="changeStatus(scope.row)">
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -89,14 +90,6 @@
                   <el-input v-model="user.available_points" :disabled="true"></el-input>
         </el-form-item>
         </el-form>
-        <!-- <div class="user-info"><span class="user-info-span">姓名：</span><span>{{user.name}}</span></div>
-        <div class="user-info"><span class="user-info-span">性别：</span><span>{{user.sex}}</span></div>
-        <div class="user-info"><span class="user-info-span">年龄：</span><span>{{user.age}}</span></div>
-        <div class="user-info"><span class="user-info-span">电话：</span><span>{{user.tel}}</span></div>
-        <div class="user-info"><span class="user-info-span">住址：</span><span>{{user.address}}</span></div>
-        <div class="user-info"><span class="user-info-span">文化水平：</span><span>{{user.cultural_level}}</span></div>
-        <div class="user-info"><span class="user-info-span">活动积分：</span><span>{{user.activity_points}}</span></div>
-        <div class="user-info"><span class="user-info-span">现有积分：</span><span>{{user.available_points}}</span></div> -->
         <span slot="footer" class="dialog-footer">
             <el-button 
             type="primary" 
@@ -109,60 +102,74 @@
     export default {
         data() {
             return {
-                userDialogVisible: true,
+                userDialogVisible: false,
+                apInfoUrl:'http://localhost:8000/api/v1/applicationform/',
                 options: [{
-                    value: '申请中',
+                    value: 0,
                     label: '申请中',
                 },{
-                    value: '已同意',
+                    value: 1,
                     label: '已同意',
                 },{
-                    value: '已拒绝',
+                    value: 2,
                     label: '已拒绝',
                 }],
                 user: {
-                    name:'李二',
-                    sex:'男',
-                    age: "24",
-                    tel: '13942382772',
-                    address: "沈阳建筑大学",
-                    cultural_level: '硕士',
-                    activity_points: '450',
-                    available_points: '500',
+                    name:'',
+                    sex:'',
+                    age: "",
+                    tel: '',
+                    address: "",
+                    cultural_level: '',
+                    activity_points: '',
+                    available_points: '',
                 },
-                recruit_list: [{
-                    id:'1',
-                    name:'李二',
-                    sex:'男',
-                    age:'24',
-                    ac_id:'1',
-                    ac_name:'志愿活动1',
-                    date:'2020-06-24',
-                    status:'申请中',
-                },{
-                    id:'2',
-                    name:'李三',
-                    sex:'男',
-                    age:'24',
-                    ac_id:'1',
-                    ac_name:'志愿活动1',
-                    date:'2020-06-24',
-                    status:'已同意',
-                },{
-                    id:'3',
-                    name:'李四',
-                    sex:'男',
-                    age:'24',
-                    ac_id:'1',
-                    ac_name:'志愿活动1',
-                    date:'2020-06-24',
-                    status:'已拒绝',
-                }],
+                putUser:{
+                    account:'',
+                    activity_number:'',
+                    voinfo:'',
+                    status:'',
+                    apply_id:'',
+                },
+                recruit_list: [],
             };
         },
+        mounted() {
+            this.axios.get(this.apInfoUrl).then((res)=>{
+                this.recruit_list = res.data;
+            })
+        },
         methods: {
-            isClicked() {
-                this.userDialogVisible = true;
+            isClicked(row) {
+                var _this = this;
+                this.axios.get(this.apInfoUrl+row.users_name.user+'/activity/' + row.activity_name.activity_number).then((res)=>{
+                    _this.user.name = res.data.voinfo_name.volunteer_name;
+                    _this.user.sex = res.data.voinfo_name.sex;
+                    _this.user.age = res.data.voinfo_name.age;
+                    _this.user.tel = res.data.voinfo_name.tel;
+                    _this.user.address = res.data.voinfo_name.address;
+                    _this.user.cultural_level = res.data.voinfo_name.cultural_level;
+                    _this.user.activity_points = res.data.voinfo_name.activity_points;
+                    _this.user.available_points = res.data.voinfo_name.available_points;
+                    this.userDialogVisible = true;
+                })
+                
+            },
+            sexFormat(row, column){
+                if(row.voinfo_name.sex) {
+                        return '女';
+                    } else {
+                        return '男';
+                    }
+            },
+            changeStatus(row) {
+                this.putUser.account = row.users_name.user;
+                this.putUser.activity_number = row.activity_name.activity_number;
+                this.putUser.voinfo = row.voinfo_name.volunteer_number;
+                this.putUser.status = row.status;
+                this.axios.put(this.apInfoUrl + this.putUser.account + '/activity/' + this.putUser.activity_number, this.putUser).then((res)=>{
+                    alert('操作成功！');
+                })
             }
         }
     }

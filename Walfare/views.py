@@ -15,11 +15,13 @@
 @FilePath: /Covo/Walfare/views.py
 '''
 import os
+import time
 from django.http import JsonResponse
 from django.shortcuts import render,HttpResponse
 from django.shortcuts import redirect
 from .models import Walfare
 from Users.models import Users
+from Exchange.models import Exchange
 from Volunteer.models import Volunteer
 from Covo import settings
 # Create your views here.
@@ -28,6 +30,16 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 
+@api_view(['PUT'])
+def exchange_walfare(request, account, prize_number):
+    volunteer = Volunteer.objects.get(users = account)
+    prize = Walfare.objects.get(prize_number = prize_number)
+    volunteer.available_points -= prize.prize_points
+    volunteer.save()
+    user = Users.objects.get(account = account)
+
+    Exchange.objects.create(account = user, voinfo = volunteer, prize_info = prize)
+    return Response(status=status.HTTP_201_CREATED)
 @api_view(['GET','POST'])
 def Walfare_List(request, format=None):
     if request.method == 'GET':
@@ -46,7 +58,7 @@ def Walfare_List(request, format=None):
 @api_view(['GET', 'PUT', 'DELETE'])
 def Walfare_Detail(request, prize_number):
     try:
-        walfare = Walfare.objects.filter(prize_number=prize_number)
+        walfare = Walfare.objects.get(prize_number=prize_number)
         print("walfare")
     except Walfare.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
@@ -70,17 +82,20 @@ def Walfare_Detail(request, prize_number):
 def imgUpload(request):
     if(request.method == 'POST'):
         file_obj = request.FILES.get('walfareimg', None)
-        print(file_obj.name)
-        file_path = os.path.join(settings.UPLOAD_FILE,file_obj.name)
+        print(file_obj)
+        name = time.strftime("%Y%m%d%H%M%S", time.localtime()) + file_obj.name
+        print(name)
+        file_path = os.path.join(settings.UPLOAD_FILE, name)
+        print(file_path)
         f = open(file_path,'wb')
         for i in file_obj.chunks():
             f.write(i)
         f.close()
-        print(file_path)
         dict = {
             'msg': 'success',
-            'img_path': file_path
+            'img_path': name
         }
+        print(file_obj.name)
         print(dict)
         return JsonResponse(dict)
         # return Response(status=status.HTTP_201_CREATED)

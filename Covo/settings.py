@@ -140,8 +140,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-UPLOAD_FILE = os.path.join(BASE_DIR,'upload')
-UPLOAD_URL = '/upload/'
+UPLOAD_FILE = os.path.join(BASE_DIR,'/CoVo/frontend/public/img/walfare/')
+UPLOAD_URL = '/frontend/public/img/walfare/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "files")
 MEDIA_URL = "/files/"
 STATICFILES_DIRS = [

@@ -34,6 +34,7 @@
                 <MyRecourseList v-if="main_page === '52'"></MyRecourseList>
                 <WalfaraManage v-if="main_page === '71'"/>
                 <WalfareList v-if="main_page === '72'"/>
+                <MyWalfare v-if="main_page === '73'"/>
                 <VolunteerListManage v-if="main_page === '31'"/>
                 <FeedbackManage v-if="main_page === '81'"></FeedbackManage>
                 <RecourseListManage v-if="main_page === '54'"></RecourseListManage>
@@ -66,6 +67,7 @@ import VolunteerListManage from "@/components/VolunteerListManage.vue"
 import FeedbackManage from "@/components/FeedbackManage.vue"
 import RecourseListManage from "@/components/RecourseListManage.vue"
 import MyFeedback from "@/components/MyFeedback.vue"
+import MyWalfare from "@/components/MyWalfare.vue"
   export default {
         data(){
             return {
@@ -97,7 +99,8 @@ import MyFeedback from "@/components/MyFeedback.vue"
             VolunteerListManage,
             FeedbackManage,
             RecourseListManage,
-            MyFeedback
+            MyFeedback,
+            MyWalfare
         },
         created: function(){
             var a = "true"

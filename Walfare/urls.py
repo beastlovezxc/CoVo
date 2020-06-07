@@ -15,6 +15,7 @@ urlpatterns = [
     path('imgurl/walfare/', views.imgUpload),
     path('', views.Walfare_List),
     path('<int:prize_number>', views.Walfare_Detail),
+    path('<str:account>/<int:prize_number>', views.exchange_walfare),
     path('walfarelist/', views.get_walfarelist, name='walfarelist'),
     path('to_walfaremanager/', views.to_walfaremanager, name='to_walfaremanager'),
     path('add_walfare/', views.add_walfare, name='add_walfare'),

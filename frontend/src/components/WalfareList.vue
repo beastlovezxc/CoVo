@@ -52,8 +52,10 @@
         data() {
             return {
                 walUrl:'http://localhost:8000/api/v1/walfare/',
+                voInfoUrl: 'http://localhost:8000/api/v1/volunteer/',
                 dialogVisible: false,
                 imageUrl: '',
+                root: '',
                 available_points: 0,
                 form: {
                     name:'',
@@ -64,19 +66,25 @@
             };
         },
         mounted(){
+            this.root = sessionStorage.getItem("account");
             this.available_points = sessionStorage.getItem("available_points");
             this.axios.get(this.walUrl).then((res)=>{
                 this.walfare = res.data;
-                alert(this.walfare[0].prize_image);
+                for(var i = 0; i < this.walfare.length; i++) {
+                    this.walfare[i].prize_image = '/img/walfare/' + this.walfare[i].prize_image;
+                }
             })
         },
         methods:{
             exchangeWalfare(row) {
-            alert(this.available_points)
             if(this.available_points < row.prize_points) {
                 alert("剩余积分不足！");
             } else {
-
+                this.available_points -= row.prize_points;
+                sessionStorage.setItem("available_points", this.available_points);
+                this.axios.put(this.walUrl+this.root+'/'+row.prize_number).then((res)=>{
+                    alert("兑换成功！");
+                })
             }
         }
         }

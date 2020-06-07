@@ -75,7 +75,7 @@
                 action="http://localhost:8000/api/v1/walfare/imgurl/walfare/"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess">
-                <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                <img v-if="blobUrl" :src="blobUrl" class="avatar">
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 </el-form-item>
@@ -114,11 +114,12 @@
                 <el-form-item label="福利照片" label-position="left">
                 <el-upload
                 class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                name="walfareimg"
+                action="http://localhost:8000/api/v1/walfare/imgurl/walfare/"
                 :show-file-list="false"
-                :multiple="false"
-                :on-success="handleAvatarSuccess">
-                <img :src="url" class="avatar">
+                :on-success="handleAvatarSuccess2">
+                <img v-if="blobUrl" :src="blobUrl" class="avatar">
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>
                 </el-form-item>
             </el-form-item>
@@ -127,14 +128,13 @@
             <el-button @click="modifyDialogVisible = false">取 消</el-button>
             <el-button 
             type="primary" 
-            @click="modifyDialogVisible = false">发 布</el-button>
+            @click="modifyConfig">发 布</el-button>
         </span>
         </el-dialog>
     </el-card>
     
 </template>
 <script>
-    import pc1 from '@/assets/1.jpeg'
     export default {
         data() {
             return {
@@ -143,6 +143,7 @@
                 dialogVisible: false,
                 modifyDialogVisible: false,
                 imageUrl: '',
+                blobUrl: '',
                 form: {
                     prize_number: "",
                     prize_name: "",
@@ -164,22 +165,22 @@
             this.axios.get(this.walUrl).then((res)=>{
                 this.walfare = res.data;
                 for(var i = 0; i < this.walfare.length; ++i){
-                    this.walfare[i].prize_image = URL.createObjectURL(this.walfare[i].prize_image.raw)
-                    alert(this.walfare[i].prize_image);
+                    var str = this.walfare[i].prize_image
+                    this.walfare[i].prize_image = '/img/walfare/'+str;
                 }
             })
         },
         methods: {
             handleAvatarSuccess(res, file) {
+                this.imageUrl = res.img_path;
+                this.blobUrl = '/img/walfare/'+ res.img_path;
+            },
+            handleAvatarSuccess2(res, file) {
+                this.modifyWal.prize_image = res.img_path;
                 // this.imageUrl = res.img_path;
-                // alert(this.imageUrl);
-                // alert(file.raw);
-                this.imageUrl = URL.createObjectURL(file.raw);
-                // alert(this.imageUrl);
+                this.blobUrl = '/img/walfare/' + res.img_path;
             },
             deleteDetail(index, rows) {
-                alert("shanchu");
-                alert(rows.prize_number);
                 this.axios.delete(this.walUrl+rows.prize_number).then((res)=>{
                     alert("删除成功！");
                     this.walfare.splice(index, 1);
@@ -191,16 +192,23 @@
                 this.modifyWal.prize_name = rows.prize_name;
                 this.modifyWal.prize_points = rows.prize_points;
                 this.modifyWal.prize_introduction = rows.prize_points;
-                this.prize_image = this.url;
+                this.modifyWal.prize_image = rows.prize_image.substring(rows.prize_image.lastIndexOf('/')+1);
+                this.blobUrl = rows.prize_image;
                 this.modifyDialogVisible = true;
+                
             },
             addWalfare(){
                 this.form.prize_image = this.imageUrl;
                 this.axios.post(this.walUrl, this.form).then((res)=>{
                     this.dialogVisible = false;
                 })
-                
             },
+            modifyConfig(){
+                this.axios.put(this.walUrl+this.modifyWal.prize_number, this.modifyWal).then((res)=>{
+                    alert('修改成功！');
+                    this.modifyDialogVisible = false;
+                })
+            }
         }
     }
 </script>

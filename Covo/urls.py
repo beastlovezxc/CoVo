@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/v1/applicationform/', include('ApplicationForm.urls')),
     path('api/v1/feedback/', include('Feedback.urls')),
     path('api/v1/walfare/', include('Walfare.urls')),
+    path('api/v1/exchange/', include('Exchange.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
     # path('api/users/', include('Users.urls')),
     path('index/', views.showIndex, name='index'),

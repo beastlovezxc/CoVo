@@ -9,5 +9,7 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('exchange/', views.get_exchangelist)
+    path('', views.Exchange_List),
+    path('<str:account>', views.Exchange_Detail),
+    # path('exchange/', views.get_exchangelist)
 ]

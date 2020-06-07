@@ -31,7 +31,17 @@
             </el-table-column>
             <el-table-column
             prop="expired"
-            label="是否过期">
+            label="活动状态">
+            <template slot-scope="scope">
+        　　　　<el-select v-model="scope.row.expired" :disabled=true>
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                    </el-option>
+            </el-select>
+    　　　　</template>
             </el-table-column>
             <el-table-column
             prop="activity_points"
@@ -109,7 +119,17 @@
                     voinfo:'',
                     status: '',
                 },
-                activity_list: []
+                activity_list: [],
+                options: [{
+                    value: 0,
+                    label: '未过期',
+                },{
+                    value: 1,
+                    label: '已过期',
+                },{
+                    value: 2,
+                    label: '已完成',
+                }],
             };
         },
         mounted() {
@@ -121,11 +141,6 @@
                 this.activity_list = res.data;
                 for(var i = 0; i < this.activity_list.length; ++i){
                     // alert(this.activity_list[i].expired);
-                    if( this.activity_list[i].expired === false) {
-                        this.activity_list[i].expired = '否';
-                    } else {
-                        this.activity_list[i].expired = '是';
-                    }
                 }
                 console.log(currentTime.getTime);
                 // alert(currentTime.getTime);
@@ -184,6 +199,13 @@
             },
             async acConfig(rows){
                 var _this = this;
+                if (rows.expired === 1) {
+                    alert("活动已过期，无法报名！");
+                    return;
+                } else if (rows.expired === 2) {
+                    alert("活动已结束，无法报名！");
+                    return;
+                }
                 var status = await this.getConfirmAjax(rows);
                 if (status === 404) {
                     this.form.account = this.root;

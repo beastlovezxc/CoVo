@@ -55,6 +55,7 @@ def Activity_Detail(request, activity_number):
     elif request.method == 'DELETE':
         activity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+        
 class VolunteerList(APIView):
     def get(self, request, format=None):
         activity = Activity.objects.all()

@@ -225,6 +225,10 @@
         mounted(){
             this.axios.get(this.acUrl).then((res)=>{
                 this.activity_list = res.data;
+                var nowDate = new Date();
+                for(var i = 0; i < this.activity_list.length; ++i) {
+                    alert(Date());
+                }
             })
         },
         methods: {

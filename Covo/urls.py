@@ -24,6 +24,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
+# from django.views.static import serve
 from . import views
 
 app_name = 'Covo'
@@ -35,6 +36,7 @@ urlpatterns = [
     path('api/v1/activity/', include('Activity.urls')),
     path('api/v1/applicationform/', include('ApplicationForm.urls')),
     path('api/v1/feedback/', include('Feedback.urls')),
+    path('api/v1/walfare/', include('Walfare.urls')),
     path('', TemplateView.as_view(template_name='index.html')),
     # path('api/users/', include('Users.urls')),
     path('index/', views.showIndex, name='index'),

@@ -15,4 +15,4 @@ class Walfare(models.Model):
     prize_name = models.CharField(max_length=40)            # 奖品名称
     prize_points = models.IntegerField(default=0)           # 奖品积分
     prize_introduction = models.TextField()                 # 奖品简介
-    prize_image = models.ImageField()                       # 奖品图片
+    prize_image = models.CharField(max_length=200)          # 奖品图片

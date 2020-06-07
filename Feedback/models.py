@@ -11,9 +11,11 @@ class Feedback(models.Model):
 
     @property
     def users_name(self):
-        a_dict = {'user': self.account.account,
+        a_dict = {
+            'user': self.account.account,
                   'password': self.account.password,
-                  'manager': self.account.manager}
+                  'manager': self.account.manager
+                  }
         return a_dict
     @property
     def activity_name(self):

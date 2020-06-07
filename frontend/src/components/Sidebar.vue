@@ -62,12 +62,9 @@
             </template>
                 <!-- <el-menu-item index="7-1" v-on:click="changeMainPage('71')">福利管理</el-menu-item> -->
                 <el-menu-item index="7-2" v-on:click="changeMainPage('72')">福利列表</el-menu-item>
+                <el-menu-item index="7-2" v-on:click="changeMainPage('73')">我的兑换</el-menu-item>
         </el-submenu>
         <el-menu-item index="8">
-            <i class="el-icon-setting"></i>
-            <span slot="title">热点聚焦</span>
-        </el-menu-item>
-        <el-menu-item index="9">
             <i class="el-icon-view"></i>
             <span slot="title">志愿风采</span>
         </el-menu-item>

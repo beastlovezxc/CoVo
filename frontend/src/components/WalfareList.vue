@@ -31,15 +31,17 @@
             <el-table-column
             prop="prize_image"
             label="奖品图片">
+            <template slot-scope="scope">
             <el-image
             style="width: 80px; height: 80px"
-            :src="url"
+            :src="scope.row.prize_image"
             :fit="fit">
             </el-image>
+            </template>
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button type="text" @click="checkDetail(scope.row.phone)">兑换</el-button>
+        　　　　　　<el-button type="text" @click.stop="exchangeWalfare(scope.row)">兑换</el-button>
         　　　　</template>
 　      　   </el-table-column>  
         </el-table>
@@ -49,22 +51,35 @@
     export default {
         data() {
             return {
-                url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+                walUrl:'http://localhost:8000/api/v1/walfare/',
                 dialogVisible: false,
                 imageUrl: '',
+                available_points: 0,
                 form: {
                     name:'',
                     password:'',
                     points: '',
                 },
-                walfare:[{
-                    prize_number: "1",
-                    prize_name: "足球",
-                    prize_points: "550",
-                    prize_introduction: "有温度的奖品",
-                    prize_image: "url",
-                }]
+                walfare:[]
             };
+        },
+        mounted(){
+            this.available_points = sessionStorage.getItem("available_points");
+            this.axios.get(this.walUrl).then((res)=>{
+                this.walfare = res.data;
+                alert(this.walfare[0].prize_image);
+            })
+        },
+        methods:{
+            exchangeWalfare(row) {
+            alert(this.available_points)
+            if(this.available_points < row.prize_points) {
+                alert("剩余积分不足！");
+            } else {
+
+            }
         }
+        }
+        
     }
 </script>

@@ -32,15 +32,17 @@
             <el-table-column
             prop="prize_image"
             label="奖品图片">
+            <template slot-scope="scope">
             <el-image
             style="width: 80px; height: 80px"
-            :src="url"
+            :src="scope.row.prize_image"
             :fit="fit">
             </el-image>
+            </template>
             </el-table-column>
             <el-table-column label="操作" align="center" min-width="100">
         　　　　<template slot-scope="scope">
-        　　　　　　<el-button type="text" @click="deleteDetail(scope.$index, walfare)">删除</el-button>
+        　　　　　　<el-button type="text" @click="deleteDetail(scope.$index, scope.row)">删除</el-button>
                   <el-button type="text" @click="modifyDetail(scope.$index, scope.row)">修改</el-button>
         　　　　</template>
 　      　   </el-table-column>  
@@ -52,10 +54,10 @@
         :before-close="handleClose">
         <el-form>
             <el-form-item label="奖品名称" label-position="left">
-                  <el-input v-model="form.name" placeholder="请输入奖品名称"></el-input>
+                  <el-input v-model="form.prize_name" placeholder="请输入奖品名称"></el-input>
             </el-form-item>
             <el-form-item label="兑换积分" label-position="left">
-                  <el-input v-model="form.points" placeholder="请输入奖品兑换积分"></el-input>
+                  <el-input v-model="form.prize_points" placeholder="请输入奖品兑换积分"></el-input>
             </el-form-item>
             <el-form-item label="奖品简介" label-position="left">
                   <el-input 
@@ -63,13 +65,14 @@
                   rows="5"
                   maxlength="500"
                   show-word-limit
-                  v-model="form.name" placeholder="请输入奖品简介"></el-input>
+                  v-model="form.prize_introduction" placeholder="请输入奖品简介"></el-input>
             </el-form-item>
             <el-form-item>
                 <el-form-item label="福利照片" label-position="left">
                 <el-upload
                 class="avatar-uploader"
-                action="https://jsonplaceholder.typicode.com/posts/"
+                name="walfareimg"
+                action="http://localhost:8000/api/v1/walfare/imgurl/walfare/"
                 :show-file-list="false"
                 :on-success="handleAvatarSuccess">
                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -84,7 +87,7 @@
                     <el-button @click="dialogVisible = false">取 消</el-button>
                     <el-button 
                     type="primary" 
-                    @click="dialogVisible = false">确 认</el-button>
+                    @click="addWalfare">确 认</el-button>
                 </span>
         </el-dialog>
         <el-dialog
@@ -113,6 +116,7 @@
                 class="avatar-uploader"
                 action="https://jsonplaceholder.typicode.com/posts/"
                 :show-file-list="false"
+                :multiple="false"
                 :on-success="handleAvatarSuccess">
                 <img :src="url" class="avatar">
                 </el-upload>
@@ -134,22 +138,19 @@
     export default {
         data() {
             return {
-                url: pc1,
+                url: '',
+                walUrl:'http://localhost:8000/api/v1/walfare/',
                 dialogVisible: false,
                 modifyDialogVisible: false,
                 imageUrl: '',
                 form: {
-                    name:'',
-                    password:'',
-                    points: '',
+                    prize_number: "",
+                    prize_name: "",
+                    prize_points: "",
+                    prize_introduction: "",
+                    prize_image: "",
                 },
-                walfare:[{
-                    prize_number: "1",
-                    prize_name: "足球",
-                    prize_points: "550",
-                    prize_introduction: "有温度的奖品",
-                    prize_image: "url",
-                }],
+                walfare:[],
                 modifyWal: {
                     prize_number: "",
                     prize_name: "",
@@ -159,12 +160,31 @@
                 },
             };
         },
+        mounted() {
+            this.axios.get(this.walUrl).then((res)=>{
+                this.walfare = res.data;
+                for(var i = 0; i < this.walfare.length; ++i){
+                    this.walfare[i].prize_image = URL.createObjectURL(this.walfare[i].prize_image.raw)
+                    alert(this.walfare[i].prize_image);
+                }
+            })
+        },
         methods: {
             handleAvatarSuccess(res, file) {
+                // this.imageUrl = res.img_path;
+                // alert(this.imageUrl);
+                // alert(file.raw);
                 this.imageUrl = URL.createObjectURL(file.raw);
+                // alert(this.imageUrl);
             },
             deleteDetail(index, rows) {
-                rows.splice(index, 1);
+                alert("shanchu");
+                alert(rows.prize_number);
+                this.axios.delete(this.walUrl+rows.prize_number).then((res)=>{
+                    alert("删除成功！");
+                    this.walfare.splice(index, 1);
+                })
+                
             },
             modifyDetail(index, rows) {
                 this.modifyWal.prize_number = rows.prize_number;
@@ -173,7 +193,14 @@
                 this.modifyWal.prize_introduction = rows.prize_points;
                 this.prize_image = this.url;
                 this.modifyDialogVisible = true;
-            }
+            },
+            addWalfare(){
+                this.form.prize_image = this.imageUrl;
+                this.axios.post(this.walUrl, this.form).then((res)=>{
+                    this.dialogVisible = false;
+                })
+                
+            },
         }
     }
 </script>

@@ -8,9 +8,13 @@
 '''
 from django.urls import path
 from .import views
+from django.views.static import serve
 
 app_name='Walfare'
 urlpatterns = [
+    path('imgurl/walfare/', views.imgUpload),
+    path('', views.Walfare_List),
+    path('<int:prize_number>', views.Walfare_Detail),
     path('walfarelist/', views.get_walfarelist, name='walfarelist'),
     path('to_walfaremanager/', views.to_walfaremanager, name='to_walfaremanager'),
     path('add_walfare/', views.add_walfare, name='add_walfare'),

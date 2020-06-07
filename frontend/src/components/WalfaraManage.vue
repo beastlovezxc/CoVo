@@ -200,6 +200,7 @@
             addWalfare(){
                 this.form.prize_image = this.imageUrl;
                 this.axios.post(this.walUrl, this.form).then((res)=>{
+                    alert("添加成功！");
                     this.dialogVisible = false;
                 })
             },

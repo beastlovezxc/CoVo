@@ -141,6 +141,7 @@
                 this.activity_list = res.data;
                 for(var i = 0; i < this.activity_list.length; ++i){
                     // alert(this.activity_list[i].expired);
+                    this.activity_list[i].date = this.activity_list[i].date.substr(0,19).replace('T',' ')
                 }
                 console.log(currentTime.getTime);
                 // alert(currentTime.getTime);

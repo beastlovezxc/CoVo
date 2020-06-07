@@ -12,8 +12,8 @@
     <el-container>
         <el-header style="font-size: 12px">
             <div id="nav-header-el">
-                <div v-if="is_manage"><span>社区志愿管理系统</span> | 控制台 | 管理员</div>
-                <div v-if="!is_manage"><span>社区志愿管理系统</span> | 控制台 | 普通用户</div>
+                <div v-if="is_manage"><span>社区志愿活动管理</span> | 控制台 | 管理员</div>
+                <div v-if="!is_manage"><span>社区志愿活动管理</span> | 控制台 | 普通用户</div>
                 <div v-if="!is_manage"><span>活动积分：{{points.activity_points}} 剩余积分:{{points.available_points}}</span></div>
                 <div><Avatar /></div>
             </div>

@@ -136,7 +136,10 @@
         mounted() {
             this.root = sessionStorage.getItem("account");
             this.axios.get(this.applyurl + this.root).then((res)=>{
-            this.activity_info = res.data;
+              this.activity_info = res.data;
+              for(var i = 0; i < this.activity_info.length; ++i) {
+                this.activity_info[i].activity_name.date = this.activity_info[i].activity_name.date.substr(0,19).replace('T',' ')
+              }
             })
         },
         methods: {

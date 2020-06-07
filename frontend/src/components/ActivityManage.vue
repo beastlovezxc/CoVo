@@ -241,6 +241,7 @@
                 this.activity_list = res.data;
                 var nowDate = new Date();
                 for(var i = 0; i < this.activity_list.length; ++i) {
+                    this.activity_list[i].date = this.activity_list[i].date.substr(0,19).replace('T',' ')
                 }
             })
         },
@@ -303,6 +304,7 @@
             modifyConfig(){
                 this.axios.put(this.acUrl+this.row_index, this.pub).then((res)=>{
                     this.row_index = '';
+                    alert("修改成功！");
                     this.modifyDialogVisible = false;
                 })
             },

@@ -137,6 +137,9 @@
         mounted() {
             this.axios.get(this.apInfoUrl).then((res)=>{
                 this.recruit_list = res.data;
+                for(var i = 0; i < this.recruit_list.length; ++i) {
+                    this.recruit_list[i].activity_name.date = this.recruit_list[i].activity_name.date.substr(0,19).replace('T',' ')
+                }
             })
         },
         methods: {

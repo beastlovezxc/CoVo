@@ -161,6 +161,9 @@
             this.form.users = sessionStorage.getItem("account");
             this.axios.get('http://localhost:8000/api/v1/recourse/').then((res)=>{
                 this.recourse_list = res.data;
+                for(var i = 0; i < this.recourse_list.length; ++i) {
+                    this.recourse_list[i].time = this.recourse_list[i].time.substr(0,19).replace('T',' ');
+                }
             })
         },
         methods: {

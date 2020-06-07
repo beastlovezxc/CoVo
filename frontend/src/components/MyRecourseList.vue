@@ -166,6 +166,9 @@
             this.account = sessionStorage.getItem("account");
             this.axios.get(this.url+this.account).then((res)=>{
                 _this.recourse_list = res.data;
+                for(var i = 0; i < _this.recourse_list.length; ++i) {
+                    this.recourse_list[i].time = this.recourse_list[i].time.substr(0,19).replace('T',' ');
+                }
             })
         },
         methods: {

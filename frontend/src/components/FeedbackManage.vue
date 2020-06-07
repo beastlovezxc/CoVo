@@ -103,6 +103,9 @@
         mounted(){
             this.axios.get(this.feedbackurl).then((res)=>{
                 this.feedback_list = res.data;
+                for(var i = 0; i < this.feedback_list.length; ++i) {
+                    this.feedback_list[i].time = this.feedback_list[i].time.substr(0,19).replace('T',' ')
+                }
             })
         },
         methods: {

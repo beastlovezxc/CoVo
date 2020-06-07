@@ -31,7 +31,7 @@
             </el-table-column>
             <el-table-column
             prop="expired"
-            label="是否过期">
+            label="活动状态">
             <template slot-scope="scope">
         　　　　<el-select v-model="scope.row.expired" @change="changeStatus(scope.row)">
                     <el-option
@@ -124,8 +124,8 @@
              <el-form-item label="活动地址" label-position="left">
                   <el-input v-model="pub.address" placeholder="请输入活动地址"></el-input>
             </el-form-item>
-             <el-form-item label="需求人数" label-position="left">
-                  <el-input v-model="pub.activity_points" placeholder="请输入需求人数"></el-input>
+             <el-form-item label="活动积分" label-position="left">
+                  <el-input v-model="pub.activity_points" placeholder="请输入活动积分"></el-input>
             </el-form-item>
              <el-form-item label="联系人" label-position="left">
                   <el-input v-model="pub.contact" placeholder="请输入活动联系人"></el-input>
@@ -172,8 +172,8 @@
              <el-form-item label="活动地址" label-position="left">
                   <el-input v-model="pub.address" placeholder="请输入活动地址"></el-input>
             </el-form-item>
-             <el-form-item label="需求人数" label-position="left">
-                  <el-input v-model="pub.activity_points" placeholder="请输入需求人数"></el-input>
+             <el-form-item label="活动积分" label-position="left">
+                  <el-input v-model="pub.activity_points" placeholder="请输入活动积分"></el-input>
             </el-form-item>
              <el-form-item label="联系人" label-position="left">
                   <el-input v-model="pub.contact" placeholder="请输入活动联系人"></el-input>
@@ -197,6 +197,16 @@
                 modifyDialogVisible: false,
                 row_index:'',
                 acUrl: 'http://localhost:8000/api/v1/activity/',
+                changeItem: {
+                    activity_name: '',
+                    introduction: '',
+                    date: '',
+                    expired: '',
+                    required_num: '',
+                    address:'',
+                    activity_points:'',
+                    contact:'',
+                },
                 pub: {
                     activity_name: '',
                     introduction: '',
@@ -205,6 +215,7 @@
                     address:'',
                     activity_points:'',
                     contact:'',
+                    expired:'',
                 },
                 ac: {
                     title: '',
@@ -214,11 +225,14 @@
                 },
                 activity_list: [],
                 options: [{
-                    value: true,
+                    value: 0,
+                    label: '未过期',
+                },{
+                    value: 1,
                     label: '已过期',
                 },{
-                    value: false,
-                    label: '未过期',
+                    value: 2,
+                    label: '已完成',
                 }],
             };
         },
@@ -227,7 +241,6 @@
                 this.activity_list = res.data;
                 var nowDate = new Date();
                 for(var i = 0; i < this.activity_list.length; ++i) {
-                    alert(Date());
                 }
             })
         },
@@ -256,6 +269,7 @@
                 this.acDialogVisible = false;
             },
             pubConfig() {
+                this.pub.expired = 0;
                 this.axios.post(this.acUrl, this.pub).then((res)=>{
                     this.pubDialogVisible = false;
                 })
@@ -278,6 +292,7 @@
                 this.pub.address = row.address;
                 this.pub.activity_points = row.activity_points;
                 this.pub.contact = row.contact;
+                this.pub.expired = row.expired;
                 this.row_index = row.activity_number;
                 this.modifyDialogVisible = true;
             },
@@ -289,6 +304,19 @@
                 this.axios.put(this.acUrl+this.row_index, this.pub).then((res)=>{
                     this.row_index = '';
                     this.modifyDialogVisible = false;
+                })
+            },
+            changeStatus(row){
+                this.pub.activity_name = row.activity_name;
+                this.pub.introduction = row.introduction;
+                this.pub.date = row.date
+                this.pub.required_num = row.required_num;
+                this.pub.address = row.address;
+                this.pub.activity_points = row.activity_points;
+                this.pub.contact = row.contact;
+                this.pub.expired = row.expired;
+                this.axios.put(this.acUrl + row.activity_number, this.pub).then((res)=>{
+                    alert("修改活动状态成功！");
                 })
             }
         }

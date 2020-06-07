@@ -135,7 +135,7 @@
         },
         mounted() {
             this.root = sessionStorage.getItem("account");
-            this.axios.get(this.applyurl).then((res)=>{
+            this.axios.get(this.applyurl + this.root).then((res)=>{
             this.activity_info = res.data;
             })
         },

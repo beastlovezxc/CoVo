@@ -44,12 +44,20 @@ def Apply_Join(request, account, activity_number):
         serializer = ApplySerializer2(apply, data = request.data)
         if serializer.is_valid():
             serializer.save()
+            opsActivity(activity_number)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         apply.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+def opsActivity(activity_number):
+    activity_number = Activity.objects.get(activity_number = activity_number)
+    apply_num = Apply.objects.filter(activity_number = activity_number, status = 1).count()
+    # print(apply)
+    activity_number.participants = apply_num
+    activity_number.save()
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def Apply_Detail(request, account):
@@ -64,7 +72,6 @@ def Apply_Detail(request, account):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        print("put12312312312312321")
         serializer = ApplySerializer(apply, data = request.data)
         if serializer.is_valid():
             serializer.save()

@@ -16,6 +16,9 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
+
+from Volunteer.models import Volunteer
+from ApplicationForm.models import Apply
 # Create your views here.
 
 @api_view(['GET','POST'])
@@ -45,17 +48,30 @@ def Activity_Detail(request, activity_number):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        print("put12312312312312321")
         serializer = ActivitySerializer(activity, data = request.data)
         if serializer.is_valid():
             serializer.save()
+            if (activity.expired == 2):
+                calPoint(activity.activity_number)
+
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         activity.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-        
+
+def calPoint(activity_number):
+    activity = Activity.objects.get(activity_number = activity_number)
+    apply_set = Apply.objects.filter(activity_number = activity_number, status=1)
+    for app in apply_set:
+        print(app.account)
+        voInfo = app.voinfo
+        print(voInfo.activity_points)
+        voInfo.activity_points += activity.activity_points
+        voInfo.available_points += activity.activity_points
+        voInfo.save()
+    # voInfo_set = Volunteer.objects.filter(activity_)
 class VolunteerList(APIView):
     def get(self, request, format=None):
         activity = Activity.objects.all()

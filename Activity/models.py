@@ -14,7 +14,7 @@ class Activity(models.Model):
     activity_number = models.AutoField(primary_key=True)    # 活动编号
     activity_name = models.CharField(max_length=20)         # 活动名称
     introduction = models.TextField()                       # 活动简介
-    expired = models.BooleanField(default=False)            # 是否过期
+    expired = models.IntegerField(default=0)                # 是否过期
     required_num = models.IntegerField(default=0)           # 所需人数
     participants = models.IntegerField(default=0)           # 参加人数
     address = models.CharField(max_length=40)               # 活动所在地

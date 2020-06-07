@@ -20,8 +20,12 @@
             </el-form-item>
             <el-form-item label="性别:" label-position="left">
                 <el-select v-model="form.sex" placeholder="请选择性别" :disabled="isDisabled">
-                  <el-option label="男" value="0"></el-option>
-                  <el-option label="女" value="1"></el-option>
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
                 </el-select>
             </el-form-item>
             <el-form-item label="年龄:" label-position="left">
@@ -86,6 +90,13 @@ export default {
           users:'',
         },
       status:'',
+      options: [{
+                    value: true,
+                    label: '男',
+                },{
+                    value: false,
+                    label: '女',
+                }]
     };
   },
   mounted() {
@@ -102,16 +113,12 @@ export default {
                 _this.form.volunteer_name = res.data.volunteer_name;
                 _this.form.age = res.data.age;
                 _this.form.address = res.data.address;
+                _this.form.sex = res.data.sex;
                 _this.form.tel = res.data.tel;
                 _this.form.cultural_level = res.data.cultural_level;
                 _this.form.activity_points = res.data.activity_points;
                 _this.form.available_points = res.data.available_points;
                 _this.form.volunteer_number = res.data.volunteer_number;
-                if (res.data.sex) {
-                    _this.form.sex = '男';
-                } else {
-                    _this.form.sex = '女';
-                }
               } else {
                 _this.form.users = _this.root;
               }
@@ -122,11 +129,12 @@ export default {
         this.isDisabled = false;
       },
       pubConfirm() {
-        if( this.form.sex === '男') {
-          this.form.sex = 1;
-        } else {
-          this.form.sex = 0;
-        }
+        alert(this.form.sex)
+        // if( this.form.sex === '男') {
+        //   this.form.sex = true;
+        // } else {
+        //   this.form.sex = false;
+        // }
         if(this.status === 404) {
           this.axios.post(this.url, this.form).then((res)=> {
             this.status = 201;

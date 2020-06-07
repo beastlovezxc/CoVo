@@ -1,7 +1,7 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-26 21:42:13
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-04-26 21:50:36
 @Description: file content
 @FilePath: /Covo/Covo/views.py

@@ -1,7 +1,7 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-25 16:42:35
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-04-25 21:47:32
 @Description: file content
 @FilePath: /Covo/Exchange/views.py
@@ -53,7 +53,7 @@ def Exchange_Detail(request, account):
     elif request.method == 'DELETE':
         exchange.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-        
+
 def get_exchangelist(request):
     context = {}
     context['exchangelist'] = Exchange.objects.all()

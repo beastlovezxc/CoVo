@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-21 23:42:34
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-06-04 23:42:25
  * @Description: file content
  * @FilePath: \Covo\frontend\src\components\Points.vue

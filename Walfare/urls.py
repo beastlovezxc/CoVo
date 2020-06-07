@@ -2,7 +2,7 @@
 @Author: your name
 @Date: 2020-04-25 16:53:37
 @LastEditTime: 2020-05-12 02:20:53
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @Description: In User Settings Edit
 @FilePath: /Covo/Walfare/urls.py
 '''

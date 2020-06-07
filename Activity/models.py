@@ -2,7 +2,7 @@
 @Author: your name
 @Date: 2020-04-25 16:41:21
 @LastEditTime: 2020-05-04 23:26:10
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/models.py
 '''

@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-25 23:52:23
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-25 23:56:49
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/WalfareList.vue

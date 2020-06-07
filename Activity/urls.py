@@ -2,7 +2,7 @@
 @Author: your name
 @Date: 2020-04-25 16:49:54
 @LastEditTime: 2020-05-25 01:09:52
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @Description: In User Settings Edit
 @FilePath: /Covo/Activity/urls.py
 '''

@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-26 00:12:28
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-29 01:31:27
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/MyRecourseList.vue

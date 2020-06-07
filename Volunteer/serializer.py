@@ -1,7 +1,7 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-06-04 00:25:00
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-06-04 00:34:05
 @Description: file content
 @FilePath: \Covo\Volunteer\serializer.py

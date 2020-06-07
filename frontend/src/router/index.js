@@ -1,7 +1,7 @@
 /*
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-13 22:52:01
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-21 22:45:31
  * @Description: file content
  * @FilePath: /Covo/frontend/src/router/index.js

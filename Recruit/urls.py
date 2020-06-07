@@ -2,7 +2,7 @@
 @Author: your name
 @Date: 2020-04-25 16:52:13
 @LastEditTime: 2020-05-04 23:41:18
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @Description: In User Settings Edit
 @FilePath: /Covo/Recruit/urls.py
 '''

@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-19 21:10:08
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-06-04 23:13:24
  * @Description: file content
  * @FilePath: \Covo\frontend\src\views\login.vue

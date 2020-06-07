@@ -1,13 +1,13 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-25 16:41:48
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-06-06 02:18:23
 @Description: file content
 @FilePath: \Covo\Recourse\views.py
 '''
 '''
-@Author: BeanCB
+@Author: FengSiJia
 '''
 from django.shortcuts import render
 from .models import Recourse

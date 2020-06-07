@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-25 23:17:59
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-28 00:01:36
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/WalfaraManage.vue

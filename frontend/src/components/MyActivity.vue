@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-22 00:13:55
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-29 01:00:43
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/MyActivity.vue

@@ -2,7 +2,7 @@
 @Author: your name
 @Date: 2020-04-25 16:41:09
 @LastEditTime: 2020-06-04 23:34:46
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @Description: In User Settings Edit
 @FilePath: \Covo\Volunteer\views.py
 '''

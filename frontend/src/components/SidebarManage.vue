@@ -1,15 +1,15 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-26 00:57:23
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-29 01:16:40
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/SidebarManage.vue
 --> 
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-20 01:51:31
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-26 00:16:10
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/Sidebar.vue

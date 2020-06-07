@@ -1,7 +1,7 @@
 /*
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-24 15:32:01
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-24 15:32:10
  * @Description: file content
  * @FilePath: /Covo/frontend/src/api/index.js

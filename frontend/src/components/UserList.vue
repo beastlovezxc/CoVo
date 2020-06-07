@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-25 23:02:50
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-06-04 01:21:01
  * @Description: file content
  * @FilePath: \Covo\frontend\src\components\UserList.vue

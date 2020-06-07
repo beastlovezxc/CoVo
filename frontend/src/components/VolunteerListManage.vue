@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-28 21:42:16
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-28 22:33:36
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/VolunteerListManage.vue

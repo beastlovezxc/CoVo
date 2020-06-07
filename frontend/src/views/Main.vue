@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-20 01:00:36
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-06-04 23:37:05
  * @Description: file content
  * @FilePath: \Covo\frontend\src\views\Main.vue

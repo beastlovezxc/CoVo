@@ -1,7 +1,7 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-25 16:40:36
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-05-24 20:03:12
 @Description: file content
 @FilePath: /Covo/Users/models.py

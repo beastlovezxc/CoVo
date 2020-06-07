@@ -1,7 +1,7 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-25 16:41:36
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-05-03 00:56:24
 @Description: file content
 @FilePath: /Covo/ApplicationForm/views.py

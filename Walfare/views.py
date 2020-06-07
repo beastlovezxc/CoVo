@@ -1,15 +1,15 @@
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-25 16:42:26
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-05-12 02:32:31
 @Description: file content
 @FilePath: /Covo/Walfare/views.py
 '''
 '''
-@Author: BeanCB
+@Author: FengSiJia
 @Date: 2020-04-25 16:42:26
-@LastEditors: BeanCB
+@LastEditors: FengSiJia
 @LastEditTime: 2020-05-01 00:50:42
 @Description: file content
 @FilePath: /Covo/Walfare/views.py

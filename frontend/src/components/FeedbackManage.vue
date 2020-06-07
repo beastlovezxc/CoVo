@@ -1,7 +1,7 @@
 <!--
- * @Author: BeanCB
+ * @Author: FengSiJia
  * @Date: 2020-05-28 22:35:53
- * @LastEditors: BeanCB
+ * @LastEditors: FengSiJia
  * @LastEditTime: 2020-05-28 22:55:14
  * @Description: file content
  * @FilePath: /Covo/frontend/src/components/FeedbackManage.vue
